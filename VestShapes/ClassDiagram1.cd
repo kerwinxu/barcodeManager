@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="验证鼠标事件的.Class1" Collapsed="true">
+    <Position X="22.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Class1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.Form1" Collapsed="true">
+    <Position X="26.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAgAIQIACAAAAAAAQCBQAACAAAYYBgAAHAIAAAAAAA=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.Program" Collapsed="true">
+    <Position X="22.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.ShapeEle" Collapsed="true">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAogAQAGJPAABgBJMEACBEAAAAQEIABAkMQKAOEAZZw=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.ShapeRect" Collapsed="true">
+    <Position X="14" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.ShapeSelRect" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAoAAEAAAAQQAAAQAAAgAAEEAAAEAAIA=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.VarNameDetails" Collapsed="true">
+    <Position X="26.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAABAAAAABAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.BarcodeEncoding" Collapsed="true">
+    <Position X="21" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAABAAAAABAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.ShapeLine" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAIJAAAwAAEAADBAAAAAQAAAAAAAAIAAAAAIA=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.ShapeStateText" Collapsed="true">
+    <Position X="16.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABABAgAAEEAEAAAAAAyAAAEAAABICAIAAKA=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.shapeVarText" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAhgBAgABEEIGAACAAAiAAAEAACBICAIAAKA=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.ShapeEllipse" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.ShapeBarcode" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAEAAgABAABCAAAAgAAAAAAAAgAAAAAAAgA=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.ShapeImage" Collapsed="true">
+    <Position X="11.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAIAAAAAAAAAQBCAACAAAAAAAAA=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.ShapeArc" Collapsed="true">
+    <Position X="18.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAABAAAAAAAAIAIIAAAA=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.ShapePie" Collapsed="true">
+    <Position X="18.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.ShapeGroup" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.clsKeyValue" Collapsed="true">
+    <Position X="24.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>ShapeEle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.Shapes" Collapsed="true">
+    <Position X="21" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shapes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.Paper" Collapsed="true">
+    <Position X="21" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shapes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.UserControlCanvas">
+    <Position X="22.75" Y="2.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="验证鼠标事件的.UserControlCanvas.OptionChanged" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>UserControlCanvas.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="验证鼠标事件的.UserControlCanvas.ObjectSelected" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>UserControlCanvas.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Class Name="验证鼠标事件的.UserControlCanvas.PropertyEventArgs" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>UserControlCanvas.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="验证鼠标事件的.UserControlCanvas.OptionEventArgs" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>UserControlCanvas.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAoIgIBSCEAgoNpEgCASACCIBAQQSBAABEAhACBACA=</HashCode>
+      <FileName>UserControlCanvas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.UserControlToolBox" Collapsed="true">
+    <Position X="24.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>9w8AAA0IAiQACpYA8PuBwFwCAAAEAAIQAAgLKADgBUQ=</HashCode>
+      <FileName>UserControlToolBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.Properties.Resources" Collapsed="true">
+    <Position X="24.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="验证鼠标事件的.Properties.Settings" Collapsed="true">
+    <Position X="26.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>
