@@ -193,12 +193,12 @@ namespace VestShapes
             }
             catch (Exception exception)
             {
-                ClsErrorFile.WriteLine("不成功，原因是", exception);
+                //ClsErrorFile.WriteLine("不成功，原因是", exception);
                 //MessageBox.Show("保存不成功，原因是" + exception.Message);
 
                 if (exception.InnerException.Message != null)
                 {
-                    ClsErrorFile.WriteLine("xml不成功" + exception.InnerException.Message);
+                    //ClsErrorFile.WriteLine("xml不成功" + exception.InnerException.Message);
                     //MessageBox.Show(exception.InnerException.Message);
                 }
             }
@@ -291,7 +291,7 @@ namespace VestShapes
             }
             catch (System.Exception ex)
             {
-                ClsErrorFile.WriteLine(ex);
+                //ClsErrorFile.WriteLine(ex);
             }
 
         }
@@ -447,7 +447,7 @@ namespace VestShapes
             catch (Exception ex)
             {
                 MessageBox.Show("读取不到上边距，原因是"+ex.Message);
-                ClsErrorFile.WriteLine("读取不到上边距",ex);
+                //ClsErrorFile.WriteLine("读取不到上边距",ex);
                 //throw;
             }
             
@@ -462,7 +462,7 @@ namespace VestShapes
             catch (Exception ex)
             {
                 MessageBox.Show("读取不到左边距，原因是" + ex.Message);
-                ClsErrorFile.WriteLine("读取不到左边距", ex);
+                //ClsErrorFile.WriteLine("读取不到左边距", ex);
                 //throw;
             }
         }
@@ -476,7 +476,7 @@ namespace VestShapes
             catch (Exception ex)
             {
                 MessageBox.Show("读取不到下边距，原因是" + ex.Message);
-                ClsErrorFile.WriteLine("读取不到下边距", ex);
+                //ClsErrorFile.WriteLine("读取不到下边距", ex);
                 //throw;
             }
         }
@@ -490,7 +490,7 @@ namespace VestShapes
             catch (Exception ex)
             {
                 MessageBox.Show("读取不到右边距，原因是" + ex.Message);
-                ClsErrorFile.WriteLine("读取不到右边距", ex);
+                //ClsErrorFile.WriteLine("读取不到右边距", ex);
                 //throw;
             }
         }
@@ -504,7 +504,7 @@ namespace VestShapes
             catch (Exception ex)
             {
                 MessageBox.Show("读取不到模板宽度，原因是" + ex.Message);
-                ClsErrorFile.WriteLine("读取不到模板宽度", ex);
+                //ClsErrorFile.WriteLine("读取不到模板宽度", ex);
                 //throw;
             }
         }
@@ -518,7 +518,7 @@ namespace VestShapes
             catch (Exception ex)
             {
                 MessageBox.Show("读取不到模板高度，原因是" + ex.Message);
-                ClsErrorFile.WriteLine("读取不到模板高度", ex);
+                //ClsErrorFile.WriteLine("读取不到模板高度", ex);
                 //throw;
             }
         }
@@ -532,7 +532,7 @@ namespace VestShapes
             catch (Exception ex)
             {
                 MessageBox.Show("读取不到水平间距，原因是" + ex.Message);
-                ClsErrorFile.WriteLine("读取不到水平间距", ex);
+                //ClsErrorFile.WriteLine("读取不到水平间距", ex);
                 //throw;
             }
         }
@@ -546,7 +546,7 @@ namespace VestShapes
             catch (Exception ex)
             {
                 MessageBox.Show("读取不到垂直间距，原因是" + ex.Message);
-                ClsErrorFile.WriteLine("读取不到垂直间距", ex);
+                //ClsErrorFile.WriteLine("读取不到垂直间距", ex);
                 //throw;
             }
         }

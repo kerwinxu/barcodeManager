@@ -23,9 +23,6 @@ namespace VestShapes
 {
     public partial class UserControlCanvas : UserControl
     {
-        public static bool isZhuce=false;//是否注册
-
-        //private ArrayList arrlistShapes =new ArrayList ();//形状对话框。
 
         private float   startX, startY, endX, endY;//鼠标按下弹起坐标 
         private bool isMouseSx;//按下鼠标的标示
@@ -279,19 +276,6 @@ namespace VestShapes
 
             }
 
-            /**原先的，用如上的这个switch 替代了
-            //如果是移动
-            if ((Option == "select") && isMouseSx)
-            {
-                CurrentSelRect.Redim(strState, new PointF(startX, startY), new PointF(endX, endY));
-
-            }
-             * */
-
-
-            //强制重绘
-            //
-            //this.Refresh();
             myRefresh();
         }
 
@@ -350,23 +334,6 @@ namespace VestShapes
             Pen pen1 = new Pen(Color.Black, 1);
 
 
-
-            //绘制标尺
-            //DrawScalePlate(g);
-
-            /**
-            if (arrlistShapes != null)
-            {
-
-                foreach (ShapeEle item   in arrlistShapes)
-                {
-                    item.Draw(g);
-
-                }
-            }
-             * */
-
-            //Draw(g);//绘制条形码图片
             
             // 绘制形状图片用如下的这个，好处是可以有偏移。
             try
@@ -376,7 +343,7 @@ namespace VestShapes
             }
             catch (System.Exception ex)
             {
-                ClsErrorFile.WriteLine(ex);
+                //ClsErrorFile.WriteLine(ex);
             }
 
             
@@ -384,19 +351,6 @@ namespace VestShapes
             //绘制网格
             DrawGridding(g);
 
-            //测试生成的条形码图片
-            //DrawModelBackground(g);
-            //经测试是可以的，只是这个方法中没有加上放大倍数和偏移，这两个仅仅是屏幕上的需要，而条形码不需要。
-
-            /**
-            if (isMouseSx)
-            {
-                g.DrawRectangle(pen1,new  Rectangle(fltStartMouseX, fltStartMouseY, fltEndMouseX - fltStartMouseX, fltEndMouseY - fltStartMouseY));
-
-            }
-             * */
-
-            //g.TranslateTransform(_fltOffsetNewX, _fltOffsetNewY, MatrixOrder.Prepend);
 
             ArrayList arrlist = new ArrayList();
             System.Drawing.Drawing2D.Matrix m = new Matrix();
@@ -408,8 +362,6 @@ namespace VestShapes
             {
    
                     WillAddShapeEle.ShapeInit(new PointF(startX, startY), new PointF(endX, endY));
-
-
 
                     WillAddShapeEle.Draw(g,arrlist);
 
@@ -1026,7 +978,7 @@ namespace VestShapes
             }
             catch (Exception exception)
             {
-                ClsErrorFile.WriteLine("加载不成功，原因是" , exception);
+                //ClsErrorFile.WriteLine("加载不成功，原因是" , exception);
                 //MessageBox.Show("加载不成功，原因是" + exception.Message);
                 return "";
             }
@@ -1101,7 +1053,7 @@ namespace VestShapes
             }
             catch (Exception ex)
             {
-                ClsErrorFile.WriteLine(ex);
+                //ClsErrorFile.WriteLine(ex);
                // Console.Error.WriteLine(ex.Message);
             }
 
@@ -1145,7 +1097,7 @@ namespace VestShapes
             }
             catch (Exception exception)
             {
-                ClsErrorFile.WriteLine("保存不成功，原因是" , exception);
+                //ClsErrorFile.WriteLine("保存不成功，原因是" , exception);
                 //MessageBox.Show("保存不成功，原因是" + exception.Message);
 
                 if (exception.InnerException != null)
@@ -1185,7 +1137,7 @@ namespace VestShapes
             }
             catch (Exception ex)
             {
-                ClsErrorFile.WriteLine(ex);
+                //ClsErrorFile.WriteLine(ex);
                 //Console.Error.WriteLine(ex.Message);
             }
 
@@ -1549,7 +1501,7 @@ namespace VestShapes
             }
             catch (Exception ex)
             {
-                ClsErrorFile.WriteLine(ex);
+                //ClsErrorFile.WriteLine(ex);
                 
                 //throw;
             }
@@ -1599,7 +1551,7 @@ namespace VestShapes
             }
             catch (Exception ex)
             {
-                ClsErrorFile.WriteLine(ex);
+                //ClsErrorFile.WriteLine(ex);
 
                 //throw;
             }
@@ -1679,7 +1631,7 @@ namespace VestShapes
             }
             catch (Exception ex)
             {
-                ClsErrorFile.WriteLine("在放到纸张到屏幕中出现异常", ex);
+                //ClsErrorFile.WriteLine("在放到纸张到屏幕中出现异常", ex);
                 Zoom = 1;
                 
                 //Console.Error.WriteLine(ex.Message);
@@ -1958,7 +1910,7 @@ namespace VestShapes
             }
             catch (Exception ex)
             {
-                ClsErrorFile.WriteLine(ex);
+                //ClsErrorFile.WriteLine(ex);
 
                 if (ex.InnerException != null)
                     ClsErrorFile.WriteLine(ex.InnerException.Message);
@@ -2016,10 +1968,10 @@ namespace VestShapes
                     }
                     catch (Exception ex)
                     {
-                        ClsErrorFile.WriteLine(ex);
+                        //ClsErrorFile.WriteLine(ex);
 
                         if (ex.InnerException != null)
-                            ClsErrorFile.WriteLine(ex.InnerException.Message);
+                            //ClsErrorFile.WriteLine(ex.InnerException.Message);
                     }
 
                      * */
@@ -2064,7 +2016,7 @@ namespace VestShapes
             }
             catch (Exception ex2)
             {
-                ClsErrorFile.WriteLine(ex2);
+                //ClsErrorFile.WriteLine(ex2);
                 //throw;
             }
             
@@ -2282,7 +2234,7 @@ namespace VestShapes
                 }
                 catch (Exception ex)
                 {
-                    ClsErrorFile.WriteLine(ex);
+                    //ClsErrorFile.WriteLine(ex);
 
                     if (ex.InnerException != null)
                         ClsErrorFile.WriteLine(ex.InnerException.Message);

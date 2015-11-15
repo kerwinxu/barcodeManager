@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zxing", "zxing\csharp\zxing
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VestShapes", "VestShapes\VestShapes.csproj", "{ACE5C531-6DD6-4CF6-B8C8-8CBE042EAF79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamPlus", "StreamPlus\StreamPlus.csproj", "{FF973758-6B1F-4EB7-B572-28D4F79CE909}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestStreamPlus", "TestStreamPlus\TestStreamPlus.csproj", "{51076FE3-C775-4943-9E46-99066010F97C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,24 @@ Global
 		{ACE5C531-6DD6-4CF6-B8C8-8CBE042EAF79}.x86|Any CPU.ActiveCfg = x86|Any CPU
 		{ACE5C531-6DD6-4CF6-B8C8-8CBE042EAF79}.x86|Any CPU.Build.0 = x86|Any CPU
 		{ACE5C531-6DD6-4CF6-B8C8-8CBE042EAF79}.x86|x86.ActiveCfg = x86|Any CPU
+		{FF973758-6B1F-4EB7-B572-28D4F79CE909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF973758-6B1F-4EB7-B572-28D4F79CE909}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF973758-6B1F-4EB7-B572-28D4F79CE909}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FF973758-6B1F-4EB7-B572-28D4F79CE909}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF973758-6B1F-4EB7-B572-28D4F79CE909}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF973758-6B1F-4EB7-B572-28D4F79CE909}.Release|x86.ActiveCfg = Release|Any CPU
+		{FF973758-6B1F-4EB7-B572-28D4F79CE909}.x86|Any CPU.ActiveCfg = Release|Any CPU
+		{FF973758-6B1F-4EB7-B572-28D4F79CE909}.x86|Any CPU.Build.0 = Release|Any CPU
+		{FF973758-6B1F-4EB7-B572-28D4F79CE909}.x86|x86.ActiveCfg = Release|Any CPU
+		{51076FE3-C775-4943-9E46-99066010F97C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51076FE3-C775-4943-9E46-99066010F97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51076FE3-C775-4943-9E46-99066010F97C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{51076FE3-C775-4943-9E46-99066010F97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51076FE3-C775-4943-9E46-99066010F97C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51076FE3-C775-4943-9E46-99066010F97C}.Release|x86.ActiveCfg = Release|Any CPU
+		{51076FE3-C775-4943-9E46-99066010F97C}.x86|Any CPU.ActiveCfg = Release|Any CPU
+		{51076FE3-C775-4943-9E46-99066010F97C}.x86|Any CPU.Build.0 = Release|Any CPU
+		{51076FE3-C775-4943-9E46-99066010F97C}.x86|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

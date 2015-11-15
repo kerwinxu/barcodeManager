@@ -90,8 +90,8 @@ namespace Xuhengxiao.MyDataStructure
              catch (Exception exc)
              {
                  //Exceptions.LogException(exc);
-                 //ClsErrorFile.WriteLine(exc.Message);
-                 ClsErrorFile.WriteLine("", exc);
+                 ////ClsErrorFile.WriteLine(exc.Message);
+                 //ClsErrorFile.WriteLine("", exc);
                  //Console.Error.WriteLine(exc.Message);
                  return "";
              }
@@ -119,8 +119,8 @@ namespace Xuhengxiao.MyDataStructure
              {
                  //Exceptions.LogException(e);
                  //Console.Error.WriteLine(e.Message);
-                 //ClsErrorFile.WriteLine(e.Message);
-                 ClsErrorFile.WriteLine("", e);
+                 ////ClsErrorFile.WriteLine(e.Message);
+                 //ClsErrorFile.WriteLine("", e);
                  return null;
              }
 

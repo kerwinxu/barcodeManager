@@ -34,7 +34,7 @@ namespace Xuhengxiao.MyDataStructure
             }
             catch (Exception exception)
             {
-                ClsErrorFile.WriteLine("保存XML不成功，原因是", exception);
+                //ClsErrorFile.WriteLine("保存XML不成功，原因是", exception);
                 //MessageBox.Show("保存不成功，原因是" + exception.Message);
 
                 if (exception.InnerException != null)
@@ -69,7 +69,7 @@ namespace Xuhengxiao.MyDataStructure
             }
             catch (Exception exception)
             {
-                ClsErrorFile.WriteLine("加载XML不成功，原因是", exception);
+                //ClsErrorFile.WriteLine("加载XML不成功，原因是", exception);
                 //MessageBox.Show("加载不成功，原因是" + exception.Message);
                 return null;
             }
@@ -104,7 +104,7 @@ namespace Xuhengxiao.MyDataStructure
             }
             catch (System.Exception ex)
             {
-                ClsErrorFile.WriteLine("不能深度复制，原因是:", ex);
+                //ClsErrorFile.WriteLine("不能深度复制，原因是:", ex);
             }
             return null;
 

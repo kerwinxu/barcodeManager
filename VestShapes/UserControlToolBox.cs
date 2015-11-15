@@ -103,7 +103,7 @@ namespace VestShapes
             }
             catch (Exception ex)
             {
-                ClsErrorFile.WriteLine(ex);
+                //ClsErrorFile.WriteLine(ex);
                 //Console.Error.WriteLine(ex.Message);
             }
             
@@ -158,7 +158,7 @@ namespace VestShapes
                 }
                 catch (Exception exception)
                 {
-                    ClsErrorFile.WriteLine(exception);
+                    //ClsErrorFile.WriteLine(exception);
                     //Console.Error.Write(exception.ToString());
                 }
                 finally
@@ -318,7 +318,7 @@ namespace VestShapes
                     }
                     catch (Exception ex)
                     {
-                        ClsErrorFile.WriteLine(ex);
+                        //ClsErrorFile.WriteLine(ex);
                         //Console.Error.WriteLine(ex.Message);
                         throw;
                     }
@@ -362,7 +362,7 @@ namespace VestShapes
             }
             catch (System.Exception ex)
             {
-                ClsErrorFile.WriteLine(ex);
+                //ClsErrorFile.WriteLine(ex);
             }
 
         }

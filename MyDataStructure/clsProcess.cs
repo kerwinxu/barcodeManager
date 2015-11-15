@@ -17,7 +17,7 @@ namespace Xuhengxiao.MyDataStructure
             }
             catch (System.Exception ex)
             {
-                ClsErrorFile.WriteLine(ex);
+                //ClsErrorFile.WriteLine(ex);
             	    
             }
 

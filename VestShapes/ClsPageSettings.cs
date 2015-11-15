@@ -11,249 +11,39 @@ using System.Collections;
 
 namespace VestShapes
 {
-    [Serializable]
-    public  class ClsPageSettings
+    /// <summary>
+    /// 定义事件参数
+    /// </summary>
+    public class PaperLayoutChangedEventArgs : EventArgs 
     {
-        public string[] arrModelShapes = {"方形","圆角矩形","椭圆形","CD" };
+        public ClsPaperLayout BarcodePaperLayout;
 
-        public string ModelShapes = "圆角矩形";//模板的形状
-
-        /**这个类好像不用放大
-        protected float _Zoom;
-
-        public float Zoom
+        public PaperLayoutChangedEventArgs(ClsPaperLayout paperLayout)
         {
-            get
-            {
-                return _Zoom;
-            }
-            set
-            {
-                _Zoom = value;
-            }
-        }
-         * */
-
-        //条形码纸的布局
-        [XmlElement]
-        public ClsPaperLayout BarcodePaperLayout=new ClsPaperLayout();
-
-
-        /// <summary>
-        /// 如下的这个只是在一个picture上绘制条形码纸张的布局的，只是预览窗口需要这个，其他的都不需要的。
-        /// </summary>
-        /// <param name="pic"></param>
-        public void   DrawModelsBackgroundOnPaper(Graphics g , float fW , float fH)
-        {
-            //纸张左上角的边距,只是这个不能太靠边而已，没有其他的作用
-            float fltBianJuX =0/ 25.4f * g.DpiX;
-            float fltBianJuY = 0 / 25.4f * g.DpiY;
-
-            float fwzoom = (fW- 2*fltBianJuX) / (BarcodePaperLayout.PaperWidth / 25.4f * g.DpiX);
-            float fhzoom = (fH- 2*fltBianJuY) / (BarcodePaperLayout.PaperHeight / 25.4f * g.DpiY);
-
-            float fzoom = fwzoom > fhzoom ? fhzoom : fwzoom;
-
-            float fltPenWidth = 0.5f / fzoom;//绘制纸张边距的画笔宽度
-
-            try
-            {
-                g.Clear(Color.Beige);//清空
-
-                //如下被认为可以清晰文字。
-                g.SmoothingMode = SmoothingMode.HighQuality;
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                g.CompositingQuality = CompositingQuality.HighQuality;
-
-                g.PageUnit = GraphicsUnit.Millimeter;//毫米单位
-
-
-                //绘制纸张的背景
-                ShapeRect shapeRect = new ShapeRect();
-                shapeRect.X = fltBianJuX;
-                shapeRect.Y = fltBianJuY;
-                shapeRect.Width = BarcodePaperLayout.PaperWidth;
-                shapeRect.Height = BarcodePaperLayout.PaperHeight;
-                shapeRect.Zoom = fzoom;
-                shapeRect.PenWidth = fltPenWidth;
-                shapeRect.Draw(g);
-
-                //如下是绘制各个模板的背景
-                for (int i = 0; i < BarcodePaperLayout.NumberOfColumn; i++)
-                {
-                    for (int j =0; j < BarcodePaperLayout.NumberOfLine; j++)
-                    {
-                        //计算每个模板的左上角的坐标
-                        float fx = BarcodePaperLayout.Left+fltBianJuX +(i)*BarcodePaperLayout.HorizontalInterval+ i * BarcodePaperLayout.ModelWidth;
-                        float fy = BarcodePaperLayout.Top+fltBianJuY +(j)*BarcodePaperLayout.VerticalInterval+ j * BarcodePaperLayout.ModelHeight;
-                        DrawModelBackground(g, fx, fy, fzoom);
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("预览不成功，原因是： "+ex.Message);
-                ClsErrorFile.WriteLine("预览不成功，原因是： ",ex);
-                //throw;
-            }
-
-        }
-
-
-        public void DrawModelBackground(Graphics g, float fx, float fy, float Zoom, ArrayList arrlistMatrix)
-        {
-            //单位一定要是MM。
-            g.PageUnit = GraphicsUnit.Millimeter;
-
-            //如下被认为可以清晰文字。
-            g.SmoothingMode = SmoothingMode.HighQuality;
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            g.CompositingQuality = CompositingQuality.HighQuality;
-
-
-            float fltPenWidth = 0.5f / Zoom;//绘制纸张边距的画笔宽度
-
-            //基本上只是一个调用ShapeEle来绘图的方法
-
-            switch (ModelShapes)
-            {
-                case "方形":
-                    ShapeRect shapeRect = new ShapeRect();
-                    shapeRect.X = fx ;
-                    shapeRect.Y = fy ;
-                    shapeRect.Width = BarcodePaperLayout.ModelWidth ;
-                    shapeRect.Height = BarcodePaperLayout.ModelHeight ;
-                    shapeRect.Zoom = Zoom;
-                    shapeRect.FillColor = Color.White;
-                    shapeRect.isFill = true;
-                    shapeRect.PenWidth = fltPenWidth;
-                    shapeRect.Draw(g,arrlistMatrix);
-                    break;
-                case "圆角矩形":
-                     ShapeRoundRect  shapeRouneRect = new ShapeRoundRect();
-                     shapeRouneRect.X = fx ;
-                     shapeRouneRect.Y = fy ;
-                     shapeRouneRect.Width = BarcodePaperLayout.ModelWidth ;
-                     shapeRouneRect.Height = BarcodePaperLayout.ModelHeight ;
-                     shapeRouneRect.Zoom = Zoom;
-                     shapeRouneRect.CornerRadius = BarcodePaperLayout.CornerRadius;
-                     shapeRouneRect.FillColor = Color.White;
-                     shapeRouneRect.isFill = true;
-                     shapeRouneRect.PenWidth = fltPenWidth;
-                     shapeRouneRect.Draw(g,arrlistMatrix);
-                    break;
-                case "椭圆形":
-                    ShapeEllipse shapeEllipse = new ShapeEllipse();
-                    shapeEllipse.X = fx ;
-                    shapeEllipse.Y = fy ;
-                    shapeEllipse.Width = BarcodePaperLayout.ModelWidth ;
-                    shapeEllipse.Height = BarcodePaperLayout.ModelHeight ;
-                    shapeEllipse.Zoom = Zoom;
-                    shapeEllipse.FillColor = Color.White;
-                    shapeEllipse.isFill = true;
-                    shapeEllipse.PenWidth = fltPenWidth;
-                    shapeEllipse.Draw(g,arrlistMatrix);
-                    break;
-                case "CD":
-                    break;
-                default:
-                    break;
-            }
-
-        }
-
-        /// <summary>
-        /// 如下的这个方法只是绘制一张模板的大小背景的。
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="fx"></param>
-        /// <param name="fy"></param>
-        /// <param name="Zoom"></param>
-        public void DrawModelBackground(Graphics g,float fx ,float fy , float Zoom)
-        {
-            //单位一定要是MM。
-            g.PageUnit = GraphicsUnit.Millimeter;
-
-            //如下被认为可以清晰文字。
-            g.SmoothingMode = SmoothingMode.HighQuality;
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            g.CompositingQuality = CompositingQuality.HighQuality;
-
-
-            float fltPenWidth = 0.5f / Zoom;//绘制纸张边距的画笔宽度
-
-            //基本上只是一个调用ShapeEle来绘图的方法
-
-            switch (ModelShapes)
-            {
-                case "方形":
-                    ShapeRect shapeRect = new ShapeRect();
-                    shapeRect.X = fx ;
-                    shapeRect.Y = fy ;
-                    shapeRect.Width = BarcodePaperLayout.ModelWidth ;
-                    shapeRect.Height = BarcodePaperLayout.ModelHeight ;
-                    shapeRect.Zoom = Zoom;
-                    shapeRect.FillColor = Color.White;
-                    shapeRect.isFill = true;
-                    shapeRect.PenWidth = fltPenWidth;
-                    shapeRect.Draw(g);
-                    break;
-                case "圆角矩形":
-                     ShapeRoundRect  shapeRouneRect = new ShapeRoundRect();
-                     shapeRouneRect.X = fx ;
-                     shapeRouneRect.Y = fy ;
-                     shapeRouneRect.Width = BarcodePaperLayout.ModelWidth ;
-                     shapeRouneRect.Height = BarcodePaperLayout.ModelHeight ;
-                     shapeRouneRect.Zoom = Zoom;
-                     shapeRouneRect.CornerRadius = BarcodePaperLayout.CornerRadius;
-                     shapeRouneRect.FillColor = Color.White;
-                     shapeRouneRect.isFill = true;
-                     shapeRouneRect.PenWidth = fltPenWidth;
-                     shapeRouneRect.Draw(g);
-                    break;
-                case "椭圆形":
-                    ShapeEllipse shapeEllipse = new ShapeEllipse();
-                    shapeEllipse.X = fx ;
-                    shapeEllipse.Y = fy ;
-                    shapeEllipse.Width = BarcodePaperLayout.ModelWidth ;
-                    shapeEllipse.Height = BarcodePaperLayout.ModelHeight ;
-                    shapeEllipse.Zoom = Zoom;
-                    shapeEllipse.FillColor = Color.White;
-                    shapeEllipse.isFill = true;
-                    shapeEllipse.PenWidth = fltPenWidth;
-                    shapeEllipse.Draw(g);
-                    break;
-                case "CD":
-                    break;
-                default:
-                    break;
-            }
-
+            BarcodePaperLayout = paperLayout;
         }
     }
 
-
+    /// <summary>
+    /// 条形码纸的布局
+    /// </summary>
     [Serializable]
-    ///条形码纸的布局
     public class ClsPaperLayout
     {
-        private PaperSize _BarcodePaperSize=new PaperSize ();//保存纸张尺寸的
+        #region 这些是私有属性
+        private PaperSize _BarcodePaperSize = new PaperSize();//保存纸张尺寸的
 
         private float _fltPaperWidth;
         private float _fltPaperHeight;
 
-        private int _intNumberOfLine=2;//行数
-        private int _intNumberOfColumn=2;//列数
+        private int _intNumberOfLine = 2;//行数
+        private int _intNumberOfColumn = 2;//列数
 
         //如下是边距Left, Top, Right, and Bottom
-        private float _fltLeft=2f;
-        private float _fltTop=2f;
-        private float _fltRight=2f;
-        private float _fltBottom=2f;
+        private float _fltLeft = 2f;
+        private float _fltTop = 2f;
+        private float _fltRight = 2f;
+        private float _fltBottom = 2f;
 
         //模板的宽度和高度
         private float _fltModelWidth;
@@ -261,30 +51,34 @@ namespace VestShapes
         private bool _isCustomModelSize;//自定义模板大小
 
         //如下是间距
-        private  float _fltHorizontalInterval=2f;//水平间距,默认是2毫米
-        private  float _fltVerticalInterval;//垂直间距
-        private bool _isCustomDistance=true;//自定义间距,默认是可以自定义的。
+        private float _fltHorizontalInterval = 2f;//水平间距,默认是2毫米
+        private float _fltVerticalInterval;//垂直间距
+        private bool _isCustomDistance = true;//自定义间距,默认是可以自定义的。
 
         //在圆角矩形中还有个是角度的问题。
         protected float _fltCornerRadius = 2f;
+
+
+        private bool _LandScape = false;
+
+        #endregion
 
         //在CD中还有个是孔的问题
 
         public string strError;//错误信息，通常是超出边界之类的。
 
-
-        //如下是改变事件。
-
+        #region 如下是改变事件,只要纸张布局有变动，就调用。
         public delegate void PaperLayoutChangedEventHandler(object sender, PaperLayoutChangedEventArgs e);//定义委托
         public event PaperLayoutChangedEventHandler PaperLayoutChanged;// 定义事件
-        public virtual void  OnPaperLayoutChanged(PaperLayoutChangedEventArgs e)
+        public virtual void OnPaperLayoutChanged(PaperLayoutChangedEventArgs e)
         {
             if (PaperLayoutChanged != null)//如果有对象注册，就调用。
                 PaperLayoutChanged(this, e);
-
         }
         //有了如上这个事件，只要有变动就通知。
+        #endregion
 
+        #region 如下是纸张的各种属性，包括纸张大小，宽度高度之类的。
         //如下是各种属性
         /// <summary>
         /// 纸张大小属性
@@ -557,7 +351,7 @@ namespace VestShapes
         /// </summary>
         [DescriptionAttribute("水平间距"), DisplayName("水平间距"), CategoryAttribute("间距")]
         [XmlElement]
-        public float  HorizontalInterval
+        public float HorizontalInterval
         {
             get
             {
@@ -578,7 +372,7 @@ namespace VestShapes
         /// </summary>
         [DescriptionAttribute("垂直间距"), DisplayName("垂直间距"), CategoryAttribute("间距")]
         [XmlElement]
-        public float  VerticalInterval
+        public float VerticalInterval
         {
             get
             {
@@ -594,7 +388,7 @@ namespace VestShapes
                 }
             }
         }
-        
+
 
         /// <summary>
         /// 圆角矩形的角度
@@ -641,7 +435,6 @@ namespace VestShapes
 
         }
 
-        private bool _LandScape = false;
         /// <summary>
         /// 是否横向
         /// </summary>
@@ -653,27 +446,29 @@ namespace VestShapes
             set
             {
 
-                    _LandScape = value;
+                _LandScape = value;
 
-                    //横向后还的直接改变了
-                    if (value)
-                    {
-                        _fltPaperHeight = (float)Math.Round(_BarcodePaperSize.Width * 0.254, 0);
-                        _fltPaperWidth = (float)Math.Round(_BarcodePaperSize.Height * 0.254, 0);
-                    }
-                    else
-                    {
-                        _fltPaperWidth = (float)Math.Round(_BarcodePaperSize.Width * 0.254, 0);
-                        _fltPaperHeight = (float)Math.Round(_BarcodePaperSize.Height * 0.254, 0);
+                //横向后还的直接改变了
+                if (value)
+                {
+                    _fltPaperHeight = (float)Math.Round(_BarcodePaperSize.Width * 0.254, 0);
+                    _fltPaperWidth = (float)Math.Round(_BarcodePaperSize.Height * 0.254, 0);
+                }
+                else
+                {
+                    _fltPaperWidth = (float)Math.Round(_BarcodePaperSize.Width * 0.254, 0);
+                    _fltPaperHeight = (float)Math.Round(_BarcodePaperSize.Height * 0.254, 0);
 
-                    }
+                }
 
-                    Compute();
-                    OnPaperLayoutChanged(new PaperLayoutChangedEventArgs(this));
+                Compute();
+                OnPaperLayoutChanged(new PaperLayoutChangedEventArgs(this));
 
 
             }
         }
+
+        #endregion
 
         /// <summary>
         /// 设置的话得用这个设置
@@ -682,7 +477,7 @@ namespace VestShapes
         public void TurnLandScape(bool isLandScape)
         {
             //不相同才需要更改
-            if (_LandScape!=isLandScape)
+            if (_LandScape != isLandScape)
             {
                 //如下是只要更改横向或者纵向就一样改变的
                 _LandScape = isLandScape;
@@ -727,7 +522,7 @@ namespace VestShapes
 
 
         }
-        
+
         /// <summary>
         /// 只是交换数据的
         /// </summary>
@@ -739,8 +534,6 @@ namespace VestShapes
             f1 = f2;
             f2 = fTemp;
         }
-
-
 
         /// <summary>
         /// 根据输入的数据计算相关属性
@@ -759,7 +552,7 @@ namespace VestShapes
                 if (fw > PaperWidth)
                     strError = "您设置的纸张左边距，右边距，水平间距，模板宽度加起来已经超出纸张宽度\n";
                 //计算实际的高度，再和纸张高度做比较
-                float fh = Top + Bottom + (NumberOfLine  - 1) * VerticalInterval;
+                float fh = Top + Bottom + (NumberOfLine - 1) * VerticalInterval;
                 if (fh > PaperHeight)
                     strError += "您设置的纸张上边距，下边距，垂直间距，模板高度加起来已经超出纸张高度\n";
 
@@ -784,7 +577,7 @@ namespace VestShapes
                     strError = "行数必须大于等于1";
                 }
                 //得判断列数是否大于0
-                if (NumberOfLine >=1)
+                if (NumberOfLine >= 1)
                 {
                     float fh = (PaperHeight - Top - Bottom - (NumberOfLine - 1) * VerticalInterval) / NumberOfLine;
                     if (fh <= 0)
@@ -807,8 +600,8 @@ namespace VestShapes
                 if (NumberOfColumn == 1)
                 {
                     //如果行数为1，那么事实上就得判断是否超出边界
-                    float fw = (PaperWidth - Left - Right -  ModelWidth);
-                    if (fw<0)
+                    float fw = (PaperWidth - Left - Right - ModelWidth);
+                    if (fw < 0)
                         strError = "经计算，你的左边距+右边距+模板宽度超出了纸张宽度\n，";
 
                 }
@@ -897,21 +690,232 @@ namespace VestShapes
                 {
                     strError = "列数必须大于等于1";
                 }
-            }        
+            }
 
         }
 
     }
 
-    public class PaperLayoutChangedEventArgs : EventArgs //定义事件参数
+
+
+
+    [Serializable]
+    public  class ClsPageSettings
     {
-        public ClsPaperLayout BarcodePaperLayout;
+        public string[] arrModelShapes = {"方形","圆角矩形","椭圆形","CD" };
 
-        public PaperLayoutChangedEventArgs(ClsPaperLayout paperLayout)
+        public string ModelShapes = "圆角矩形";//模板的形状
+
+        /// <summary>
+        /// 条形码纸的布局
+        /// </summary>
+        [XmlElement]
+        public ClsPaperLayout BarcodePaperLayout=new ClsPaperLayout();
+
+
+        /// <summary>
+        /// 如下的这个只是在一个picture上绘制条形码纸张的布局的，只是预览窗口需要这个，其他的都不需要的。
+        /// </summary>
+        /// <param name="pic"></param>
+        public void   DrawModelsBackgroundOnPaper(Graphics g , float fW , float fH)
         {
-            BarcodePaperLayout = paperLayout;
+            //纸张左上角的边距,只是这个不能太靠边而已，没有其他的作用
+            float fltBianJuX =0/ 25.4f * g.DpiX;
+            float fltBianJuY = 0 / 25.4f * g.DpiY;
+
+            float fwzoom = (fW- 2*fltBianJuX) / (BarcodePaperLayout.PaperWidth / 25.4f * g.DpiX);
+            float fhzoom = (fH- 2*fltBianJuY) / (BarcodePaperLayout.PaperHeight / 25.4f * g.DpiY);
+
+            float fzoom = fwzoom > fhzoom ? fhzoom : fwzoom;
+
+            float fltPenWidth = 0.5f / fzoom;//绘制纸张边距的画笔宽度
+
+            try
+            {
+                g.Clear(Color.Beige);//清空
+
+                //如下被认为可以清晰文字。
+                g.SmoothingMode = SmoothingMode.HighQuality;
+                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.CompositingQuality = CompositingQuality.HighQuality;
+
+                g.PageUnit = GraphicsUnit.Millimeter;//毫米单位
+
+
+                //绘制纸张的背景
+                ShapeRect shapeRect = new ShapeRect();
+                shapeRect.X = fltBianJuX;
+                shapeRect.Y = fltBianJuY;
+                shapeRect.Width = BarcodePaperLayout.PaperWidth;
+                shapeRect.Height = BarcodePaperLayout.PaperHeight;
+                shapeRect.Zoom = fzoom;
+                shapeRect.PenWidth = fltPenWidth;
+                shapeRect.Draw(g);
+
+                //如下是绘制各个模板的背景
+                for (int i = 0; i < BarcodePaperLayout.NumberOfColumn; i++)
+                {
+                    for (int j =0; j < BarcodePaperLayout.NumberOfLine; j++)
+                    {
+                        //计算每个模板的左上角的坐标
+                        float fx = BarcodePaperLayout.Left+fltBianJuX +(i)*BarcodePaperLayout.HorizontalInterval+ i * BarcodePaperLayout.ModelWidth;
+                        float fy = BarcodePaperLayout.Top+fltBianJuY +(j)*BarcodePaperLayout.VerticalInterval+ j * BarcodePaperLayout.ModelHeight;
+                        DrawModelBackground(g, fx, fy, fzoom);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("预览不成功，原因是： "+ex.Message);
+                //ClsErrorFile.WriteLine("预览不成功，原因是： ",ex);
+                //throw;
+            }
         }
+
+        /// <summary>
+        /// 绘制一个背景
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="fx"></param>
+        /// <param name="fy"></param>
+        /// <param name="Zoom"></param>
+        /// <param name="arrlistMatrix"></param>
+        public void DrawModelBackground(Graphics g, float fx, float fy, float Zoom, ArrayList arrlistMatrix)
+        {
+            //单位一定要是MM。
+            g.PageUnit = GraphicsUnit.Millimeter;
+
+            //如下被认为可以清晰文字。
+            g.SmoothingMode = SmoothingMode.HighQuality;
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            g.CompositingQuality = CompositingQuality.HighQuality;
+
+
+            float fltPenWidth = 0.5f / Zoom;//绘制纸张边距的画笔宽度
+
+            //基本上只是一个调用ShapeEle来绘图的方法
+
+            switch (ModelShapes)
+            {
+                case "方形":
+                    ShapeRect shapeRect = new ShapeRect();
+                    shapeRect.X = fx ;
+                    shapeRect.Y = fy ;
+                    shapeRect.Width = BarcodePaperLayout.ModelWidth ;
+                    shapeRect.Height = BarcodePaperLayout.ModelHeight ;
+                    shapeRect.Zoom = Zoom;
+                    shapeRect.FillColor = Color.White;
+                    shapeRect.isFill = true;
+                    shapeRect.PenWidth = fltPenWidth;
+                    shapeRect.Draw(g,arrlistMatrix);
+                    break;
+                case "圆角矩形":
+                     ShapeRoundRect  shapeRouneRect = new ShapeRoundRect();
+                     shapeRouneRect.X = fx ;
+                     shapeRouneRect.Y = fy ;
+                     shapeRouneRect.Width = BarcodePaperLayout.ModelWidth ;
+                     shapeRouneRect.Height = BarcodePaperLayout.ModelHeight ;
+                     shapeRouneRect.Zoom = Zoom;
+                     shapeRouneRect.CornerRadius = BarcodePaperLayout.CornerRadius;
+                     shapeRouneRect.FillColor = Color.White;
+                     shapeRouneRect.isFill = true;
+                     shapeRouneRect.PenWidth = fltPenWidth;
+                     shapeRouneRect.Draw(g,arrlistMatrix);
+                    break;
+                case "椭圆形":
+                    ShapeEllipse shapeEllipse = new ShapeEllipse();
+                    shapeEllipse.X = fx ;
+                    shapeEllipse.Y = fy ;
+                    shapeEllipse.Width = BarcodePaperLayout.ModelWidth ;
+                    shapeEllipse.Height = BarcodePaperLayout.ModelHeight ;
+                    shapeEllipse.Zoom = Zoom;
+                    shapeEllipse.FillColor = Color.White;
+                    shapeEllipse.isFill = true;
+                    shapeEllipse.PenWidth = fltPenWidth;
+                    shapeEllipse.Draw(g,arrlistMatrix);
+                    break;
+                case "CD":
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        /// <summary>
+        /// 如下的这个方法只是绘制一张模板的大小背景的。
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="fx"></param>
+        /// <param name="fy"></param>
+        /// <param name="Zoom"></param>
+        public void DrawModelBackground(Graphics g,float fx ,float fy , float Zoom)
+        {
+            //单位一定要是MM。
+            g.PageUnit = GraphicsUnit.Millimeter;
+
+            //如下被认为可以清晰文字。
+            g.SmoothingMode = SmoothingMode.HighQuality;
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            g.CompositingQuality = CompositingQuality.HighQuality;
+
+
+            float fltPenWidth = 0.5f / Zoom;//绘制纸张边距的画笔宽度
+
+            //基本上只是一个调用ShapeEle来绘图的方法
+
+            switch (ModelShapes)
+            {
+                case "方形":
+                    ShapeRect shapeRect = new ShapeRect();
+                    shapeRect.X = fx ;
+                    shapeRect.Y = fy ;
+                    shapeRect.Width = BarcodePaperLayout.ModelWidth ;
+                    shapeRect.Height = BarcodePaperLayout.ModelHeight ;
+                    shapeRect.Zoom = Zoom;
+                    shapeRect.FillColor = Color.White;
+                    shapeRect.isFill = true;
+                    shapeRect.PenWidth = fltPenWidth;
+                    shapeRect.Draw(g);
+                    break;
+                case "圆角矩形":
+                     ShapeRoundRect  shapeRouneRect = new ShapeRoundRect();
+                     shapeRouneRect.X = fx ;
+                     shapeRouneRect.Y = fy ;
+                     shapeRouneRect.Width = BarcodePaperLayout.ModelWidth ;
+                     shapeRouneRect.Height = BarcodePaperLayout.ModelHeight ;
+                     shapeRouneRect.Zoom = Zoom;
+                     shapeRouneRect.CornerRadius = BarcodePaperLayout.CornerRadius;
+                     shapeRouneRect.FillColor = Color.White;
+                     shapeRouneRect.isFill = true;
+                     shapeRouneRect.PenWidth = fltPenWidth;
+                     shapeRouneRect.Draw(g);
+                    break;
+                case "椭圆形":
+                    ShapeEllipse shapeEllipse = new ShapeEllipse();
+                    shapeEllipse.X = fx ;
+                    shapeEllipse.Y = fy ;
+                    shapeEllipse.Width = BarcodePaperLayout.ModelWidth ;
+                    shapeEllipse.Height = BarcodePaperLayout.ModelHeight ;
+                    shapeEllipse.Zoom = Zoom;
+                    shapeEllipse.FillColor = Color.White;
+                    shapeEllipse.isFill = true;
+                    shapeEllipse.PenWidth = fltPenWidth;
+                    shapeEllipse.Draw(g);
+                    break;
+                case "CD":
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
     }
 
-
+ 
 }

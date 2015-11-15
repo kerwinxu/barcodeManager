@@ -66,7 +66,7 @@ namespace Xuhengxiao.MyDataStructure
                 }
                 catch (Exception ex)
                 {
-                    ClsErrorFile.WriteLine("GetHtmlFromInternet:" + ex.Message);
+                    //ClsErrorFile.WriteLine("GetHtmlFromInternet:" + ex.Message);
                     return string.Empty;
                     //throw;
                 }
@@ -110,7 +110,7 @@ namespace Xuhengxiao.MyDataStructure
                                 }
                                 catch (Exception ex)
                                 {
-                                    ClsErrorFile.WriteLine("GetHtmlFromInternet2:" + ex.Message);
+                                    //ClsErrorFile.WriteLine("GetHtmlFromInternet2:" + ex.Message);
                                     return null;
                                     //throw;
                                 }
@@ -128,7 +128,7 @@ namespace Xuhengxiao.MyDataStructure
                         }
                         catch (Exception ex)
                         {
-                            ClsErrorFile.WriteLine("GetHtmlFromInternet2:" + ex.Message);
+                            //ClsErrorFile.WriteLine("GetHtmlFromInternet2:" + ex.Message);
                             return null;
                             //Console.WriteLine(exx);
                         }
@@ -139,7 +139,7 @@ namespace Xuhengxiao.MyDataStructure
                 }
                 catch (Exception ex)
                 {
-                    ClsErrorFile.WriteLine("GetHtmlFromInternet:" + ex.Message);
+                    //ClsErrorFile.WriteLine("GetHtmlFromInternet:" + ex.Message);
                     return string.Empty;
                     //throw;
                 }
@@ -209,7 +209,7 @@ namespace Xuhengxiao.MyDataStructure
                 }
                 catch (Exception ex)
                 {
-                    ClsErrorFile.WriteLine("GetHtmlFromInternet:" + ex.Message);
+                    //ClsErrorFile.WriteLine("GetHtmlFromInternet:" + ex.Message);
                     return string.Empty;
                     //throw;
                 }
