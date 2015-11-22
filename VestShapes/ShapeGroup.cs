@@ -149,26 +149,26 @@ namespace VestShapes
 
          * */
 
-        public override void Draw(Graphics g, ArrayList arrlistMatrix)
+        public override void Draw(Graphics g, List<Matrix> listMatrix)
         {
 
             if (Count() > 0)
             {
                 foreach (ShapeEle item in arrlistShapeEle)
                 {
-                    ArrayList arr2 = new ArrayList();
+                    List<Matrix> listTmp = new List<Matrix>();
 
-                    for (int i = 0; i < arrlistMatrix.Count; i++)
+                    for (int i = 0; i < listMatrix.Count; i++)
                     {
-                        arr2.Add(((System.Drawing.Drawing2D.Matrix)arrlistMatrix[i]).Clone());
+                        listTmp.Add(((System.Drawing.Drawing2D.Matrix)listMatrix[i]).Clone());
                     }
 
                     //加上这个群组的旋转
                     System.Drawing.Drawing2D.Matrix m = new System.Drawing.Drawing2D.Matrix();
                     //g.TranslateTransform(fltKongX, fltKongY, MatrixOrder.Prepend);
                     m.RotateAt((float)(_route + _routeAdd), getCentrePoint());
-                    arr2.Add(m);//加上群组的旋转
-                    item.Draw(g, arr2);
+                    listTmp.Add(m);//加上群组的旋转
+                    item.Draw(g, listTmp);
                 }
 
                 //如果这个有填充就填充
@@ -179,9 +179,9 @@ namespace VestShapes
                         GraphicsPath path = getGraphicsPath();
                         path.CloseAllFigures();
 
-                        for (int i = 0; i < arrlistMatrix.Count; i++)
+                        for (int i = 0; i < listMatrix.Count; i++)
                         {
-                            path.Transform(((System.Drawing.Drawing2D.Matrix)arrlistMatrix[i]));
+                            path.Transform(((System.Drawing.Drawing2D.Matrix)listMatrix[i]));
                         }
 
                         g.FillPath(new SolidBrush(_FillColor), path);

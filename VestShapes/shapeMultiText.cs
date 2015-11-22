@@ -22,7 +22,7 @@ namespace VestShapes
 
         }
 
-        public override void Draw(Graphics g, ArrayList arrlistMatrix)
+        public override void Draw(Graphics g, List<Matrix> listMatrix)
         {
             //单位一定要是MM。
             g.PageUnit = GraphicsUnit.Millimeter;
@@ -35,13 +35,13 @@ namespace VestShapes
             GraphicsPath path = base.getGraphicsPath();//首先取得没有偏移但有旋转的路径
 
             //再反转这个个变换
-            arrlistMatrix.Reverse();
+            listMatrix.Reverse();
 
-            if ((arrlistMatrix != null) && (arrlistMatrix.Count > 0))//只有数量大于0才能做如下的
+            if ((listMatrix != null) && (listMatrix.Count > 0))//只有数量大于0才能做如下的
             {
-                for (int i = 0; i < arrlistMatrix.Count; i++)
+                for (int i = 0; i < listMatrix.Count; i++)
                 {
-                    path.Transform((Matrix)arrlistMatrix[i]);
+                    path.Transform((Matrix)listMatrix[i]);
 
                 }
             }

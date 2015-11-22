@@ -276,7 +276,7 @@ namespace VestShapes
 
         }
 
-        public override void Draw(Graphics g, ArrayList arrlistMatrix)
+        public override void Draw(Graphics g, List<Matrix> listMatrix)
         {
 
             //单位一定要是MM。
@@ -286,7 +286,7 @@ namespace VestShapes
             _myPen.DashStyle = PenDashStyle;
 
             GraphicsPath path = new GraphicsPath();
-            path.AddRectangle(getGraphicsPath(arrlistMatrix).GetBounds());
+            path.AddRectangle(getGraphicsPath(listMatrix).GetBounds());
 
 
             //如下这个就是画边界

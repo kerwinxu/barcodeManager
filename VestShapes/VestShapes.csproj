@@ -188,6 +188,7 @@
     <Content Include="png\shape_align_left.png" />
     <Content Include="png\shape_align_middle.png" />
     <Content Include="png\shape_align_top.png" />
+    <Content Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarcodeLib\BarcodeLib.csproj">

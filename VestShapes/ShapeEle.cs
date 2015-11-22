@@ -6,6 +6,8 @@ using System.Drawing.Drawing2D;
 using System.Xml;
 using System.Xml.Serialization;
 using Xuhengxiao.MyDataStructure;
+using System.Collections.Generic;
+
 //using ProtoBuf;
 
 namespace VestShapes
@@ -425,9 +427,14 @@ namespace VestShapes
 
         }
 
-
-        public virtual void Draw(Graphics g, ArrayList arrlistMatrix)
+        /// <summary>
+        /// 这个是这个类的核心方法，画图
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="listMatrix"></param>
+        public virtual void Draw(Graphics g, List<Matrix> listMatrix)
         {
+
             //单位一定要是MM。
             g.PageUnit = GraphicsUnit.Millimeter;
 
@@ -436,7 +443,7 @@ namespace VestShapes
             Pen _myPen = new Pen(PenColor, _penWidth);
             _myPen.DashStyle = PenDashStyle;
 
-            GraphicsPath path = getGraphicsPath(arrlistMatrix);
+            GraphicsPath path = getGraphicsPath(listMatrix);
 
             //如下这个就是画边界
             try
@@ -580,21 +587,21 @@ namespace VestShapes
         /// <summary>
         /// 这个是加上所有前面的变换矩阵得到的路径
         /// </summary>
-        /// <param name="arrlistMatrix"></param>
+        /// <param name="listMatrix"></param>
         /// <returns></returns>
-        public virtual GraphicsPath getGraphicsPath(ArrayList arrlistMatrix)
+        public virtual GraphicsPath getGraphicsPath(List<Matrix> listMatrix)
         {
-
+           
             GraphicsPath path = getGraphicsPath();//首先取得没有偏移但有旋转的路径
 
             //再反转这个个变换
-            arrlistMatrix.Reverse();
+            listMatrix.Reverse();
 
-            if ((arrlistMatrix != null) && (arrlistMatrix.Count > 0))//只有数量大于0才能做如下的
+            if ((listMatrix != null) && (listMatrix.Count > 0))//只有数量大于0才能做如下的
             {
-                for (int i = 0; i < arrlistMatrix.Count; i++)
+                for (int i = 0; i < listMatrix.Count; i++)
                 {
-                    path.Transform((Matrix)arrlistMatrix[i]);
+                    path.Transform(listMatrix[i]);
 
                 }
             }

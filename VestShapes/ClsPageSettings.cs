@@ -7,6 +7,7 @@ using Xuhengxiao.MyDataStructure;
 using System.Drawing.Drawing2D;
 using System.Xml.Serialization;
 using System.Collections;
+using System.Collections.Generic;
 
 
 namespace VestShapes
@@ -781,8 +782,8 @@ namespace VestShapes
         /// <param name="fx"></param>
         /// <param name="fy"></param>
         /// <param name="Zoom"></param>
-        /// <param name="arrlistMatrix"></param>
-        public void DrawModelBackground(Graphics g, float fx, float fy, float Zoom, ArrayList arrlistMatrix)
+        /// <param name="listMatrix"></param>
+        public void DrawModelBackground(Graphics g, float fx, float fy, float Zoom, List<Matrix> listMatrix)
         {
             //单位一定要是MM。
             g.PageUnit = GraphicsUnit.Millimeter;
@@ -810,7 +811,7 @@ namespace VestShapes
                     shapeRect.FillColor = Color.White;
                     shapeRect.isFill = true;
                     shapeRect.PenWidth = fltPenWidth;
-                    shapeRect.Draw(g,arrlistMatrix);
+                    shapeRect.Draw(g,listMatrix);
                     break;
                 case "圆角矩形":
                      ShapeRoundRect  shapeRouneRect = new ShapeRoundRect();
@@ -823,7 +824,7 @@ namespace VestShapes
                      shapeRouneRect.FillColor = Color.White;
                      shapeRouneRect.isFill = true;
                      shapeRouneRect.PenWidth = fltPenWidth;
-                     shapeRouneRect.Draw(g,arrlistMatrix);
+                     shapeRouneRect.Draw(g,listMatrix);
                     break;
                 case "椭圆形":
                     ShapeEllipse shapeEllipse = new ShapeEllipse();
@@ -835,7 +836,7 @@ namespace VestShapes
                     shapeEllipse.FillColor = Color.White;
                     shapeEllipse.isFill = true;
                     shapeEllipse.PenWidth = fltPenWidth;
-                    shapeEllipse.Draw(g,arrlistMatrix);
+                    shapeEllipse.Draw(g,listMatrix);
                     break;
                 case "CD":
                     break;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.ComponentModel;
 using System.Drawing.Drawing2D;
@@ -230,7 +231,7 @@ namespace VestShapes
         /// </summary>
         /// <param name="g"></param>
         /// <param name="arrlistMatrix"></param>
-        public void Draw(Graphics g, ArrayList arrlistMatrix)
+        public void Draw(Graphics g, List<Matrix> arrlistMatrix)
         {
 
             try
@@ -247,7 +248,6 @@ namespace VestShapes
 
 
             DrawShapes(g, arrlistMatrix);
-
 
             /** 
             //单位一定要是MM。
@@ -280,13 +280,12 @@ namespace VestShapes
         /// <param name="KongY"></param>
         public void Draw(Graphics g, float KongX, float KongY)
         {
-
-            ArrayList arrlist = new ArrayList();
+            List<Matrix> listTmp = new List<Matrix>();
             System.Drawing.Drawing2D.Matrix m = new Matrix();
             m.Translate(KongX, KongY);
-            arrlist.Add(m);
+            listTmp.Add(m);
 
-            Draw(g, arrlist);//调用这个进行绘图
+            Draw(g, listTmp);//调用这个进行绘图
 
             //如下的相当于被注释掉了
             if (false)
@@ -405,9 +404,10 @@ namespace VestShapes
         /// 画图，不包含背景
         /// </summary>
         /// <param name="g"></param>
-        /// <param name="arrlistMatrix"></param>
-        public  void DrawShapes(Graphics g, ArrayList arrlistMatrix)
+        /// <param name="listMatrix"></param>
+        public  void DrawShapes(Graphics g, List<Matrix> listMatrix)
         {
+            
             //单位一定要是MM。
             g.PageUnit = GraphicsUnit.Millimeter;
 
@@ -433,7 +433,7 @@ namespace VestShapes
                         item.updateVarValue(arrlistKeyValue);
                     }
 
-                    item.Draw(g, arrlistMatrix);
+                    item.Draw(g, listMatrix);
                    
 
                 }
@@ -451,12 +451,13 @@ namespace VestShapes
         /// <param name="fltKongY"></param>
         public void DrawShapes(Graphics g, float fltKongX, float fltKongY)
         {
-            ArrayList arrlist = new ArrayList();
+            List<Matrix> listTmp = new List<Matrix>();
+
             System.Drawing.Drawing2D.Matrix m = new Matrix();
             m.Translate(fltKongX, fltKongY);
-            arrlist.Add(m);
+            listTmp.Add(m);
 
-            DrawShapes(g, arrlist);//调用这个进行绘图
+            DrawShapes(g, listTmp);//调用这个进行绘图
 
 
         }

@@ -292,7 +292,6 @@ namespace VestShapes
             if (fltRealDius > 0.5)
                 fltRealDius = 0.5f;
 
-
             if ((isDrawDridding) && (UserControlCanvas.GriddingInterval > 0))
             {
                 for (float  i = 0; i < this.Width / 96f * 25.4 / GriddingInterval /Zoom+2; i++)
@@ -315,7 +314,7 @@ namespace VestShapes
 
         private void UserControl1_Paint(object sender, PaintEventArgs e)
         {
-
+            #region 创建双缓冲区等设置。
             //内存上创建Graphics对象：
             Rectangle rect = e.ClipRectangle;//取得绘制区域的矩形
             BufferedGraphicsContext currentContext = BufferedGraphicsManager.Current;
@@ -326,51 +325,55 @@ namespace VestShapes
 
             g.SmoothingMode = SmoothingMode.HighQuality;
             g.PixelOffsetMode = PixelOffsetMode.HighSpeed;
-
             g.Clear(Color.Pink);
-
             g.PageUnit = GraphicsUnit.Millimeter;//将毫米设置为度量单位
+            #endregion
 
-            Pen pen1 = new Pen(Color.Black, 1);
+            # region 初始化转换矩阵
+            //我的那些矩阵转换等数据都是保存在  中的。
+            List<Matrix> listTmp = new List<Matrix>();
+            System.Drawing.Drawing2D.Matrix m = new Matrix();
+            m.Translate(_fltOffsetNewX, _fltOffsetNewY);
+            listTmp.Add(m);
+            #endregion
 
-
-            
+            #region  绘制图形
             // 绘制形状图片用如下的这个，好处是可以有偏移。
             try
             {
+                myShapes.fltCanvasWidth = this.Width;
+                myShapes.fltCanvasHeight = this.Height;
 
-                Draw(g, _fltOffsetNewX, _fltOffsetNewY);
+                myShapes.Draw(g, listTmp);
             }
             catch (System.Exception ex)
             {
                 //ClsErrorFile.WriteLine(ex);
             }
-
-            
+            #endregion
 
             //绘制网格
             DrawGridding(g);
 
 
-            ArrayList arrlist = new ArrayList();
-            System.Drawing.Drawing2D.Matrix m = new Matrix();
-            m.Translate(_fltOffsetNewX, _fltOffsetNewY);
 
-            arrlist.Add(m);
-
+            #region  绘制将要新建的图形，就是你那个正在画的图形啦。
+            //
             if ((Option == "WillAddShape") && isMouseSx && (WillAddShapeEle != null)) 
             {
    
                     WillAddShapeEle.ShapeInit(new PointF(startX, startY), new PointF(endX, endY));
 
-                    WillAddShapeEle.Draw(g,arrlist);
-
+                    WillAddShapeEle.Draw(g, listTmp);
             }
+            #endregion
 
+            #region 绘制当前选择图形外边的边框
+            //判断是否有当前选择的图形
             if (CurrentSelRect != null)
             {
                 CurrentSelRect.SetSelRectXYWH();
-                CurrentSelRect.Draw(g,arrlist);
+                CurrentSelRect.Draw(g, listTmp);
             }
 
 
@@ -388,13 +391,12 @@ namespace VestShapes
 
             }
 
-
-
             g.TranslateTransform(-_fltOffsetNewX, -_fltOffsetNewY);
             g.ResetTransform();
 
+            #endregion
 
-            //如下是绘制刻度尺
+            #region 如下是绘制刻度尺
 
             //如下是绘制水平刻度
             //首先要填充出一块空白
@@ -422,12 +424,13 @@ namespace VestShapes
             g.FillRectangle(new SolidBrush(Color.White), 0, 0, _fltRulerWidth, _fltRulerWidth);
             g.DrawRectangle(new Pen(Color.Black, 0.1f), 0, 0, _fltRulerWidth, _fltRulerWidth);
 
-            //刷新双缓冲
+            #endregion
+
+            #region 刷新双缓冲
             myBuffer.Render(e.Graphics);
             g.Dispose();
             myBuffer.Dispose();//释放资源
-
-
+            #endregion
 
         }
 
@@ -1179,16 +1182,17 @@ namespace VestShapes
         //这个方法只是封装了打印形状。
         public void Draw(Graphics g, float KongX, float KongY)
         {
-            ArrayList arrlist = new ArrayList();
+            List<Matrix> listTmp = new List<Matrix>();
+            
             System.Drawing.Drawing2D.Matrix m = new Matrix();
             m.Translate(KongX, KongY);
 
-            arrlist.Add(m);
+            listTmp.Add(m);
 
             myShapes.fltCanvasWidth = this.Width;
             myShapes.fltCanvasHeight = this.Height;
 
-            myShapes.Draw(g,arrlist);
+            myShapes.Draw(g, listTmp);
         }
 
         /// <summary>
@@ -1684,51 +1688,6 @@ namespace VestShapes
 
         }
 
-        private void userControlHorizontal_Paint(object sender, PaintEventArgs e)
-        {
-
-
-
-            //内存上创建Graphics对象：
-            Rectangle rect = e.ClipRectangle;//取得绘制区域的矩形
-            BufferedGraphicsContext currentContext = BufferedGraphicsManager.Current;
-            BufferedGraphics myBuffer = currentContext.Allocate(e.Graphics, e.ClipRectangle);
-            Graphics g = myBuffer.Graphics;
-            //如上这部分是取得双缓冲的标配了。
-
-            g.Clear(Color.White);
-
-
-           // Bitmap bitmap = new Bitmap(userControlHorizontal.Width, userControlHorizontal.Height);
-
-            //Graphics g = Graphics.FromImage(bitmap);;
-
-            /**
-            g.SmoothingMode = SmoothingMode.HighQuality; //高质量
-            g.PixelOffsetMode = PixelOffsetMode.HighQuality; //高像素偏移质量
-            g.CompositingQuality = CompositingQuality.HighQuality;
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-             * */
-
-            ShuiPingKuDu(g, 1, 5, 1);
-            ShuiPingKuDu(g, 2, 5, 2);
-            ShuiPingKuDu(g, 5, 5, 3);
-            ShuiPingKuDu(g, 10, 5, 5);
-
-            shuiPingKuDuShuzi(g);
-
-
-
-            //刷新双缓冲
-            myBuffer.Render(e.Graphics);
-            g.Dispose();
-            myBuffer.Dispose();//释放资源
-
-           // e.Graphics.DrawImage(bitmap, new Point(0, 0));
-            
-        }
-
 
         private void ChuizhiKuDu(Graphics g, int intInterval, float intDi, int intLength)
         {
@@ -1786,7 +1745,7 @@ namespace VestShapes
 
         }
 
-        private void UserControlCanvas_Click(object sender, EventArgs e)
+        public virtual  void UserControlCanvas_Click(object sender, EventArgs e)
         {
 
             switch (Option)
@@ -1823,7 +1782,7 @@ namespace VestShapes
 
         }
 
-        private void UserControlCanvas_DoubleClick(object sender, EventArgs e)
+        public virtual  void UserControlCanvas_DoubleClick(object sender, EventArgs e)
         {
             switch (Option)
             {

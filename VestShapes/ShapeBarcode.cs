@@ -3,6 +3,7 @@ using com.google.zxing;
 using com.google.zxing.qrcode.decoder;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Text;
@@ -346,8 +347,9 @@ namespace VestShapes
             return bmap;
         }
 
-        public override void Draw(Graphics g, ArrayList arrlistMatrix)
+        public override void Draw(Graphics g, List<Matrix> listMatrix)
         {
+            
 
             //单位一定要是MM。
             g.PageUnit = GraphicsUnit.Millimeter;
@@ -366,48 +368,7 @@ namespace VestShapes
             Pen _myPen = new Pen(PenColor, _penWidth);
             _myPen.DashStyle = PenDashStyle;
 
-            //如下这个就是画边界
-            /**
-            try
-            {
-                using (GraphicsPath path = getGraphicsPath())
-                {
-                    g.DrawPath(_myPen, path);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                //ClsErrorFile.WriteLine(ex);
-                //throw;
-            }
-
-            //throw new NotImplementedException();
-            if (_isFill)
-            {
-                try
-                {
-                    using (GraphicsPath path = getGraphicsPath())
-                    {
-                        g.FillPath(new SolidBrush(_FillColor), path);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    //ClsErrorFile.WriteLine(ex);
-                    //throw;
-                }
-
-            }
-             * */
-            //如下是拷贝的我原先软件的。
             #region
-
-            //如果两个都是为空值当然先返回啦。
-            /**
-            if (_strVarValue == "")
-                return;
-             * */
 
 
             string strBarcodeNumber = "";
@@ -432,7 +393,7 @@ namespace VestShapes
             try
             {
 
-                RectangleF rect = getGraphicsPath(arrlistMatrix).GetBounds();
+                RectangleF rect = getGraphicsPath(listMatrix).GetBounds();
                 float fltx = rect.X;
                 float flty = rect.Y;
                 float fltw = rect.Width;

@@ -264,9 +264,9 @@ namespace VestShapes
             }
         }
 
-        public override void Draw(Graphics g, ArrayList arrlistMatrix)
+        public override void Draw(Graphics g, List<Matrix> listMatrix)
         {
-            RectangleF rect = getGraphicsPath(arrlistMatrix).GetBounds();
+            RectangleF rect = getGraphicsPath(listMatrix).GetBounds();
             float fltx = rect.X;
             float flty = rect.Y;
             float fltw = rect.Width;
