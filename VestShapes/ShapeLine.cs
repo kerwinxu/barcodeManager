@@ -143,16 +143,6 @@ namespace VestShapes
             //return base.getCentrePoint();
         }
 
-        public override void Draw(Graphics g)
-        {
-            //单位一定要是MM。
-            g.PageUnit = GraphicsUnit.Millimeter;
-
-            Pen _myPen = new Pen(PenColor, _penWidth);
-            _myPen.DashStyle = PenDashStyle;
-            g.DrawLine(_myPen, new PointF(_X + _XAdd, _Y + _YAdd), new PointF(_X2 + _X2Add, _Y2 + _Y2Add));
-            //throw new NotImplementedException();
-        }
 
         public override PointF[] getRealPoint()
         {

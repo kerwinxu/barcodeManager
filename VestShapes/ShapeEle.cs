@@ -48,7 +48,7 @@ namespace VestShapes
 
         protected float fltJingDu = 3f;//就是隔多远判断是选中。如果已有改成毫米单位，这个也要改的。已经改成1毫米范围内了
 
-        //这个形状有这个是因为有形状要放大的时候，不能用图片放大，因为那牵涉到失真。
+        //这个形状有这个是因为有形状要放大的时候，不能用图片放大，因为那牵涉到失真。默认为1
         protected float _Zoom = 1f;
 
         //填充信息
@@ -428,7 +428,7 @@ namespace VestShapes
         }
 
         /// <summary>
-        /// 这个是这个类的核心方法，画图
+        /// 这个是这个类的核心方法，画图，在Graphics绘图，并且加上各种变换。
         /// </summary>
         /// <param name="g"></param>
         /// <param name="listMatrix"></param>
@@ -436,8 +436,9 @@ namespace VestShapes
         {
 
             //单位一定要是MM。
-            g.PageUnit = GraphicsUnit.Millimeter;
-
+            //在前面已经设置了，这里就不用设置了吧，并且
+            //客户自己会选择单位的吧。
+            //g.PageUnit = GraphicsUnit.Millimeter;
 
             //定义画笔
             Pen _myPen = new Pen(PenColor, _penWidth);
@@ -485,6 +486,16 @@ namespace VestShapes
         /// <param name="fltKongY"></param>
         public virtual void Draw(Graphics g, float fltKongX, float fltKongY)
         {
+
+            List<Matrix> listTmp = new List<Matrix>();
+            System.Drawing.Drawing2D.Matrix m = new Matrix();
+            m.Translate(fltKongX, fltKongY);
+            listTmp.Add(m);
+
+            Draw(g, listTmp);
+
+            #region 如下是原先的版本，已经注释掉了。
+            /** 
             //单位一定要是MM。
             g.PageUnit = GraphicsUnit.Millimeter;
 
@@ -520,69 +531,12 @@ namespace VestShapes
                 }
 
             }
-
-
-        }
-
-        /// <summary>
-        /// 这个绘图会根据形状角度，群组角度和路径自动绘图，只要多态掉路径定义就可以更改绘图了
-        /// </summary>
-        /// <param name="g"></param>
-        public virtual void Draw(Graphics g)
-        {
-            //单位一定要是MM。
-            g.PageUnit = GraphicsUnit.Millimeter;
-
-            //如下是先从绘制矩形中的拷贝的，然后再修改
-            if (Route != 0)
-            {
-                PointF pZhongXin = new PointF(_X + _XAdd + (_Width + _WidthAdd) / 2, _Y + _YAdd + (_Height + _HeightAdd) / 2);
-                g.TranslateTransform(pZhongXin.X, pZhongXin.Y, MatrixOrder.Prepend);
-                g.RotateTransform((float)Route);
-                g.TranslateTransform(-pZhongXin.X, -pZhongXin.Y);
-            }
-
-
-            //定义画笔
-            Pen _myPen = new Pen(PenColor, _penWidth);
-            _myPen.DashStyle = PenDashStyle;
-
-            //如下这个就是画边界
-            try
-            {
-                using (GraphicsPath path = getGraphicsPathNoOffsetRoute())
-                {
-                    g.DrawPath(_myPen, path);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                //ClsErrorFile.WriteLine(ex);
-                //throw;
-            }
-
-            //throw new NotImplementedException();
-            if (_isFill)
-            {
-                try
-                {
-                    using (GraphicsPath path = getGraphicsPathNoOffsetRoute())
-                    {
-                        g.FillPath(new SolidBrush(_FillColor), path);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    //ClsErrorFile.WriteLine(ex);
-                    //throw;
-                }
-
-            }
-
-            g.ResetTransform();
+             * */
+            #endregion
 
         }
+
+       
 
         /// <summary>
         /// 这个是加上所有前面的变换矩阵得到的路径
@@ -619,16 +573,22 @@ namespace VestShapes
         /// <returns></returns>
         public virtual GraphicsPath getGraphicsPath(float fltKongX, float fltKongY)
         {
-            GraphicsPath path = getGraphicsPath();//首先取得没有偏移但有旋转的路径
 
+            List<Matrix> listTmp = new List<Matrix>();
+            System.Drawing.Drawing2D.Matrix m = new Matrix();
+            m.Translate(fltKongX, fltKongY);
+            listTmp.Add(m);
+            return getGraphicsPath(listTmp);
+
+            /** 如下是不调用另一个重载函数的版本。
+            GraphicsPath path = getGraphicsPath();//首先取得没有偏移但有旋转的路径
             //做一个变换矩阵加上偏移和旋转
             System.Drawing.Drawing2D.Matrix m = new System.Drawing.Drawing2D.Matrix();
             //g.TranslateTransform(fltKongX, fltKongY, MatrixOrder.Prepend);
             m.Translate(fltKongX, fltKongY);
-
             path.Transform(m);//应用变换矩阵
-
             return path;
+             * */
         }
 
         /// <summary>

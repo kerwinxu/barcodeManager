@@ -64,10 +64,7 @@ namespace VestShapes
                     _arrlistKeyValue = value;
                 }
             }
-
-
         }
-
         
         protected   float _Zoom = 1f;
 
@@ -395,9 +392,28 @@ namespace VestShapes
                 #endregion
                 
             }
+        }
 
-           
-
+        /// <summary>
+        /// 初始化Graphics,主要是设置单位和图片清晰之类的，以便有个统一的Graphics对象
+        /// </summary>
+        /// <param name="g"></param>
+        protected  void initGraphics(Graphics g)
+        {
+            if (g!=null)
+            {
+                //单位一定要是MM。
+                g.PageUnit = GraphicsUnit.Millimeter;
+                //如下被认为可以清晰文字。g
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                //文字抗锯齿
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+                //设置高质量插值法
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                //g.SmoothingMode = SmoothingMode.HighQuality;
+                g.CompositingQuality = CompositingQuality.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            }
         }
 
         /// <summary>
@@ -407,20 +423,8 @@ namespace VestShapes
         /// <param name="listMatrix"></param>
         public  void DrawShapes(Graphics g, List<Matrix> listMatrix)
         {
-            
-            //单位一定要是MM。
-            g.PageUnit = GraphicsUnit.Millimeter;
 
-
-            //如下被认为可以清晰文字。g
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            //文字抗锯齿
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            //设置高质量插值法
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            //g.SmoothingMode = SmoothingMode.HighQuality;
-            g.CompositingQuality = CompositingQuality.HighQuality;
-            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            initGraphics(g);
             //
             if (arrlistShapeEle != null)
             {
@@ -432,10 +436,7 @@ namespace VestShapes
                     {
                         item.updateVarValue(arrlistKeyValue);
                     }
-
                     item.Draw(g, listMatrix);
-                   
-
                 }
 
             }
@@ -456,58 +457,10 @@ namespace VestShapes
             System.Drawing.Drawing2D.Matrix m = new Matrix();
             m.Translate(fltKongX, fltKongY);
             listTmp.Add(m);
-
             DrawShapes(g, listTmp);//调用这个进行绘图
 
-
         }
 
-        /// <summary>
-        /// 如下是根据图形数组绘图，可以递归群组的
-        /// </summary>
-        /// <param name="g"></param>
-        /// <param name="arraylist"></param>
-        /// <param name="fltKongX"></param>
-        /// <param name="fltKongY"></param>
-        private  void DrawShapes(Graphics g, ArrayList arraylist , float fltKongX , float fltKongY )
-        {
-            if (arraylist != null)
-            {
-                foreach (ShapeEle item in arraylist)
-                {
-                    //
-                    //将变量替换到相应的值后再绘图
-                    if (arrlistKeyValue != null)
-                    {
-                        item.updateVarValue(arrlistKeyValue);
-                    }
-
-                    item.Draw(g, fltKongX, fltKongY);
-                    /**
-                    //是组合的话，就得迭代。，但这个组合也是得画的。
-                    if (item.GetType().Name == "ShapeGroup")
-                    {
-                        DrawShapes(g, ((ShapeGroup)item).arrlistShapeEle, fltKongX, fltKongY);
-                        item.Draw(g);
-                    }
-                    else
-                    {
-                        //如下的这个是偏移些位置
-                        g.TranslateTransform(fltKongX, fltKongY, MatrixOrder.Prepend);
-                        item.Draw(g);//真正的绘图。
-                        //如下的这个是恢复原先的，负数.
-                        g.TranslateTransform(-fltKongX, -fltKongY);
-                        g.ResetTransform();//恢复原先的坐标系。
-                    }
-                     * */
-
-                }
-
-            }
-
-
-
-        }
 
         /// <summary>
         /// 根据一个矩形返回被选择的形状
@@ -531,7 +484,6 @@ namespace VestShapes
                 }
 
             }
-
 
             return arraylistSel;
         }

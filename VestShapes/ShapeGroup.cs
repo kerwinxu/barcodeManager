@@ -200,35 +200,6 @@ namespace VestShapes
             //base.Draw(g, arrlistMatrix);
         }
 
-        public override void Draw(Graphics g, float fltKongX, float fltKongY)
-        {
-
-            if (Count() > 0)
-            {
-                foreach (ShapeEle item in arrlistShapeEle)
-                {
-
-                    //如下是群组的角度
-                    if (Route != 0)
-                    {
-
-                        RectangleF rect = getRect();
-                        //如下的这个是偏移些位置
-                        g.TranslateTransform(fltKongX, fltKongY, MatrixOrder.Prepend);
-                        g.TranslateTransform(rect.X + rect.Width / 2, rect.Y + rect.Height / 2, MatrixOrder.Prepend);
-                        g.RotateTransform((float)Route);
-                        g.TranslateTransform(-rect.X, -rect.Y);
-                        g.TranslateTransform(-fltKongX - rect.Width / 2, -fltKongY - rect.Height / 2);
-                    }
-                    item.Draw(g, fltKongX, fltKongY);
-                    //g.ResetTransform();//恢复原先的坐标系。
-                }
-
-
-            }
-            SetSelRectXYWH();//仅仅计算就可以了。
-
-        }
 
         public override ShapeEle DeepClone()
         {

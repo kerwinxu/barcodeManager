@@ -752,7 +752,7 @@ namespace VestShapes
                 shapeRect.Height = BarcodePaperLayout.PaperHeight;
                 shapeRect.Zoom = fzoom;
                 shapeRect.PenWidth = fltPenWidth;
-                shapeRect.Draw(g);
+                shapeRect.Draw(g,null);
 
                 //如下是绘制各个模板的背景
                 for (int i = 0; i < BarcodePaperLayout.NumberOfColumn; i++)
@@ -881,7 +881,7 @@ namespace VestShapes
                     shapeRect.FillColor = Color.White;
                     shapeRect.isFill = true;
                     shapeRect.PenWidth = fltPenWidth;
-                    shapeRect.Draw(g);
+                    shapeRect.Draw(g,null);
                     break;
                 case "圆角矩形":
                      ShapeRoundRect  shapeRouneRect = new ShapeRoundRect();
@@ -894,7 +894,7 @@ namespace VestShapes
                      shapeRouneRect.FillColor = Color.White;
                      shapeRouneRect.isFill = true;
                      shapeRouneRect.PenWidth = fltPenWidth;
-                     shapeRouneRect.Draw(g);
+                     shapeRouneRect.Draw(g,null);
                     break;
                 case "椭圆形":
                     ShapeEllipse shapeEllipse = new ShapeEllipse();
@@ -906,7 +906,7 @@ namespace VestShapes
                     shapeEllipse.FillColor = Color.White;
                     shapeEllipse.isFill = true;
                     shapeEllipse.PenWidth = fltPenWidth;
-                    shapeEllipse.Draw(g);
+                    shapeEllipse.Draw(g,null);
                     break;
                 case "CD":
                     break;

@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="ClsXmlSerializationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializableDictionaryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StreamPlus\StreamPlus.csproj">

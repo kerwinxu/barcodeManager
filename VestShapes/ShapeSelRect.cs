@@ -348,33 +348,6 @@ namespace VestShapes
          * */
 
 
-        public override void Draw(Graphics g)
-        {
-            //单位一定要是MM。
-            g.PageUnit = GraphicsUnit.Millimeter;
-
-            //首先判断是否有形状，如果没有形状，那么就不用画了
-            if (Count() > 0)
-            {
-                SetSelRectXYWH();
-                Pen _myPen = new Pen(PenColor, _penWidth);
-                _myPen.DashStyle = DashStyle.Dot;
-                _myPen.Width = 1;
-                _myPen.Color = Color.Red;
-                g.DrawRectangle(_myPen, _X + _XAdd, _Y + _YAdd, _Width + _WidthAdd, _Height + _HeightAdd);
-
-                //画节点，其实就是在这个选择框的四周画四个小矩形
-                Pen penJieDian = new Pen(Color.Black);
-                penJieDian.Color = Color.Red;
-                float fltJieDianWidth = 2;
-
-                g.DrawRectangle(penJieDian, _X + _XAdd - fltJieDianWidth / 2, _Y + _YAdd - fltJieDianWidth / 2, fltJieDianWidth, fltJieDianWidth);
-                g.DrawRectangle(penJieDian, _X + _XAdd + _Width + _WidthAdd - fltJieDianWidth / 2, _Y + _YAdd - fltJieDianWidth / 2, fltJieDianWidth, fltJieDianWidth);
-                g.DrawRectangle(penJieDian, _X + _XAdd - fltJieDianWidth / 2, _Y + _YAdd + _Height + _HeightAdd - fltJieDianWidth / 2, fltJieDianWidth, fltJieDianWidth);
-                g.DrawRectangle(penJieDian, _X + _XAdd + _Width + _WidthAdd - fltJieDianWidth / 2, _Y + _YAdd + _Height + _HeightAdd - fltJieDianWidth / 2, fltJieDianWidth, fltJieDianWidth);
-            }
-            //throw new NotImplementedException();
-        }
 
         /// <summary>
         /// 根据一个点来返回选择的形状

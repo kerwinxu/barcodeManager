@@ -662,7 +662,7 @@ namespace VestShapes
             return _strAllText;
 
         }
-
+        /**
         public override void Draw(Graphics g, float fltKongX, float fltKongY)
         {
             //如下是直接拷贝静态文本的，只是修改了显示的
@@ -741,6 +741,7 @@ namespace VestShapes
             //base.Draw(g, fltKongX, fltKongY);
         }
 
+         * */
 
         /**
         public override void Draw(Graphics g, ArrayList arrlistMatrix)
@@ -856,64 +857,6 @@ namespace VestShapes
 
 
 
-
-
-
-
-
-
-
-        public override void Draw(Graphics g)
-        {
-            //单位一定要是MM。
-            g.PageUnit = GraphicsUnit.Millimeter;
-
-            //如下是直接拷贝静态文本的，只是修改了显示的
-
-            float fltx = _X + _XAdd;
-            float flty = _Y + _YAdd;
-            float fltw = _Width + _WidthAdd;
-            float flth = _Height + _HeightAdd;
-
-
-
-            if ((_route + _routeAdd) != 0)
-            {
-                //旋转图形
-                PointF pZhongXin = new PointF(fltx + (fltw) / 2, flty + (flth) / 2);
-                g.TranslateTransform(pZhongXin.X, pZhongXin.Y, MatrixOrder.Prepend);
-                g.RotateTransform((float)Route);
-                g.TranslateTransform(-pZhongXin.X, -pZhongXin.Y);
-            }
-
-            //如下是拉伸图形。
-            g.TranslateTransform(fltx, flty, MatrixOrder.Prepend);
-            g.ScaleTransform(_fltStretchWidthAdd + _fltStretchWidth, _fltStretchHeightAdd + _fltStretchHeight); // 
-            g.TranslateTransform(-fltx, -flty);
-
-            //跟静态文本唯一的区别是，如下显示的是_strAllText 
-            //显示区域
-            RectangleF rect = new RectangleF(fltx, flty, fltw, flth);
-
-            // 字符串格式
-            StringFormat sf = new StringFormat();
-            sf.Alignment = AlignMent;
-            sf.LineAlignment = LineAlignMent;
-
-            try
-            {
-                g.DrawString(_strAllText, _RealFont, new SolidBrush(_FillColor), rect, sf);
-            }
-            catch (System.Exception ex)
-            {
-                ////ClsErrorFile.WriteLine(ex);
-            }
-
-            //throw new NotImplementedException();
-
-            g.ResetTransform();
-            //throw new NotImplementedException();
-        }
 
         public override bool updateVarValue(ArrayList arrlistKeyValue)
         {

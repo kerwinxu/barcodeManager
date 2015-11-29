@@ -5,7 +5,7 @@ using System.Text;
 namespace Xuhengxiao.MyDataStructure
 {
     /// <summary>
-    /// 这个类封装一个关键词和他的值
+    /// 这个类封装一个关键词和他的值,用这个来表示是因为Dictionary不支持序列化
     /// </summary>
     [Serializable]
     public class clsKeyValue
