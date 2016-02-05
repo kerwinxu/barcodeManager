@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -112,21 +112,34 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="userControl11.arrlistKeyValue" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAEAQAAABxTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0AwAAAAZfaXRl
-        bXMFX3NpemUIX3ZlcnNpb24FAAAICAkCAAAAAAAAAAAAAAAQAgAAAAAAAAAL
-</value>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>本软件最大的特点就是简单，根据你的自定义模板和有数据的EXCEL表格就可以实现批量打印，像如下的Excel表格是很常见的格式，本软件是自动把第一行当作“变量名”，而把第二行开始的数据当作“变量值”，在模板编辑窗体中，只需要定义这些变量的位置或者格式等信息就可以了，变量值是自动替换的，也可以画线段，椭圆等图形,还可以定义条形码纸张,比如说40mm x 40mm,条形码纸之间的水平间距是2mm，每行有2个条形码纸。连续的条形码纸，只要你把你需要的垂直间距加到高度上就可以了。
+
+本软件画图是单位是毫米,有刻度尺.
+
+多个EXCEL表格可以用同一个模板打印，同样，一个EXCEL表格可以选择多种模板打印,这个是很方便选择的.
+
+因为我在公司就做条形码打印工作,这个软件极大的增加了效率,88元是超值的.
+
+
+款号	品名	数量	条形码
+1	男装T恤	342	123456789012
+2	女装T恤	42342	123456789013
+3	男装休闲长裤	4242	123456789014
+4	女装休闲长裤	42	123456789015
+5	男装牛仔长裤	4242	123456789016
+6	女装牛仔长裤	42	123456789017
+7	男装长袖衬衫	452	123456789018
+8	女装长袖衬衫	5432	123456789019
+
+因为ADO问题，某些列前8行都是数字的话，这个就会判断这一列都是数字类型，而如果这一列的其他行是文字，导入时会变成空值，解决方法是修改注册表：
+点击开始菜单，选择运行，输入“regedit",选择 编辑/查找，输入TypeGuessRows ，在我电脑上是“HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Jet\4.0\Engines\Excel”，有些电脑是"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Jet\3.5\Engines\Excel
+"，你会看到这个注册表键数值为8,这个表示只判断前8项，你修改成一个比较大的数字就可以了，我直接修改成1000了。
+你也可以用本程序目录中的“修改ADO参数”来修改。</value>
   </data>
-  <metadata name="saveFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>161, 17</value>
-  </metadata>
 </root>

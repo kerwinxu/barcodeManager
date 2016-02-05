@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace VestShapes
+namespace BarcodeTerminator
 {
     static class Program
     {
@@ -14,7 +14,7 @@ namespace VestShapes
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new FrmSaveImage());
         }
     }
 }

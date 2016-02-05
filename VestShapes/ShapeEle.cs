@@ -479,7 +479,7 @@ namespace VestShapes
         }
 
         /// <summary>
-        /// 这个绘图会加上偏移
+        /// 这个绘图会加上偏移，这个方法也是可以去掉的。
         /// </summary>
         /// <param name="g"></param>
         /// <param name="fltKongX"></param>
@@ -840,7 +840,7 @@ namespace VestShapes
         /// <param name="p1"></param>
         /// <param name="p2"></param>
         /// <returns></returns>
-        private double GetDistance(PointF p1, PointF p2)
+        protected double GetDistance(PointF p1, PointF p2)
         {
             return Math.Sqrt((p1.X - p2.X) * (p1.X - p2.X) + (p1.Y - p2.Y) * (p1.Y - p2.Y));
 

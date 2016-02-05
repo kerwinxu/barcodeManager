@@ -1,4 +1,4 @@
-﻿namespace BarcodeManager
+﻿namespace SelectPrinter
 {
     partial class Form1
     {

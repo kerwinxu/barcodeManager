@@ -131,21 +131,11 @@ namespace VestShapes
                 }
             }
         }
-        [XmlIgnore]
-        public   static  bool isZhuCe=false;
+
 
         [XmlIgnore]
         public static string StrCode;
 
-        /// <summary>
-        /// 读取机器码的
-        /// </summary>
-        public static void setStrCode()
-        {
-            ClsZhuCe.setStrCode();
-            isZhuCe = ClsZhuCe.isZhuCe;//设置注册信息
-            
-        }
         
         public Shapes()
         {
@@ -155,8 +145,6 @@ namespace VestShapes
             arrlistShapeEle = new ArrayList();
 
         }
-
-
 
 
         /// <summary>
@@ -230,10 +218,9 @@ namespace VestShapes
         /// <param name="arrlistMatrix"></param>
         public void Draw(Graphics g, List<Matrix> arrlistMatrix)
         {
-
             try
             {
-                //偏移
+                //偏移，绘制画布背景啦，比如说选择的是A4纸张，就绘制A4纸张大小的背景。
                 BarcodePageSettings.DrawModelBackground(g, 0, 0, Zoom, arrlistMatrix);//绘制模板的背景
 
             }
@@ -270,7 +257,7 @@ namespace VestShapes
         }
 
         /// <summary>
-        /// 画图，可以设置偏移，这个包含背景的
+        /// 画图，特定的转换中指定设置偏移
         /// </summary>
         /// <param name="g"></param>
         /// <param name="KongX"></param>
@@ -281,117 +268,8 @@ namespace VestShapes
             System.Drawing.Drawing2D.Matrix m = new Matrix();
             m.Translate(KongX, KongY);
             listTmp.Add(m);
-
             Draw(g, listTmp);//调用这个进行绘图
 
-            //如下的相当于被注释掉了
-            if (false)
-            {
-                /** 
-           //单位一定要是MM。
-           g.PageUnit = GraphicsUnit.Millimeter;
-
-           //如下被认为可以清晰文字。
-           g.SmoothingMode = SmoothingMode.HighQuality;
-           g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-           g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-           g.CompositingQuality = CompositingQuality.HighQuality;
-            * */
-
-                //如果需要绘制刻度尺，那么这里就用一个双缓冲来实现。
-                //绘制条形码纸范围
-                //SolidBrush brush = new SolidBrush(Color.White);
-
-
-
-                //如下是画一个条形码模板的底
-                //g.FillRectangle(brush, 0f, 0f, barcodePaper.Width * Zoom, barcodePaper.Height * Zoom);
-                try
-                {
-                    //偏移
-                    g.TranslateTransform(KongX, KongY, MatrixOrder.Prepend);
-                    BarcodePageSettings.DrawModelBackground(g, 0, 0, Zoom);//绘制模板的背景
-                    g.TranslateTransform(-KongX, -KongY);
-                    g.ResetTransform();//恢复原先的坐标系。
-                }
-                catch (Exception ex)
-                {
-                    //ClsErrorFile.WriteLine(ex);
-                    //throw;
-                }
-
-
-                DrawShapes(g, KongX, KongY);
-
-
-                #region //如下的已经被注释掉了。
-                /**
-            if (!isZhuCe)
-            {
-                //要留出空白来
-                ShapeRect shapeRect = new ShapeRect();
-                shapeRect.X = 5;
-                shapeRect.Y = 5;
-                shapeRect.isFill = true;
-                shapeRect.FillColor = Color.White;
-
-                ShapeStateText stt = new ShapeStateText();
-                stt.Text = "没有注册";
-                stt.X = 5;
-                stt.Y = 5;
-                stt.TextFont = new Font("Arial", 10);
-
-                shapeRect.Height = stt.Height;
-                shapeRect.Width = stt.Width;
-
-                shapeRect.Zoom = Zoom;
-                stt.Zoom = Zoom;
-
-                //偏移
-                g.TranslateTransform(KongX, KongY, MatrixOrder.Prepend);
-                shapeRect.Draw(g);
-                g.TranslateTransform(-KongX, -KongY);
-                g.ResetTransform();//恢复原先的坐标系。
-
-                g.TranslateTransform(KongX, KongY, MatrixOrder.Prepend);
-                stt.Draw(g);
-                g.TranslateTransform(-KongX, -KongY);
-                g.ResetTransform();//恢复原先的坐标系。
-                
-            }
-             * *.
-
-
-
-            /**如下的不能适合组合的情况，
-
-            if (arrlistShapeEle != null)
-            {
-                foreach (ShapeEle item in arrlistShapeEle)
-                {
-                    //
-
-                    //将变量替换到相应的值后再绘图
-                    if (arrlistKeyValue != null)
-                    {
-                        item.updateVarValue(arrlistKeyValue);
-                    }
-
-
-                    g.TranslateTransform(KongX, KongY, MatrixOrder.Prepend);
-                    
-                    item.Draw(g);
-
-                    g.TranslateTransform(-KongX, -KongY);
-                    g.ResetTransform();
-
-                }
-
-            }
-             * */
-                #endregion
-                
-            }
         }
 
         /// <summary>
@@ -417,7 +295,7 @@ namespace VestShapes
         }
 
         /// <summary>
-        /// 画图，不包含背景
+        /// 绘制图形，不包含背景
         /// </summary>
         /// <param name="g"></param>
         /// <param name="listMatrix"></param>
@@ -440,8 +318,6 @@ namespace VestShapes
                 }
 
             }
-            
-
         }
 
         /// <summary>

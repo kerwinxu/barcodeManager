@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace BarcodeManager
+namespace Help
 {
     public partial class Form1 : Form
     {

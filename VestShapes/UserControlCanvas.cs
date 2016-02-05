@@ -951,8 +951,7 @@ namespace VestShapes
         /// <param name="strFileName"></param>
         public string  Loader(String strFileName)
         {
-            Shapes.setStrCode();
-
+         
             try
             {
                 using (Stream stream = new FileStream(strFileName, FileMode.Open, FileAccess.Read, FileShare.Read))
