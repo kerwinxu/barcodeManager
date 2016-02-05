@@ -635,7 +635,7 @@
             // 
             // userControlCanvas1
             // 
-            this.userControlCanvas1.arrlistKeyValue = ((System.Collections.ArrayList)(resources.GetObject("userControlCanvas1.arrlistKeyValue")));
+            //this.userControlCanvas1.arrlistKeyValue = ((System.Collections.ArrayList)(resources.GetObject("userControlCanvas1.arrlistKeyValue")));
             this.userControlCanvas1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.userControlCanvas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.userControlCanvas1.Location = new System.Drawing.Point(5, 3);
