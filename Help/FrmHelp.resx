@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBox1.Text" xml:space="preserve">
     <value>本软件最大的特点就是简单，根据你的自定义模板和有数据的EXCEL表格就可以实现批量打印，像如下的Excel表格是很常见的格式，本软件是自动把第一行当作“变量名”，而把第二行开始的数据当作“变量值”，在模板编辑窗体中，只需要定义这些变量的位置或者格式等信息就可以了，变量值是自动替换的，也可以画线段，椭圆等图形,还可以定义条形码纸张,比如说40mm x 40mm,条形码纸之间的水平间距是2mm，每行有2个条形码纸。连续的条形码纸，只要你把你需要的垂直间距加到高度上就可以了。
@@ -140,6 +140,7 @@
 因为ADO问题，某些列前8行都是数字的话，这个就会判断这一列都是数字类型，而如果这一列的其他行是文字，导入时会变成空值，解决方法是修改注册表：
 点击开始菜单，选择运行，输入“regedit",选择 编辑/查找，输入TypeGuessRows ，在我电脑上是“HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Jet\4.0\Engines\Excel”，有些电脑是"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Jet\3.5\Engines\Excel
 "，你会看到这个注册表键数值为8,这个表示只判断前8项，你修改成一个比较大的数字就可以了，我直接修改成1000了。
-你也可以用本程序目录中的“修改ADO参数”来修改。</value>
+你也可以用本程序目录中的“修改ADO参数”来修改。
+软件已经开源： https://github.com/kerwinxu/barcodeManager.git</value>
   </data>
 </root>

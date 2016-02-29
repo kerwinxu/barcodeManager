@@ -31,14 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.lblzhuCe = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.btnZhuCe = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.userControlCanvas1 = new VestShapes.UserControlCanvas();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.btnUpdateModel = new System.Windows.Forms.Button();
             this.btnSaveImage = new System.Windows.Forms.Button();
@@ -78,17 +77,20 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.toolTipAutoPrint = new System.Windows.Forms.ToolTip(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.userControlCanvas1 = new VestShapes.UserControlCanvas();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
@@ -105,10 +107,8 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.lblzhuCe);
             this.splitContainer1.Panel1.Controls.Add(this.linkLabel1);
             this.splitContainer1.Panel1.Controls.Add(this.textBox1);
-            this.splitContainer1.Panel1.Controls.Add(this.btnZhuCe);
             this.splitContainer1.Panel1.Controls.Add(this.btnHelp);
             // 
             // splitContainer1.Panel2
@@ -118,18 +118,9 @@
             this.splitContainer1.SplitterDistance = 62;
             this.splitContainer1.TabIndex = 0;
             // 
-            // lblzhuCe
-            // 
-            this.lblzhuCe.AutoSize = true;
-            this.lblzhuCe.Location = new System.Drawing.Point(9, 636);
-            this.lblzhuCe.Name = "lblzhuCe";
-            this.lblzhuCe.Size = new System.Drawing.Size(41, 12);
-            this.lblzhuCe.TabIndex = 31;
-            this.lblzhuCe.Text = "未注册";
-            // 
             // linkLabel1
             // 
-            this.linkLabel1.Location = new System.Drawing.Point(3, 503);
+            this.linkLabel1.Location = new System.Drawing.Point(8, 557);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(48, 43);
             this.linkLabel1.TabIndex = 1;
@@ -144,19 +135,10 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(40, 487);
+            this.textBox1.Size = new System.Drawing.Size(40, 533);
             this.textBox1.TabIndex = 2;
-            this.textBox1.Text = "如有企业需要开发软件，请联系我。\r\n";
-            // 
-            // btnZhuCe
-            // 
-            this.btnZhuCe.Location = new System.Drawing.Point(5, 569);
-            this.btnZhuCe.Name = "btnZhuCe";
-            this.btnZhuCe.Size = new System.Drawing.Size(51, 23);
-            this.btnZhuCe.TabIndex = 1;
-            this.btnZhuCe.Text = "注册";
-            this.btnZhuCe.UseVisualStyleBackColor = true;
-            this.btnZhuCe.Click += new System.EventHandler(this.btnZhuCe_Click);
+            this.textBox1.Text = "本软件开放源代码，自愿支付注册费。";
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // btnHelp
             // 
@@ -223,6 +205,19 @@
             this.splitContainer3.Size = new System.Drawing.Size(918, 231);
             this.splitContainer3.SplitterDistance = 339;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // userControlCanvas1
+            // 
+            this.userControlCanvas1.arrlistKeyValue = ((System.Collections.ArrayList)(resources.GetObject("userControlCanvas1.arrlistKeyValue")));
+            this.userControlCanvas1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.userControlCanvas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.userControlCanvas1.Location = new System.Drawing.Point(5, 3);
+            this.userControlCanvas1.Name = "userControlCanvas1";
+            this.userControlCanvas1.Option = "drawRect";
+            this.userControlCanvas1.Size = new System.Drawing.Size(333, 235);
+            this.userControlCanvas1.TabIndex = 0;
+            this.userControlCanvas1.Zoom = 1F;
+            this.userControlCanvas1.Resize += new System.EventHandler(this.userControlCanvas1_Resize);
             // 
             // splitContainer4
             // 
@@ -633,19 +628,6 @@
             this.timer2.Interval = 2000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // userControlCanvas1
-            // 
-            //this.userControlCanvas1.arrlistKeyValue = ((System.Collections.ArrayList)(resources.GetObject("userControlCanvas1.arrlistKeyValue")));
-            this.userControlCanvas1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.userControlCanvas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.userControlCanvas1.Location = new System.Drawing.Point(5, 3);
-            this.userControlCanvas1.Name = "userControlCanvas1";
-            this.userControlCanvas1.Option = "drawRect";
-            this.userControlCanvas1.Size = new System.Drawing.Size(333, 235);
-            this.userControlCanvas1.TabIndex = 0;
-            this.userControlCanvas1.Zoom = 1F;
-            this.userControlCanvas1.Resize += new System.EventHandler(this.userControlCanvas1_Resize);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -658,17 +640,21 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel1.PerformLayout();
             this.splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPrintedRecords)).EndInit();
             this.ResumeLayout(false);
@@ -706,13 +692,11 @@
         private System.Windows.Forms.Label lblQtyWaitPrint;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button btnZhuCe;
         private System.Windows.Forms.ToolTip toolTipAutoPrint;
         private System.Windows.Forms.CheckBox chkJianGe;
         private System.Windows.Forms.Button btnQueuePrint;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label lblzhuCe;
         private System.Windows.Forms.Label label5;
         private VestShapes.UserControlCanvas userControlCanvas1;
         private System.Windows.Forms.Label label6;

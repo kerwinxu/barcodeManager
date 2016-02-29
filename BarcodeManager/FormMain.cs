@@ -1299,7 +1299,12 @@ namespace BarcodeTerminator
             }
         }
 
+        private void  isYanZhengZhuce()
+        {
 
+
+            
+        }
         /**
         private string Decrypt(string base64code) //解密
         {
@@ -1832,6 +1837,11 @@ namespace BarcodeTerminator
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -39,13 +39,13 @@
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(437, 433);
+            this.textBox1.Size = new System.Drawing.Size(437, 444);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(181, 451);
+            this.btnClose.Location = new System.Drawing.Point(182, 462);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 0;
