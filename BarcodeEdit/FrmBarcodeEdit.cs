@@ -144,6 +144,9 @@ namespace BarcodeTerminator
                         }
 
                     }
+
+                    //给画布更新变量信息。
+                    setKeyValue(arrlist);
                     //更新到画布
                     userControlCanvas1.arrlistKeyValue = arrlist;
 
@@ -632,6 +635,8 @@ namespace BarcodeTerminator
             LoadDataTable(myClsDataBase.getUserLoadTable(strTableName));
             //还得选择哪个是数量
             loadPrintedQtytoComboBox();
+
+            //要更新变量名
         }
         private void btnCtrlX_Click(object sender, EventArgs e)
         {

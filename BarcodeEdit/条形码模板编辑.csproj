@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{391D9558-8718-4466-815D-6F31A7EE0394}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BarcodeTerminator</RootNamespace>
+    <AssemblyName>条形码模板编辑</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon2.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FrmBarcodeEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBarcodeEdit.designer.cs">
+      <DependentUpon>FrmBarcodeEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Icon2.ico" />
+    <Content Include="Icon3.ico" />
+    <Content Include="png\align-right.png" />
+    <Content Include="png\shape_align_bottom.png" />
+    <Content Include="png\shape_align_left.png" />
+    <Content Include="png\shape_align_top.png" />
+    <EmbeddedResource Include="FrmBarcodeEdit.resx">
+      <DependentUpon>FrmBarcodeEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Content Include="BarcodeModel\ScStyle.barcode" />
+    <Content Include="BarcodeModel\templet.barcode" />
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClsImport\ImportData.csproj">
+      <Project>{27BF7401-A558-475B-9A64-30B64F6F1451}</Project>
+      <Name>ImportData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\我自己编写的类库\MyDataStructure\MyDataStructure.csproj">
+      <Project>{7A35F89B-1043-4DF7-B2B9-721EEDB519A2}</Project>
+      <Name>MyDataStructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VestShapes 2012-11-2\VestShapes\VestShapes.csproj">
+      <Project>{ACE5C531-6DD6-4CF6-B8C8-8CBE042EAF79}</Project>
+      <Name>VestShapes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\帮助\帮助.csproj">
+      <Project>{D2B38F2A-662B-481E-9F01-9975938A102D}</Project>
+      <Name>帮助</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\打印库\打印库.csproj">
+      <Project>{57D32784-CAD9-4A7D-BEC9-E12712B026ED}</Project>
+      <Name>打印库</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\数据库操作\数据库操作.csproj">
+      <Project>{23C29E24-E030-4847-8481-F7F95D9317F9}</Project>
+      <Name>数据库操作</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\选择打印机\选择打印机.csproj">
+      <Project>{1C42CDDB-6449-4773-AA22-4061150685EA}</Project>
+      <Name>选择打印机</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
