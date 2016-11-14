@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+//using System.Linq;
 using System.Text;
 
 namespace VestShapes
@@ -29,7 +31,6 @@ namespace VestShapes
             return shapeEle;
             //throw new NotImplementedException();
         }
-
         /**
         public override void Draw(Graphics g)
         {

@@ -45,7 +45,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,6 +60,29 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'x86|AnyCPU'">
     <OutputPath>bin\x86\</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'x86|x86'">
+    <OutputPath>bin\x86\x86\</OutputPath>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -179,12 +202,9 @@
     <Content Include="png\shape_align_middle.png" />
     <Content Include="png\shape_align_top.png" />
     <Content Include="Readme.txt" />
+    <Content Include="update.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BarcodeLib\BarcodeLib.csproj">
-      <Project>{f8646414-0c9c-49bb-9da3-3923bf78a398}</Project>
-      <Name>BarcodeLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyDataStructure\MyDataStructure.csproj">
       <Project>{7a35f89b-1043-4df7-b2b9-721eedb519a2}</Project>
       <Name>MyDataStructure</Name>

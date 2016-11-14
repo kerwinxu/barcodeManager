@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
+//using System.Linq;
 using System.Text;
 
 namespace VestShapes
@@ -24,60 +24,38 @@ namespace VestShapes
 
         public override void Draw(Graphics g, List<Matrix> listMatrix)
         {
+            RectangleF rect = getGraphicsPath(listMatrix).GetBounds();
+            float fltx = rect.X;
+            float flty = rect.Y;
+            float fltw = rect.Width;
+            float flth = rect.Height;
+
             //单位一定要是MM。
             g.PageUnit = GraphicsUnit.Millimeter;
+            //如下的这个是偏移些位置
 
+
+            //如下是先从绘制矩形中的拷贝的，然后再修改
+            if (Route != 0)
+            {
+                PointF pZhongXin = getCentrePoint();
+                g.TranslateTransform(pZhongXin.X, pZhongXin.Y, MatrixOrder.Prepend);
+                g.RotateTransform((float)Route);
+                g.TranslateTransform(-pZhongXin.X, -pZhongXin.Y);
+            }
 
             //定义画笔
             Pen _myPen = new Pen(PenColor, _penWidth);
             _myPen.DashStyle = PenDashStyle;
 
-            GraphicsPath path = base.getGraphicsPath();//首先取得没有偏移但有旋转的路径
+            //RectangleF rect = getRect();
 
-            //再反转这个个变换
-            listMatrix.Reverse();
-
-            if ((listMatrix != null) && (listMatrix.Count > 0))//只有数量大于0才能做如下的
-            {
-                for (int i = 0; i < listMatrix.Count; i++)
-                {
-                    path.Transform((Matrix)listMatrix[i]);
-
-                }
-            }
-
-
-
-            //如下这个就是画边界
-            try
-            {
-
-                g.DrawPath(_myPen, path);
-
-
-            }
-            catch (Exception ex)
-            {
-                ////ClsErrorFile.WriteLine(ex);
-                //throw;
-            }
-
-            //throw new NotImplementedException();
-            if (_isFill)
-            {
-                try
-                {
-
-                    g.FillPath(new SolidBrush(_FillColor), path);
-
-                }
-                catch (Exception ex)
-                {
-                    ////ClsErrorFile.WriteLine(ex);
-                    //throw;
-                }
-
-            }
+            //这里绘图。
+            // 字符串格式
+            StringFormat sf = new StringFormat();
+            sf.Alignment = AlignMent;
+            sf.LineAlignment = LineAlignMent;
+            g.DrawString(_strAllText, _RealFont, new SolidBrush(_FillColor), new RectangleF(fltx, flty, fltw, flth), sf);
 
             g.ResetTransform();
             //base.Draw(g, arrlistMatrix);
@@ -111,22 +89,7 @@ namespace VestShapes
         protected override void UpdateWidthHeight()
         {
             UpdateStrAllText();//首先更新
-            /**
-
-            //这里自动取得字符串的宽度和高度
-            Bitmap bitmap = new Bitmap(100, 100);
-            Graphics g = Graphics.FromImage(bitmap);
-            g.PageUnit = GraphicsUnit.Millimeter;//因为我所有的都换成毫米单位了。，这里求出来的宽度和高度是以毫米为单位的。
-            SizeF MaxSizef = new SizeF(Width, Height);//这个最大大小，用宽度固定，来求长度的方式
-            SizeF textSizef = g.MeasureString(_strAllText, _font,MaxSizef);//
-
-            Height = MaxSizef.Height;//只有这个需要求。因为宽度是固定的
-
-            // 销毁
-            g.Dispose();
-            bitmap.Dispose();
-            //base.UpdateWidthHeight();
-             * */
+            //因为这个是多行文本，是不需要自动计算字体高度等的，所以取消了。
         }
 
 

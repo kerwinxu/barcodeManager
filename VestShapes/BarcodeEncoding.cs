@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
+//using System.Linq;
 using System.Text;
 
 namespace VestShapes
@@ -15,12 +15,7 @@ namespace VestShapes
     public class BarcodeEncoding : StringConverter
     {
         //我现在只能用这种静态的方式来搞定这个了。
-        public static string[] arrVarName = { "EAN13","EAN8","UPCA","UPCE","UPC_SUPPLEMENTAL_2DIGIT","UPC_SUPPLEMENTAL_5DIGIT",
-                                                "CODE39","CODE39Extended","CODE128","CODE128A","CODE128B","CODE128C",
-                                                "Codabar","ISBN","Interleaved2of5","Standard2of5","Industrial2of5","PostNet",
-                                                "BOOKLAND","JAN13","MSI_Mod10","MSI_2Mod10","MSI_Mod11","MSI_Mod11_Mod10",
-                                                "Modified_Plessey","CODE11","USD8","UCC12","UCC13","LOGMARS,","ITF14","CODE93",
-                                                "TELEPEN","FIM","QR_CODE"};
+        public static string[] arrVarName = { "EAN13","EAN8", "CODE_39", "QR_CODE" };
 
 
         //覆盖 GetStandardValuesSupported 方法并返回 true ，表示此对象支持可以从列表中选取的一组标准值。   

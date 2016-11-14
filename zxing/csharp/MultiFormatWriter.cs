@@ -54,7 +54,12 @@ namespace com.google.zxing
 			{
 				return new QRCodeWriter().encode(contents, format, width, height, hints);
 			}
-			else
+
+            else if (format == BarcodeFormat.CODE_39)
+            {
+                return new com.google.zxing.oned.Code39Writer().encode(contents, format, width, height, hints);
+            }
+            else
 			{
 				throw new System.ArgumentException("No encoder available for format " + format);
 			}

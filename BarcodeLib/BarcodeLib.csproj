@@ -73,6 +73,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
@@ -82,12 +83,6 @@
     <Compile Include="BarcodeLib.cs" />
     <Compile Include="BarcodeCommon.cs" />
     <Compile Include="BarcodeXML.cs">
-      <DependentUpon>BarcodeXML.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="BarcodeXML.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>BarcodeXML.xsd</DependentUpon>
     </Compile>
     <Compile Include="IBarcode.cs" />
@@ -135,13 +130,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="BarcodeXML.xsc">
       <DependentUpon>BarcodeXML.xsd</DependentUpon>
     </None>
     <None Include="BarcodeXML.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>BarcodeXML.Designer.cs</LastGenOutput>
     </None>
     <None Include="BarcodeXML.xss">
       <DependentUpon>BarcodeXML.xsd</DependentUpon>

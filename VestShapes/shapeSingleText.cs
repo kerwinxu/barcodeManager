@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
+//using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -228,35 +228,6 @@ namespace VestShapes
         }
          * */
 
-        /// <summary>
-        /// 这个只是取得在一个画布上画这些字符串的图像
-        /// </summary>
-        /// <returns></returns>
-        protected Bitmap getFontImage()
-        {
-
-            Bitmap bitmap = new Bitmap(100, 100);
-            Graphics g = Graphics.FromImage(bitmap);
-
-            //这里绘图。
-            // 字符串格式
-            StringFormat sf = new StringFormat();
-            sf.Alignment = AlignMent;
-            sf.LineAlignment = LineAlignMent;
-            try
-            {
-                //只是在原点绘制
-                g.DrawString(_strAllText, _RealFont, new SolidBrush(_FillColor), new PointF(0, 0), sf);
-            }
-            catch (System.Exception ex)
-            {
-                ////ClsErrorFile.WriteLine(ex);
-            }
-
-            return bitmap;
-
-
-        }
 
         public override void Draw(Graphics g, List<Matrix> listMatrix)
         {
@@ -286,9 +257,16 @@ namespace VestShapes
 
             //RectangleF rect = getRect();
 
-            g.DrawImage(getFontImage(), new PointF(fltx, flty));
+            //这里绘图。
+            // 字符串格式
+            StringFormat sf = new StringFormat();
+            sf.Alignment = AlignMent;
+            sf.LineAlignment = LineAlignMent;
+            g.DrawString(_strAllText, _RealFont, new SolidBrush(_FillColor), new PointF(fltx, flty), sf);
 
-            g.ResetTransform();
+
+
+                g.ResetTransform();
             //base.Draw(g, arrlistMatrix);
 
         }

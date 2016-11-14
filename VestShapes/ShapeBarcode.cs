@@ -1,4 +1,4 @@
-﻿using BarcodeLib;
+﻿//using BarcodeLib;
 using com.google.zxing;
 using com.google.zxing.qrcode.decoder;
 using System;
@@ -26,7 +26,7 @@ namespace VestShapes
         protected string _strBarcodeNumber;
         protected Font _fontLabelFont = new Font("Microsoft Sans Serif", 10, FontStyle.Bold); //数字的字体。
         protected Font _RealFont = new Font("Microsoft Sans Serif", 10, FontStyle.Bold);
-        private LabelPositions _LabelPosition = LabelPositions.BOTTOMCENTER;//
+        //private LabelPositions _LabelPosition = LabelPositions.BOTTOMCENTER;//取消这个属性啦2016/10/7
 
         private float _fltOldW, _fltOldh;//这两个参数用在条形码中，特别是二维码运算很繁琐，这两个保存旧的宽度和高度，如果这两个都相同，就不用重新计算
         private Image _imageOld;//直接用这个来绘图就可以了。
@@ -48,6 +48,8 @@ namespace VestShapes
 
 
         }
+
+        /** 取消这个属性啦2016/10/7
         /// <summary>
         /// 条形码文字的位置，默认为下边中间。
         /// </summary>
@@ -61,6 +63,7 @@ namespace VestShapes
                 isChangeed = true;
             }
         }//LabelPosition
+        **/
 
         [TypeConverter(typeof(VarNameDetails)), DescriptionAttribute("就是EXCEL表格的第一行当变量名"), DisplayName("变量名"), CategoryAttribute("变量设置")]
         public string VarName
@@ -284,7 +287,7 @@ namespace VestShapes
             shapeEle.Encoding = Encoding;
             shapeEle.isIncludeLabel = isIncludeLabel;
             shapeEle.LabelFont = LabelFont;
-            shapeEle.LabelPosition = LabelPosition;
+            //shapeEle.LabelPosition = LabelPosition;//这个属性取消了。
             shapeEle.LanguageEncodingDisplayName = LanguageEncodingDisplayName;
             shapeEle.QrCodeErrorLevel = QrCodeErrorLevel;
 
@@ -414,177 +417,75 @@ namespace VestShapes
                 int intBarCodeHeight = (int)(flth * g.DpiY / 25.4);
                 ;
                 string strEncoding = _BarcodeEncoding;
-                BarcodeLib.TYPE myType = BarcodeLib.TYPE.EAN13;
+                //BarcodeLib.TYPE myType = BarcodeLib.TYPE.EAN13;
+                //我需要更改这个条形码库到zxing，感觉这个比较稳定。
+                BarcodeFormat _barcodeFormat = BarcodeFormat.EAN_13;
+                //要将所有的编码都转为zxing的
                 switch (_BarcodeEncoding)
                 {
                     case "EAN13":
-                        myType = BarcodeLib.TYPE.EAN13;
+                        _barcodeFormat=BarcodeFormat.EAN_13;
                         break;
                     case "EAN8":
-                        myType = BarcodeLib.TYPE.EAN8;
-                        break;
-                    case "FIM":
-                        myType = BarcodeLib.TYPE.FIM;
-                        break;
-                    case "Codabar":
-                        myType = BarcodeLib.TYPE.Codabar;
-                        break;
-                    case "UPCA":
-                        myType = BarcodeLib.TYPE.UPCA;
-                        break;
-                    case "UPCE":
-                        myType = BarcodeLib.TYPE.UPCE;
-                        break;
-                    case "UPC_SUPPLEMENTAL_2DIGIT":
-                        myType = BarcodeLib.TYPE.UPC_SUPPLEMENTAL_2DIGIT;
-                        break;
-                    case "UPC_SUPPLEMENTAL_5DIGIT":
-                        myType = BarcodeLib.TYPE.UPC_SUPPLEMENTAL_5DIGIT;
+                        _barcodeFormat = BarcodeFormat.EAN_8;
                         break;
                     case "CODE39":
-                        myType = BarcodeLib.TYPE.CODE39;
-                        break;
-                    case "CODE39Extended":
-                        myType = BarcodeLib.TYPE.CODE39Extended;
-                        break;
-                    case "CODE128":
-                        myType = BarcodeLib.TYPE.CODE128;
-                        break;
-                    case "CODE128A":
-                        myType = BarcodeLib.TYPE.CODE128A;
-                        break;
-                    case "CODE128B":
-                        myType = BarcodeLib.TYPE.CODE128B;
-                        break;
-                    case "CODE128C":
-                        myType = BarcodeLib.TYPE.CODE128C;
-                        break;
-                    case "ISBN":
-                        myType = BarcodeLib.TYPE.ISBN;
-                        break;
-                    case "Interleaved2of5":
-                        myType = BarcodeLib.TYPE.Interleaved2of5;
-                        break;
-                    case "Standard2of5":
-                        myType = BarcodeLib.TYPE.Standard2of5;
-                        break;
-                    case "Industrial2of5":
-                        myType = BarcodeLib.TYPE.Industrial2of5;
-                        break;
-                    case "PostNet":
-                        myType = BarcodeLib.TYPE.PostNet;
-                        break;
-                    case "BOOKLAND":
-                        myType = BarcodeLib.TYPE.BOOKLAND;
-                        break;
-                    case "JAN13":
-                        myType = BarcodeLib.TYPE.JAN13;
-                        break;
-                    case "MSI_Mod10":
-                        myType = BarcodeLib.TYPE.MSI_Mod10;
-                        break;
-                    case "MSI_2Mod10":
-                        myType = BarcodeLib.TYPE.MSI_2Mod10;
-                        break;
-                    case "MSI_Mod11":
-                        myType = BarcodeLib.TYPE.MSI_Mod11;
-                        break;
-                    case "MSI_Mod11_Mod10":
-                        myType = BarcodeLib.TYPE.MSI_Mod11_Mod10;
-                        break;
-                    case "Modified_Plessey":
-                        myType = BarcodeLib.TYPE.Modified_Plessey;
-                        break;
-                    case "CODE11":
-                        myType = BarcodeLib.TYPE.CODE11;
-                        break;
-                    case "USD8":
-                        myType = BarcodeLib.TYPE.USD8;
-                        break;
-                    case "UCC12":
-                        myType = BarcodeLib.TYPE.UCC12;
-                        break;
-                    case "UCC13":
-                        myType = BarcodeLib.TYPE.UCC13;
-                        break;
-                    case "LOGMARS":
-                        myType = BarcodeLib.TYPE.LOGMARS;
-                        break;
-                    case "ITF14":
-                        myType = BarcodeLib.TYPE.ITF14;
-                        break;
-                    case "TELEPEN":
-                        myType = BarcodeLib.TYPE.TELEPEN;
+                        _barcodeFormat = BarcodeFormat.CODE_39;
                         break;
                     case "QR_CODE":
-                        //如下得判断长度和宽度是否可以显示,我得茶皂他们最短需要多少。
-                        if ((intBarCodeWidth < 21) || (intBarCodeHeight < 21))
-                        {
-                            g.DrawString("图像太小显示不了", new Font("Arial", 6), new SolidBrush(Color.Black), poingStr);
-                            g.DrawRectangle(new Pen(Color.Black, 0.5f), fltx, flty, fltw, flth);
-                        }
-                        else
-                        {
-                            //只有在这两个中有一个不相等的情况下才需要更新。
-                            if ((_fltOldW != _Width) || (_fltOldh != _Height) || isChangeed)
-                            {
-                                isChangeed = false;//重新设置成没有更新。
-
-                                _fltOldW = _Width;
-                                _fltOldh = _Height;
-
-                                Hashtable hints = new Hashtable();
-                                //hints.Add(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);//容错能力
-
-                                hints.Add(EncodeHintType.ERROR_CORRECTION, _QRCODEErrorLevel);//设置容错率
-
-                                //如下是读取编码，只有在这个不为空的时候才选择
-                                if (_strLanguageEncodingName != "")
-                                {
-                                    hints.Add(EncodeHintType.CHARACTER_SET, _strLanguageEncodingName);//字符集
-                                }
-
-
-                                COMMON.ByteMatrix byteMatrix = new MultiFormatWriter().encode(strBarcodeNumber, BarcodeFormat.QR_CODE, intBarCodeWidth, intBarCodeHeight, hints);
-                                _imageOld = toBitmap(byteMatrix, g.DpiX, g.DpiY);
-                                g.DrawImage(_imageOld, rect);
-
-                            }
-                            else//如果没有更新，就直接绘图就可以了。
-                            {
-                                g.DrawImage(_imageOld, rect);
-                            }
-
-
-                        }
-                        return;//这个是直接返回的。因为下边的是调用的一维码的程序
+                        _barcodeFormat = BarcodeFormat.QR_CODE;
+                        break;
+                        
                 }
 
+                //如下得判断长度和宽度是否可以显示,我得茶皂他们最短需要多少。
+                if ((intBarCodeWidth < 21) || (intBarCodeHeight < 21))
+                {
+                    g.DrawString("图像太小显示不了", new Font("Arial", 6), new SolidBrush(Color.Black), poingStr);
+                    g.DrawRectangle(new Pen(Color.Black, 0.5f), fltx, flty, fltw, flth);
+                }
+                else
+                {
+                    //只有在这两个中有一个不相等的情况下才需要更新。
+                    if ((_fltOldW != _Width) || (_fltOldh != _Height) || isChangeed)
+                    {
+                        isChangeed = false;//重新设置成没有更新。
+
+                        _fltOldW = _Width;
+                        _fltOldh = _Height;
+
+                        Hashtable hints = new Hashtable();
+                        //hints.Add(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);//容错能力
+
+                        hints.Add(EncodeHintType.ERROR_CORRECTION, _QRCODEErrorLevel);//设置容错率
+
+                        //如下是读取编码，只有在这个不为空的时候才选择
+                        if (_strLanguageEncodingName != "")
+                        {
+                            hints.Add(EncodeHintType.CHARACTER_SET, _strLanguageEncodingName);//字符集
+                        }
 
 
+                        COMMON.ByteMatrix byteMatrix = new MultiFormatWriter().encode(strBarcodeNumber, _barcodeFormat, intBarCodeWidth, intBarCodeHeight, hints);
+                        _imageOld = toBitmap(byteMatrix, g.DpiX, g.DpiY);
+                        g.DrawImage(_imageOld, rect);
+
+                    }
+                    else//如果没有更新，就直接绘图就可以了。
+                    {
+                        g.DrawImage(_imageOld, rect);
+                    }
+                }
+                return;
+
+                //这个是直接返回的。因为下边的是调用的一维码的程序
+
+                #region 如下的是原先一维码时候用的，现在全部取消，上边用一个return来返回，不会执行如下的这些。
+                /**
                 BarcodeLib.Barcode bar = new BarcodeLib.Barcode();
-
-
                 bar.IncludeLabel = _isIncludeLabel;
                 bar.LabelFont = _RealFont;
-                bar.LabelPosition = LabelPosition;//条形码文字的位置
-
-
-                //不能少于这个大小
-                /**因为跟放大缩小相冲突，所以注释掉了，如果图像小，就显示显示不了。
-                if (intBarCodeWidth < 100)
-                {
-                    intBarCodeWidth = 100;
-                    _Width = intBarCodeWidth / g.DpiX * 25.4f;
-                    _WidthAdd = 0;
-                }
-                if (intBarCodeHeight < 30)
-                {
-                    intBarCodeHeight = 30;
-                    _Height = intBarCodeHeight / g.DpiY * 25.4f;
-                    _HeightAdd = 0;
-                }
-                 * */
+                //bar.LabelPosition = LabelPosition;//条形码文字的位置，取消这个属性啦，2016/10/7
 
                 if ((intBarCodeWidth < 100) || (intBarCodeHeight < 30))
                 {
@@ -599,28 +500,30 @@ namespace VestShapes
                     g.DrawImage(myImage, rect);
 
                 }
-
                 bar.Dispose();
+                 **/
+
+                #endregion
 
 
             }
             catch (Exception e)
-            {
-                //因为这个Draw是持续刷新的，为了在条形码数字出错是只提示依次，在此需要这个，而我在条形码数字更改的时候，重新设置那个为空了
-                if (_strBarcodeErrorMessage != e.Message)
-                {
-                    _strBarcodeErrorMessage = e.Message;
-                    MessageBox.Show(e.Message);
-                    return;
-                }
+                   {
+                       //因为这个Draw是持续刷新的，为了在条形码数字出错是只提示依次，在此需要这个，而我在条形码数字更改的时候，重新设置那个为空了
+                       if (_strBarcodeErrorMessage != e.Message)
+                       {
+                           _strBarcodeErrorMessage = e.Message;
+                           MessageBox.Show(e.Message);
+                           return;
+                       }
 
-            }
+                   }
 
-            #endregion
+                #endregion
 
-            //throw new NotImplementedException();
+                //throw new NotImplementedException();
 
-            g.ResetTransform();//恢复原先的坐标系。
+                g.ResetTransform();//恢复原先的坐标系。
 
             //base.Draw(g, arrlistMatrix);
         }

@@ -548,11 +548,12 @@ namespace VestShapes
            
             GraphicsPath path = getGraphicsPath();//首先取得没有偏移但有旋转的路径
 
-            //再反转这个个变换
-            listMatrix.Reverse();
+
 
             if ((listMatrix != null) && (listMatrix.Count > 0))//只有数量大于0才能做如下的
             {
+                //再反转这个个变换
+                listMatrix.Reverse();
                 for (int i = 0; i < listMatrix.Count; i++)
                 {
                     path.Transform(listMatrix[i]);
