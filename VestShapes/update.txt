@@ -1,0 +1,8 @@
+﻿2016/10/4:打算将条形码打印库全部为zxing，要改的几个方面是
+	1、 ShapeBarcode.cs文件中的draw方法，其中的重点是switch语句
+	2、 ShapeBarcode.cs文件中的encode方法，要添加所有编码
+	3、 查看zxing中是否有类似LabelPositions的属性，文字显示位置的
+	4、 BarcodeEncoding.cs中更改支持的编码类型
+	总结：已经更改到zxing，但是有如下几个问题
+	1、当编码数字不正确后，会弹出一个对话框，关于这个，我打算更改zxing来解决。比如说没有最后的验证码，我就加上最后的验证码。
+	2、编码格式太少，只有"EAN13","EAN8", "CODE_39", "QR_CODE" ,要看看zxing有没有什么更新。

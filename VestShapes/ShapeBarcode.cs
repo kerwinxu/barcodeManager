@@ -42,7 +42,7 @@ namespace VestShapes
         public ShapeBarcode()
             : base()
         {
-            _BarcodeEncoding = "EAN13";
+            _BarcodeEncoding = "CODE_39";
             _strBarcodeNumber = "690123456789";
             _isIncludeLabel = true;
 
@@ -352,172 +352,173 @@ namespace VestShapes
 
         public override void Draw(Graphics g, List<Matrix> listMatrix)
         {
-            
-
-            //单位一定要是MM。
-            g.PageUnit = GraphicsUnit.Millimeter;
-            //如下的这个是偏移些位置
-
-            //如下是先从绘制矩形中的拷贝的，然后再修改
-            if (Route != 0)
-            {
-                PointF pZhongXin = getCentrePoint();
-                g.TranslateTransform(pZhongXin.X, pZhongXin.Y, MatrixOrder.Prepend);
-                g.RotateTransform((float)Route);
-                g.TranslateTransform(-pZhongXin.X, -pZhongXin.Y);
-            }
-
-            //定义画笔
-            Pen _myPen = new Pen(PenColor, _penWidth);
-            _myPen.DashStyle = PenDashStyle;
-
-            #region
-
-
-            string strBarcodeNumber = "";
-
-            //如果设置变量名，就用变量名的对应的变量值。
-            if (_strVarName != "")
-            {
-                strBarcodeNumber = _strVarValue;
-                //_strBarcodeNumber = "";
-
-            }
-            else//如果没有变量名就用默认的值
-            {
-                strBarcodeNumber = _strBarcodeNumber;
-            }
-
-            if (strBarcodeNumber == "")
-                return;
-
-
-            //条形码可能有异常，比如说位数不符等等
             try
             {
 
-                RectangleF rect = getGraphicsPath(listMatrix).GetBounds();
-                float fltx = rect.X;
-                float flty = rect.Y;
-                float fltw = rect.Width;
-                float flth = rect.Height;
+                //单位一定要是MM。
+                g.PageUnit = GraphicsUnit.Millimeter;
+                //如下的这个是偏移些位置
 
-                /**
-                float fltx = _X + _XAdd;
-                float flty = _Y + _YAdd;
-                float fltw = _Width + _WidthAdd;
-                float flth = _Height + _HeightAdd;
-                 * */
-
-
-
-                PointF poingStr = new PointF(fltx, flty);//实际位置
-
-                int intBarCodeWidth = (int)(fltw * g.DpiX / 25.4);
-                int intBarCodeHeight = (int)(flth * g.DpiY / 25.4);
-                ;
-                string strEncoding = _BarcodeEncoding;
-                //BarcodeLib.TYPE myType = BarcodeLib.TYPE.EAN13;
-                //我需要更改这个条形码库到zxing，感觉这个比较稳定。
-                BarcodeFormat _barcodeFormat = BarcodeFormat.EAN_13;
-                //要将所有的编码都转为zxing的
-                switch (_BarcodeEncoding)
+                //如下是先从绘制矩形中的拷贝的，然后再修改
+                if (Route != 0)
                 {
-                    case "EAN13":
-                        _barcodeFormat=BarcodeFormat.EAN_13;
-                        break;
-                    case "EAN8":
-                        _barcodeFormat = BarcodeFormat.EAN_8;
-                        break;
-                    case "CODE39":
-                        _barcodeFormat = BarcodeFormat.CODE_39;
-                        break;
-                    case "QR_CODE":
-                        _barcodeFormat = BarcodeFormat.QR_CODE;
-                        break;
-                        
+                    PointF pZhongXin = getCentrePoint();
+                    g.TranslateTransform(pZhongXin.X, pZhongXin.Y, MatrixOrder.Prepend);
+                    g.RotateTransform((float)Route);
+                    g.TranslateTransform(-pZhongXin.X, -pZhongXin.Y);
                 }
 
-                //如下得判断长度和宽度是否可以显示,我得茶皂他们最短需要多少。
-                if ((intBarCodeWidth < 21) || (intBarCodeHeight < 21))
+                //定义画笔
+                Pen _myPen = new Pen(PenColor, _penWidth);
+                _myPen.DashStyle = PenDashStyle;
+
+                #region
+
+
+                string strBarcodeNumber = "";
+
+                //如果设置变量名，就用变量名的对应的变量值。
+                if (_strVarName != "")
                 {
-                    g.DrawString("图像太小显示不了", new Font("Arial", 6), new SolidBrush(Color.Black), poingStr);
-                    g.DrawRectangle(new Pen(Color.Black, 0.5f), fltx, flty, fltw, flth);
+                    strBarcodeNumber = _strVarValue;
+                    //_strBarcodeNumber = "";
+
                 }
-                else
+                else//如果没有变量名就用默认的值
                 {
-                    //只有在这两个中有一个不相等的情况下才需要更新。
-                    if ((_fltOldW != _Width) || (_fltOldh != _Height) || isChangeed)
+                    strBarcodeNumber = _strBarcodeNumber;
+                }
+
+                if (strBarcodeNumber == "")
+                    return;
+
+
+                //条形码可能有异常，比如说位数不符等等
+                try
+                {
+
+                    RectangleF rect = getGraphicsPath(listMatrix).GetBounds();
+                    float fltx = rect.X;
+                    float flty = rect.Y;
+                    float fltw = rect.Width;
+                    float flth = rect.Height;
+
+                    /**
+                    float fltx = _X + _XAdd;
+                    float flty = _Y + _YAdd;
+                    float fltw = _Width + _WidthAdd;
+                    float flth = _Height + _HeightAdd;
+                     * */
+
+
+
+                    PointF poingStr = new PointF(fltx, flty);//实际位置
+
+                    int intBarCodeWidth = (int)(fltw * g.DpiX / 25.4);
+                    int intBarCodeHeight = (int)(flth * g.DpiY / 25.4);
+                    ;
+                    string strEncoding = _BarcodeEncoding;
+                    //BarcodeLib.TYPE myType = BarcodeLib.TYPE.EAN13;
+                    //我需要更改这个条形码库到zxing，感觉这个比较稳定。
+                    BarcodeFormat _barcodeFormat = BarcodeFormat.EAN_13;
+                    //要将所有的编码都转为zxing的
+                    switch (_BarcodeEncoding)
                     {
-                        isChangeed = false;//重新设置成没有更新。
+                        case "EAN13":
+                            _barcodeFormat = BarcodeFormat.EAN_13;
+                            break;
+                        case "EAN8":
+                            _barcodeFormat = BarcodeFormat.EAN_8;
+                            break;
+                        case "CODE_39":
+                            _barcodeFormat = BarcodeFormat.CODE_39;
+                            break;
+                        case "QR_CODE":
+                            _barcodeFormat = BarcodeFormat.QR_CODE;
+                            break;
 
-                        _fltOldW = _Width;
-                        _fltOldh = _Height;
+                    }
 
-                        Hashtable hints = new Hashtable();
-                        //hints.Add(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);//容错能力
-
-                        hints.Add(EncodeHintType.ERROR_CORRECTION, _QRCODEErrorLevel);//设置容错率
-
-                        //如下是读取编码，只有在这个不为空的时候才选择
-                        if (_strLanguageEncodingName != "")
+                    //如下得判断长度和宽度是否可以显示,我得茶皂他们最短需要多少。
+                    if ((intBarCodeWidth < 21) || (intBarCodeHeight < 21))
+                    {
+                        g.DrawString("图像太小显示不了", new Font("Arial", 6), new SolidBrush(Color.Black), poingStr);
+                        g.DrawRectangle(new Pen(Color.Black, 0.5f), fltx, flty, fltw, flth);
+                    }
+                    else
+                    {
+                        //只有在这两个中有一个不相等的情况下才需要更新。
+                        if ((_fltOldW != _Width) || (_fltOldh != _Height) || isChangeed)
                         {
-                            hints.Add(EncodeHintType.CHARACTER_SET, _strLanguageEncodingName);//字符集
+                            isChangeed = false;//重新设置成没有更新。
+
+                            _fltOldW = _Width;
+                            _fltOldh = _Height;
+
+                            Hashtable hints = new Hashtable();
+                            //hints.Add(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);//容错能力
+
+                            hints.Add(EncodeHintType.ERROR_CORRECTION, _QRCODEErrorLevel);//设置容错率
+
+                            //如下是读取编码，只有在这个不为空的时候才选择
+                            if (_strLanguageEncodingName != "")
+                            {
+                                hints.Add(EncodeHintType.CHARACTER_SET, _strLanguageEncodingName);//字符集
+                            }
+
+
+                            COMMON.ByteMatrix byteMatrix = new MultiFormatWriter().encode(strBarcodeNumber, _barcodeFormat, intBarCodeWidth, intBarCodeHeight, hints);
+                            _imageOld = toBitmap(byteMatrix, g.DpiX, g.DpiY);
+                            g.DrawImage(_imageOld, rect);
+
                         }
-
-
-                        COMMON.ByteMatrix byteMatrix = new MultiFormatWriter().encode(strBarcodeNumber, _barcodeFormat, intBarCodeWidth, intBarCodeHeight, hints);
-                        _imageOld = toBitmap(byteMatrix, g.DpiX, g.DpiY);
-                        g.DrawImage(_imageOld, rect);
-
+                        else//如果没有更新，就直接绘图就可以了。
+                        {
+                            g.DrawImage(_imageOld, rect);
+                        }
                     }
-                    else//如果没有更新，就直接绘图就可以了。
+                    return;
+
+                    //这个是直接返回的。因为下边的是调用的一维码的程序
+
+                    #region 如下的是原先一维码时候用的，现在全部取消，上边用一个return来返回，不会执行如下的这些。
+                    /**
+                    BarcodeLib.Barcode bar = new BarcodeLib.Barcode();
+                    bar.IncludeLabel = _isIncludeLabel;
+                    bar.LabelFont = _RealFont;
+                    //bar.LabelPosition = LabelPosition;//条形码文字的位置，取消这个属性啦，2016/10/7
+
+                    if ((intBarCodeWidth < 100) || (intBarCodeHeight < 30))
                     {
-                        g.DrawImage(_imageOld, rect);
+                        g.DrawString("图像太小显示不了", new Font("Arial", 6), new SolidBrush(Color.Black), poingStr);
+                        g.DrawRectangle(new Pen(Color.Black, 0.5f), fltx, flty, fltw, flth);
                     }
+                    else
+                    {
+
+                        Image myImage = bar.Encode(myType, strBarcodeNumber, intBarCodeWidth, intBarCodeHeight, g.DpiX, g.DpiY);
+                        //将最新的宽度更新。好像不用更新。
+                        g.DrawImage(myImage, rect);
+
+                    }
+                    bar.Dispose();
+                     **/
+
+                    #endregion
+
+
                 }
-                return;
-
-                //这个是直接返回的。因为下边的是调用的一维码的程序
-
-                #region 如下的是原先一维码时候用的，现在全部取消，上边用一个return来返回，不会执行如下的这些。
-                /**
-                BarcodeLib.Barcode bar = new BarcodeLib.Barcode();
-                bar.IncludeLabel = _isIncludeLabel;
-                bar.LabelFont = _RealFont;
-                //bar.LabelPosition = LabelPosition;//条形码文字的位置，取消这个属性啦，2016/10/7
-
-                if ((intBarCodeWidth < 100) || (intBarCodeHeight < 30))
+                catch (Exception e)
                 {
-                    g.DrawString("图像太小显示不了", new Font("Arial", 6), new SolidBrush(Color.Black), poingStr);
-                    g.DrawRectangle(new Pen(Color.Black, 0.5f), fltx, flty, fltw, flth);
-                }
-                else
-                {
-
-                    Image myImage = bar.Encode(myType, strBarcodeNumber, intBarCodeWidth, intBarCodeHeight, g.DpiX, g.DpiY);
-                    //将最新的宽度更新。好像不用更新。
-                    g.DrawImage(myImage, rect);
+                    //因为这个Draw是持续刷新的，为了在条形码数字出错是只提示依次，在此需要这个，而我在条形码数字更改的时候，重新设置那个为空了
+                    if (_strBarcodeErrorMessage != e.Message)
+                    {
+                        _strBarcodeErrorMessage = e.Message;
+                        //MessageBox.Show(e.Message);
+                        return;
+                    }
 
                 }
-                bar.Dispose();
-                 **/
-
-                #endregion
-
-
-            }
-            catch (Exception e)
-                   {
-                       //因为这个Draw是持续刷新的，为了在条形码数字出错是只提示依次，在此需要这个，而我在条形码数字更改的时候，重新设置那个为空了
-                       if (_strBarcodeErrorMessage != e.Message)
-                       {
-                           _strBarcodeErrorMessage = e.Message;
-                           MessageBox.Show(e.Message);
-                           return;
-                       }
-
-                   }
 
                 #endregion
 
@@ -525,7 +526,14 @@ namespace VestShapes
 
                 g.ResetTransform();//恢复原先的坐标系。
 
-            //base.Draw(g, arrlistMatrix);
+                //base.Draw(g, arrlistMatrix);
+            }
+            catch (Exception ex)
+            {
+                //不发出错误了。
+                //throw;
+            }
+
         }
 
        
