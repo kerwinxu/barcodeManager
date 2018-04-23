@@ -40,7 +40,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -49,16 +49,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>9D5231E938036ED7E799B261626F7F064567B5B3</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>25B5B89BD4E6F594D23EFFC25316378CBA4F3AE0</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>BarcodeManager_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>BarcodeManager_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'x86|AnyCPU'">
     <OutputPath>bin\x86\</OutputPath>
@@ -177,6 +177,7 @@
     <EmbeddedResource Include="UserControlStaticText.resx" />
     <EmbeddedResource Include="UserControlVariableText.resx" />
     <None Include="app.config" />
+    <None Include="BarcodeManager_1_TemporaryKey.pfx" />
     <None Include="BarcodeManager_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
