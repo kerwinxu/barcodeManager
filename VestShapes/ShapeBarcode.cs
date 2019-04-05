@@ -1,6 +1,9 @@
 ﻿//using BarcodeLib;
-using com.google.zxing;
-using com.google.zxing.qrcode.decoder;
+using ZXing;
+using ZXing.Common;
+using ZXing.QrCode.Internal;
+using ZXing.QrCode;
+//using ZXing.qrcode.decoder;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +14,7 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Xml;
-using COMMON = com.google.zxing.common;
+using COMMON = ZXing.Common;
 
 namespace VestShapes
 {
@@ -334,21 +337,6 @@ namespace VestShapes
             //return base.updateVarValue(arrlistKeyValue);
         }
 
-        private Bitmap toBitmap(COMMON.ByteMatrix matrix, float fltDPIX, float fltDPIY)
-        {
-            int width = matrix.Width;
-            int height = matrix.Height;
-            Bitmap bmap = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            bmap.SetResolution(fltDPIX, fltDPIY);//设置图片象素
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
-                    bmap.SetPixel(x, y, matrix.get_Renamed(x, y) != -1 ? ColorTranslator.FromHtml("0xFF000000") : ColorTranslator.FromHtml("0xFFFFFFFF"));
-                }
-            }
-            return bmap;
-        }
 
         public override void Draw(Graphics g, List<Matrix> listMatrix)
         {
@@ -466,9 +454,19 @@ namespace VestShapes
                                 hints.Add(EncodeHintType.CHARACTER_SET, _strLanguageEncodingName);//字符集
                             }
 
+                            //如下是打印条形码。
+                            //设置条形码流
+                            BarcodeWriter writer = new BarcodeWriter();
+                            writer.Format = _barcodeFormat;//条形码格式
+                            EncodingOptions options = new EncodingOptions()
+                            {
+                                Width = intBarCodeWidth,
+                                Height=intBarCodeHeight,
+                                Margin = 2
+                            };
+                            writer.Options = options;
+                            _imageOld = writer.Write(strBarcodeNumber);
 
-                            COMMON.ByteMatrix byteMatrix = new MultiFormatWriter().encode(strBarcodeNumber, _barcodeFormat, intBarCodeWidth, intBarCodeHeight, hints);
-                            _imageOld = toBitmap(byteMatrix, g.DpiX, g.DpiY);
                             g.DrawImage(_imageOld, rect);
 
                         }
