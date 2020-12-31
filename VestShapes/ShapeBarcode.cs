@@ -408,24 +408,26 @@ namespace VestShapes
                     string strEncoding = _BarcodeEncoding;
                     //BarcodeLib.TYPE myType = BarcodeLib.TYPE.EAN13;
                     //我需要更改这个条形码库到zxing，感觉这个比较稳定。
-                    BarcodeFormat _barcodeFormat = BarcodeFormat.EAN_13;
-                    //要将所有的编码都转为zxing的
-                    switch (_BarcodeEncoding)
-                    {
-                        case "EAN13":
-                            _barcodeFormat = BarcodeFormat.EAN_13;
-                            break;
-                        case "EAN8":
-                            _barcodeFormat = BarcodeFormat.EAN_8;
-                            break;
-                        case "CODE_39":
-                            _barcodeFormat = BarcodeFormat.CODE_39;
-                            break;
-                        case "QR_CODE":
-                            _barcodeFormat = BarcodeFormat.QR_CODE;
-                            break;
+                    BarcodeFormat _barcodeFormat = BarcodeEncoding.dictBarcode[_BarcodeEncoding];
 
-                    }
+                    //要将所有的编码都转为zxing的
+                    //switch (_BarcodeEncoding)
+                    //{
+                    //    case "EAN13":
+                    //        _barcodeFormat = BarcodeFormat.EAN_13;
+                    //        break;
+                    //    case "EAN8":
+                    //        _barcodeFormat = BarcodeFormat.EAN_8;
+                    //        break;
+                    //    case "CODE_39":
+                    //        _barcodeFormat = BarcodeFormat.CODE_39;
+                    //        break;
+                    //    case "QR_CODE":
+                    //        _barcodeFormat = BarcodeFormat.QR_CODE;
+                    //        break;
+
+
+                    //}
 
                     //如下得判断长度和宽度是否可以显示,我得茶皂他们最短需要多少。
                     if ((intBarCodeWidth < 21) || (intBarCodeHeight < 21))

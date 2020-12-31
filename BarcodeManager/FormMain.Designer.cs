@@ -125,7 +125,7 @@
             this.linkLabel1.Size = new System.Drawing.Size(48, 43);
             this.linkLabel1.TabIndex = 1;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "kerwin.cn@gmail.com";
+            this.linkLabel1.Text = "鑫意雅";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // textBox1
@@ -137,7 +137,7 @@
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(40, 533);
             this.textBox1.TabIndex = 2;
-            this.textBox1.Text = "本软件开放源代码，自愿支付注册费。";
+            this.textBox1.Text = "软件定制请淘宝搜索“鑫意雅”";
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // btnHelp
@@ -636,7 +636,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "条形码设计打印管理专家 http://www.xuhengxiao.com/";
+            this.Text = "条形码设计打印管理专家";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);

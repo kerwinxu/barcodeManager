@@ -11,7 +11,7 @@ namespace VestShapes
 {
     public partial class UserControlToolBox : UserControl
     {
-        protected UserControlCanvas _canvas;
+        protected UserControlCanvas _canvas; 
         public UserControlToolBox()
         {
             InitializeComponent();

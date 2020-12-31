@@ -1425,7 +1425,7 @@ namespace BarcodeTerminator
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("mailto:kerwin.cn@gmail.com");
+            Process.Start("https://shop34192387.taobao.com/");
         }
 
         private void splitContainer3_Panel1_Resize(object sender, EventArgs e)
