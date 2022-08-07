@@ -48,10 +48,10 @@ namespace VestShapes
         [XmlElement]
         public ClsPageSettings BarcodePageSettings=new ClsPageSettings();
 
-        private ArrayList _arrlistKeyValue;
+        private List<clsKeyValue> _arrlistKeyValue;
         [XmlArray]
         [XmlArrayItem(Type = typeof(clsKeyValue))]
-        public ArrayList arrlistKeyValue
+        public List<clsKeyValue> arrlistKeyValue
         {
             get
             {
@@ -65,8 +65,21 @@ namespace VestShapes
                 }
             }
         }
-        
-        protected   float _Zoom = 1f;
+
+
+        // 如下的取消，因为不支持序列化
+        //private Dictionary<string,string> _arrlistKeyValue;
+
+        //public Dictionary<string,string> arrlistKeyValue
+        //{
+        //    get { return _arrlistKeyValue; }
+        //    set { _arrlistKeyValue = value; }
+        //}
+
+
+
+
+        protected float _Zoom = 1f;
 
         [XmlIgnore]
         public float fltCanvasWidth;
@@ -141,7 +154,7 @@ namespace VestShapes
         {
             //空白的
             BarcodePageSettings = new ClsPageSettings();
-            arrlistKeyValue = new ArrayList();
+            arrlistKeyValue = new List<clsKeyValue>();
             arrlistShapeEle = new ArrayList();
 
         }

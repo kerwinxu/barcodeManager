@@ -721,8 +721,10 @@ namespace VestShapes
         public void   DrawModelsBackgroundOnPaper(Graphics g , float fW , float fH)
         {
             //纸张左上角的边距,只是这个不能太靠边而已，没有其他的作用
-            float fltBianJuX =2/ 25.4f * g.DpiX;
-            float fltBianJuY = 2 / 25.4f * g.DpiY;
+            //float fltBianJuX =2/ 25.4f * g.DpiX;
+            //float fltBianJuY = 2 / 25.4f * g.DpiY;
+            float fltBianJuX = 0;
+            float fltBianJuY = 0;
 
             float fwzoom = (fW- 2*fltBianJuX) / (BarcodePaperLayout.PaperWidth / 25.4f * g.DpiX);
             float fhzoom = (fH- 2*fltBianJuY) / (BarcodePaperLayout.PaperHeight / 25.4f * g.DpiY);

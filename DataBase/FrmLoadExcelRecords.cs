@@ -18,7 +18,8 @@ namespace Xuhengxiao.DataBase
 
             //将main表填充到窗体中。
             ClsDataBase myClsDataBase=new ClsDataBase ();
-            dataGridView1.DataSource = myClsDataBase.getMainTable();
+            // TODO
+            // dataGridView1.DataSource = myClsDataBase.getMainTable();
 
             strTableName = "";//初始化而已
         }
@@ -53,14 +54,14 @@ namespace Xuhengxiao.DataBase
             {
                 MessageBox.Show("您没有输入订单号");
                 //将main表填充到窗体中。
-
-                dataGridView1.DataSource = myClsDataBase.getMainTable();
+                // TODO
+                //dataGridView1.DataSource = myClsDataBase.getMainTable();
                 strTableName = "";//初始化而已
                 return;
             }
             //将main表填充到窗体中。
-
-            dataGridView1.DataSource = myClsDataBase.commandSelect("select * from main where [单号]=\"" + txtStrSC.Text+"\";");
+            // TODO
+            // dataGridView1.DataSource = myClsDataBase.commandSelect("select * from main where [单号]=\"" + txtStrSC.Text+"\";");
 
         }
 

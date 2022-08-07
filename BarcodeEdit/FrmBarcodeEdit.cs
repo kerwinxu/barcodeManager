@@ -91,7 +91,7 @@ namespace BarcodeTerminator
             toolStripLabelPrintingName.Text = ClsBarcodePrint.strPrinterName;//默认打印机
 
         }
-        public FrmBarcodeEdit(clsKeyValue lt , DataTable dataTable , ArrayList arrlist , string tableName)
+        public FrmBarcodeEdit(clsKeyValue lt , DataTable dataTable , List<clsKeyValue> arrlist , string tableName)
         {
             InitializeComponent();
 
@@ -133,7 +133,8 @@ namespace BarcodeTerminator
                     bindingNavigatorPositionItem.Text = "1";//将这个重设为第一条记录
 
                     //将第一项更新到画布
-                    ArrayList arrlist = new ArrayList();
+                    List<clsKeyValue> arrlist = new List<clsKeyValue>();
+
                     if ((CurrentDataTable.Rows.Count > 0))
                     {
                         //根据列名迭代
@@ -166,20 +167,19 @@ namespace BarcodeTerminator
         /// 这个方法只是设置变量信息的
         /// </summary>
         /// <param name="arrlist"></param>
-        public void setKeyValue(ArrayList arrlist)
+        public void setKeyValue(List<clsKeyValue> arrlist)
         {
-            ArrayList arrlisttemp = new ArrayList();
+            List<clsKeyValue> arrlisttemp = new List<clsKeyValue>();
             try
             {
                 if (arrlist != null)
                 {
-                    foreach (clsKeyValue item in arrlist)
+                    foreach (var item in arrlist)
                     {
-                        clsKeyValue clskeyvalue1 = new clsKeyValue(item.Key, item.Value);
-                        arrlisttemp.Add(clskeyvalue1);
+                        arrlisttemp.Add(new clsKeyValue(item.Key, item.Value));
                     }
 
-                    userControlCanvas1.setArrKeyValue(arrlisttemp);
+                    userControlCanvas1.setArrKeyValue(arrlist);
 
                     userControlCanvas1.Refresh();
                 }
@@ -346,10 +346,10 @@ namespace BarcodeTerminator
         {
 
             //如下这个只是复制一个值变量再传递
-            ArrayList arrlist = new ArrayList();//用这个是因为 arrlistSellectRow 也是静态变量，读取的时候会读取到不是想要的值,这里用深拷贝
+            List<clsKeyValue> arrlist = new List<clsKeyValue>();//用这个是因为 arrlistSellectRow 也是静态变量，读取的时候会读取到不是想要的值,这里用深拷贝
             if (userControlCanvas1.myShapes.arrlistKeyValue != null)
             {
-                foreach (clsKeyValue myKeyValue in userControlCanvas1.myShapes.arrlistKeyValue)
+                foreach (var myKeyValue in userControlCanvas1.myShapes.arrlistKeyValue)
                 {
                     clsKeyValue kv = new clsKeyValue(myKeyValue.Key, myKeyValue.Value);
                     arrlist.Add(kv);
@@ -403,7 +403,7 @@ namespace BarcodeTerminator
             {
                 int intCurrentLine = Convert.ToInt32(bindingNavigatorPositionItem.Text);//取得当前行
 
-                ArrayList arrlist = new ArrayList();
+                List<clsKeyValue> arrlist = new List<clsKeyValue>();
 
                 foreach (DataColumn item in CurrentDataTable.Columns)
                 {
@@ -466,10 +466,10 @@ namespace BarcodeTerminator
             //如下如下是将变量深拷贝
 
             //如下这个只是复制一个值变量再传递
-            ArrayList arrlist = new ArrayList();//用这个是因为 arrlistSellectRow 也是静态变量，读取的时候会读取到不是想要的值,这里用深拷贝
+            List<clsKeyValue> arrlist = new List<clsKeyValue>();//用这个是因为 arrlistSellectRow 也是静态变量，读取的时候会读取到不是想要的值,这里用深拷贝
             if (userControlCanvas1.myShapes.arrlistKeyValue != null)
             {
-                foreach (clsKeyValue myKeyValue in userControlCanvas1.myShapes.arrlistKeyValue)
+                foreach (var myKeyValue in userControlCanvas1.myShapes.arrlistKeyValue)
                 {
                     clsKeyValue kv = new clsKeyValue(myKeyValue.Key, myKeyValue.Value);
                     arrlist.Add(kv);
@@ -632,7 +632,8 @@ namespace BarcodeTerminator
 
             //从数据库中导入这个表
             ClsDataBase myClsDataBase = new ClsDataBase();
-            LoadDataTable(myClsDataBase.getUserLoadTable(strTableName));
+            // TODO
+            //LoadDataTable(myClsDataBase.getUserLoadTable(strTableName));
             //还得选择哪个是数量
             loadPrintedQtytoComboBox();
 

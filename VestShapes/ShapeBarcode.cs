@@ -15,6 +15,7 @@ using System.Xml.Serialization;
 using System.ComponentModel;
 using System.Xml;
 using COMMON = ZXing.Common;
+using Xuhengxiao.MyDataStructure;
 
 namespace VestShapes
 {
@@ -299,7 +300,7 @@ namespace VestShapes
         }
 
 
-        public override bool updateVarValue(ArrayList arrlistKeyValue)
+        public override bool updateVarValue(List<clsKeyValue> arrlistKeyValue)
         {
             bool isChange = base.updateVarValue(arrlistKeyValue);
 

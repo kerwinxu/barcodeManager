@@ -119,7 +119,7 @@ namespace VestShapes
             }
         }
 
-        public ArrayList arrlistKeyValue
+        public List<clsKeyValue> arrlistKeyValue
         {
             get
             {
@@ -922,7 +922,7 @@ namespace VestShapes
         }
 
 
-        public void setArrKeyValue(ArrayList arrlistKeyValue)
+        public void setArrKeyValue(List<clsKeyValue> arrlistKeyValue)
         {
             if ((arrlistKeyValue != null) && (arrlistKeyValue.Count > 0))
             {
@@ -930,15 +930,16 @@ namespace VestShapes
 
                 //设置属性面板中变量下拉框信息。
                 //因为是不定长的，所以需要用ArrayList，然后再转换成字符串数组
-                ArrayList arrlistVarName = new ArrayList();
-                foreach (clsKeyValue item in arrlistKeyValue)
+                List<string> arrlistVarName = new List<string>();
+
+                foreach (var item in arrlistKeyValue)
                 {
                     arrlistVarName.Add(item.Key);
 
                 }
                 //转换成字符串数组并赋值给
+                VarNameDetails.arrVarName = arrlistVarName.ToArray();
 
-                VarNameDetails.arrVarName = (string[])arrlistVarName.ToArray(typeof(string));
 
             }
 

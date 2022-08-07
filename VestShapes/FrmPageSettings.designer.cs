@@ -30,13 +30,21 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPagePaper = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.comboPrinters = new System.Windows.Forms.ComboBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.comboPaperSizes = new System.Windows.Forms.ComboBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.btn_paper_ok = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txt_paper_width = new System.Windows.Forms.TextBox();
+            this.txt_paper_height = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.comboPaperSizes = new System.Windows.Forms.ComboBox();
             this.tabPageLayout = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.chkCustomInterval = new System.Windows.Forms.CheckBox();
@@ -81,11 +89,16 @@
             this.lblModelSize = new System.Windows.Forms.Label();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPagePaper.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            this.groupBox10.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.tabPageLayout.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -113,9 +126,7 @@
             // tabPagePaper
             // 
             this.tabPagePaper.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.tabPagePaper.Controls.Add(this.groupBox6);
-            this.tabPagePaper.Controls.Add(this.groupBox10);
-            this.tabPagePaper.Controls.Add(this.groupBox9);
+            this.tabPagePaper.Controls.Add(this.flowLayoutPanel1);
             this.tabPagePaper.Location = new System.Drawing.Point(4, 22);
             this.tabPagePaper.Name = "tabPagePaper";
             this.tabPagePaper.Padding = new System.Windows.Forms.Padding(3);
@@ -123,10 +134,22 @@
             this.tabPagePaper.TabIndex = 0;
             this.tabPagePaper.Text = "纸张";
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.groupBox6);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox9);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox7);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox10);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(304, 387);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.comboPrinters);
-            this.groupBox6.Location = new System.Drawing.Point(6, 6);
+            this.groupBox6.Location = new System.Drawing.Point(3, 3);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(298, 58);
             this.groupBox6.TabIndex = 5;
@@ -141,12 +164,107 @@
             this.comboPrinters.Name = "comboPrinters";
             this.comboPrinters.Size = new System.Drawing.Size(286, 20);
             this.comboPrinters.TabIndex = 1;
-            
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.comboPaperSizes);
+            this.groupBox9.Location = new System.Drawing.Point(3, 67);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(298, 58);
+            this.groupBox9.TabIndex = 4;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "纸张大小";
+            // 
+            // comboPaperSizes
+            // 
+            this.comboPaperSizes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboPaperSizes.FormattingEnabled = true;
+            this.comboPaperSizes.Location = new System.Drawing.Point(6, 20);
+            this.comboPaperSizes.Name = "comboPaperSizes";
+            this.comboPaperSizes.Size = new System.Drawing.Size(286, 20);
+            this.comboPaperSizes.TabIndex = 1;
+            this.comboPaperSizes.SelectedValueChanged += new System.EventHandler(this.comboPaperSizes_SelectedValueChanged);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.btn_paper_ok);
+            this.groupBox7.Controls.Add(this.tableLayoutPanel1);
+            this.groupBox7.Location = new System.Drawing.Point(3, 131);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(298, 97);
+            this.groupBox7.TabIndex = 6;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "纸张自定义";
+            // 
+            // btn_paper_ok
+            // 
+            this.btn_paper_ok.Location = new System.Drawing.Point(189, 55);
+            this.btn_paper_ok.Name = "btn_paper_ok";
+            this.btn_paper_ok.Size = new System.Drawing.Size(75, 23);
+            this.btn_paper_ok.TabIndex = 1;
+            this.btn_paper_ok.Text = "确定";
+            this.btn_paper_ok.UseVisualStyleBackColor = true;
+            this.btn_paper_ok.Click += new System.EventHandler(this.btn_paper_ok_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.3871F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.6129F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txt_paper_width, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label14, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label15, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.txt_paper_height, 1, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 20);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(177, 62);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(16, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "宽度：";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "高度：";
+            // 
+            // txt_paper_width
+            // 
+            this.txt_paper_width.Location = new System.Drawing.Point(76, 3);
+            this.txt_paper_width.Name = "txt_paper_width";
+            this.txt_paper_width.Size = new System.Drawing.Size(63, 21);
+            this.txt_paper_width.TabIndex = 2;
+            // 
+            // txt_paper_height
+            // 
+            this.txt_paper_height.Location = new System.Drawing.Point(76, 34);
+            this.txt_paper_height.Name = "txt_paper_height";
+            this.txt_paper_height.Size = new System.Drawing.Size(63, 21);
+            this.txt_paper_height.TabIndex = 3;
+            // 
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.radioButton2);
             this.groupBox10.Controls.Add(this.radioButton1);
-            this.groupBox10.Location = new System.Drawing.Point(6, 143);
+            this.groupBox10.Location = new System.Drawing.Point(3, 234);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(298, 69);
             this.groupBox10.TabIndex = 5;
@@ -174,26 +292,6 @@
             this.radioButton1.Text = "纵向";
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.comboPaperSizes);
-            this.groupBox9.Location = new System.Drawing.Point(6, 79);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(298, 58);
-            this.groupBox9.TabIndex = 4;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "纸张大小";
-            // 
-            // comboPaperSizes
-            // 
-            this.comboPaperSizes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboPaperSizes.FormattingEnabled = true;
-            this.comboPaperSizes.Location = new System.Drawing.Point(6, 20);
-            this.comboPaperSizes.Name = "comboPaperSizes";
-            this.comboPaperSizes.Size = new System.Drawing.Size(286, 20);
-            this.comboPaperSizes.TabIndex = 1;
-            this.comboPaperSizes.SelectedValueChanged += new System.EventHandler(this.comboPaperSizes_SelectedValueChanged);
             // 
             // tabPageLayout
             // 
@@ -656,6 +754,26 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // label14
+            // 
+            this.label14.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(155, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(17, 12);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "mm";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(155, 40);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(17, 12);
+            this.label15.TabIndex = 5;
+            this.label15.Text = "mm";
+            // 
             // FrmPageSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -675,10 +793,14 @@
             this.Load += new System.EventHandler(this.FrmPageSettings_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPagePaper.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
-            this.groupBox9.ResumeLayout(false);
             this.tabPageLayout.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
@@ -756,5 +878,15 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.ComboBox comboPrinters;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button btn_paper_ok;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txt_paper_width;
+        private System.Windows.Forms.TextBox txt_paper_height;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
     }
 }

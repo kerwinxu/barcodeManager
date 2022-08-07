@@ -254,7 +254,7 @@ namespace VestShapes
         {
             try
             {
-
+                
                 PrintDocument printDoc = new PrintDocument();
 
                 printDoc.DefaultPageSettings.PrinterSettings.PrinterName = strPrinterName;
@@ -610,6 +610,34 @@ namespace VestShapes
             loadPaperSize(comboPrinters.Text);
         }
 
+        private void btn_paper_ok_Click(object sender, EventArgs e)
+        {
+            // 这个用自定义的纸张
+            int paper_width;
+            int paper_height;
+            if (! int.TryParse(txt_paper_width.Text, out paper_width))
+            {
+                MessageBox.Show("自定义纸张宽度设置不对");
+            }
+            if (!int.TryParse(txt_paper_height.Text, out paper_height))
+            {
+                MessageBox.Show("自定义纸张高度设置不对");
+            }
+
+            // 这里要设置成英寸。
+
+            PaperSize paperSize = new PaperSize("自定义", (int)(paper_width/25.4*100), (int)(paper_height/25.4*100));
+
+            BarcodePageSettings.BarcodePaperLayout.BarcodePaperSize = paperSize;//设置到
+
+            //在预览的下边显示模板大小
+            lblModelSize.Text = "模板大小：  " + BarcodePageSettings.BarcodePaperLayout.ModelWidth.ToString() + " X " + BarcodePageSettings.BarcodePaperLayout.ModelHeight.ToString() + " 毫米";
+            //如下显示纸张大小
+            lblPaperSize.Text = "纸张大小：  " + BarcodePageSettings.BarcodePaperLayout.PaperWidth.ToString() + " X " + BarcodePageSettings.BarcodePaperLayout.PaperHeight.ToString() + " 毫米";
+
+
+
+        }
     }
 
     public class ClsKeyOjbect

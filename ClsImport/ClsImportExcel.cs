@@ -70,8 +70,9 @@ namespace Xuhengxiao.ImportData
             }
 
             //将导入的表导入到数据库,
-            ClsDataBase myClsDataBase = new ClsDataBase();
-            strCurrentTableName = myClsDataBase.loadExcel(FrmSCAndShop.strSC, FrmSCAndShop.strShop, Path.GetFileName(strFile), loadExcelDataTalbe);
+            // TODO
+            //ClsDataBase myClsDataBase = new ClsDataBase();
+            //strCurrentTableName = myClsDataBase.loadExcel(FrmSCAndShop.strSC, FrmSCAndShop.strShop, Path.GetFileName(strFile), loadExcelDataTalbe);
 
 
         }

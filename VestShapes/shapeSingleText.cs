@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 //using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
+using Xuhengxiao.MyDataStructure;
 
 namespace VestShapes
 {
@@ -836,7 +837,7 @@ namespace VestShapes
 
 
 
-        public override bool updateVarValue(ArrayList arrlistKeyValue)
+        public override bool updateVarValue(List<clsKeyValue> arrlistKeyValue)
         {
             bool isChange = base.updateVarValue(arrlistKeyValue);
 

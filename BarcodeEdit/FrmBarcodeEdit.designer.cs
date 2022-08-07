@@ -251,6 +251,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "位置";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -420,7 +421,7 @@
             // 
             // userControlCanvas1
             // 
-            this.userControlCanvas1.arrlistKeyValue = ((System.Collections.ArrayList)(resources.GetObject("userControlCanvas1.arrlistKeyValue")));
+            //this.userControlCanvas1.arrlistKeyValue = ((System.Collections.ArrayList)(resources.GetObject("userControlCanvas1.arrlistKeyValue")));
             this.userControlCanvas1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.userControlCanvas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.userControlCanvas1.Location = new System.Drawing.Point(0, 0);

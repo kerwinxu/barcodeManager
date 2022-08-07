@@ -1183,7 +1183,7 @@ namespace VestShapes
 
 
         //如下是添加一个方法，这个方法是输入的变量信息来更新变量值，这个主要是某些需要变量的方法来实现这个。
-        public virtual bool updateVarValue(ArrayList arrlistKeyValue)
+        public virtual bool updateVarValue(List<clsKeyValue> arrlistKeyValue)
         {
             //首先设置到空值
             string str1 = _strVarValue;

@@ -89,19 +89,34 @@ namespace BarcodeTerminator
      public class queuePrintItemRowAndPages
      {
 
-         private ArrayList _arrlistRow;
-         /// <summary>
-         /// 每行的数据
-         /// </summary>
-         [XmlArray]
-         [XmlArrayItem(Type = typeof(clsKeyValue))]
-         public ArrayList arrlistRow
-         {
-             get { return _arrlistRow; }
-             set { _arrlistRow = value; }
-         }
+        private List<clsKeyValue> _arrlistRow;
+        /// <summary>
+        /// 每行的数据
+        /// </summary>
+        [XmlArray]
+        [XmlArrayItem(Type = typeof(clsKeyValue))]
+        public List<clsKeyValue> arrlistRow
+        {
+            get { return _arrlistRow; }
+            set { _arrlistRow = value; }
+        }
 
-         private int _intPages;
+
+        // 取消，因为不支持序列化
+        //private Dictionary<string,string> keyValuePairs;
+        ///// <summary>
+        ///// 每行的数据，用字典表示。
+        ///// </summary>
+        //public Dictionary<string,string> arrlistRow
+        //{
+        //    get { return keyValuePairs; }
+        //    set { keyValuePairs = value; }
+        //}
+
+
+
+
+        private int _intPages;
          /// <summary>
          /// 页数
          /// </summary>
@@ -281,9 +296,13 @@ namespace BarcodeTerminator
             {
                 //先取得第一项
                 queuePrintItemRowAndPages queuePrintItemRowAndPages1 =(queuePrintItemRowAndPages) arrlistqueuePrintItemRowAndPages[0];
-                foreach (clsKeyValue keyValue in queuePrintItemRowAndPages1.arrlistRow)
+                //foreach (clsKeyValue keyValue in queuePrintItemRowAndPages1.arrlistRow)
+                //{
+                //    strReturn = strReturn + keyValue.Key + ":" + keyValue.Value + "  ";
+                //}
+                foreach (var key in queuePrintItemRowAndPages1.arrlistRow)
                 {
-                    strReturn = strReturn + keyValue.Key + ":" + keyValue.Value + "  ";
+                    strReturn += key.Key + ":" + key.Value + " ";
                 }
                 //打印页数
                 strReturn = strReturn + " 打印页数：" + queuePrintItemRowAndPages1.intPages.ToString();
@@ -321,7 +340,7 @@ namespace BarcodeTerminator
         public static bool isPrintJiange;
 
         private static TimerCallback myTimerCallBack = timeCallBackPrintManaget;
-        public static System.Threading.Timer timerPrint = new System.Threading.Timer(myTimerCallBack, null, 1000, 1000);
+        public static System.Threading.Timer timerPrint = new System.Threading.Timer(myTimerCallBack, null, 0, 200);
 
         private UserControlCanvas barcodeCanvas=new UserControlCanvas ();//将这个类作为条形码类画布类
 
@@ -781,7 +800,8 @@ namespace BarcodeTerminator
                     //如下的才能打印
                     if (!isprintDocument_PrintPage)
                     {
-                        ArrayList arrlist = ((queuePrintItemRowAndPages)printDetails.arrlistqueuePrintItemRowAndPages[0]).arrlistRow;
+                        //ArrayList arrlist = ((queuePrintItemRowAndPages)printDetails.arrlistqueuePrintItemRowAndPages[0]).arrlistRow;
+                        List<clsKeyValue> arrlist = ((queuePrintItemRowAndPages)printDetails.arrlistqueuePrintItemRowAndPages[0]).arrlistRow;
                         int intP = ((queuePrintItemRowAndPages)printDetails.arrlistqueuePrintItemRowAndPages[0]).intPages;
                         int i = PrintBarcode(printDetails.ShapesFileName, arrlist, intP);
 
@@ -790,7 +810,8 @@ namespace BarcodeTerminator
                             //到这一步就保存打印记录了
                             //记录打印。
                             ClsDataBase myClsDataBase = new ClsDataBase();
-                            myClsDataBase.commandAddPrintedRecord(printDetails.strTableName, arrlist, i);
+                            // TODO
+                            //myClsDataBase.commandAddPrintedRecord(printDetails.strTableName, arrlist, i);
 
                             OnBarcodePrinted(new printedEventArgs());//发出打印消息
                         }
@@ -903,7 +924,8 @@ namespace BarcodeTerminator
             ClsDataBase myClsDataBase = new ClsDataBase();
             foreach (queuePrintItemRowAndPages item in printDetails.arrlistqueuePrintItemRowAndPages)
             {
-                myClsDataBase.commandAddPrintedRecord(printDetails.strTableName, item.arrlistRow, item.intPages);
+                // TODO
+                // myClsDataBase.commandAddPrintedRecord(printDetails.strTableName, item.arrlistRow, item.intPages);
                 OnBarcodePrinted(new printedEventArgs());//发出打印消息
 
             }
@@ -943,7 +965,8 @@ namespace BarcodeTerminator
 
                     if (currentQueueItem.IntCount>0)
                     {
-                        ArrayList arrlist = ((queuePrintItemRowAndPages)currentQueueItem.arrlistqueuePrintItemRowAndPages[0]).arrlistRow;
+                        //ArrayList arrlist = ((queuePrintItemRowAndPages)currentQueueItem.arrlistqueuePrintItemRowAndPages[0]).arrlistRow;
+                        List<clsKeyValue> arrlist = ((queuePrintItemRowAndPages)currentQueueItem.arrlistqueuePrintItemRowAndPages[0]).arrlistRow;
                         if (arrlist.Count>0)
                         {
                             myShapes.arrlistKeyValue = arrlist;
@@ -1003,7 +1026,7 @@ namespace BarcodeTerminator
 
         
         
-        private int PrintBarcode(string ShapeFileName, ArrayList arrlist, int intPage)
+        private int PrintBarcode(string ShapeFileName, List<clsKeyValue> arrlist, int intPage)
         {
             //首先清零
             intPrintPage = 0;
