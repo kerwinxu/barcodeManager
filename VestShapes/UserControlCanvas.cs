@@ -119,19 +119,32 @@ namespace VestShapes
             }
         }
 
-        public List<clsKeyValue> arrlistKeyValue
-        {
-            get
-            {
-                return myShapes.arrlistKeyValue;
-            }
-            set
-            {
-                myShapes.arrlistKeyValue = value;
-                this.Refresh();
-            }
 
+        public void setKeyValues(List<clsKeyValue> value)
+        {
+            myShapes.arrlistKeyValue = value;
+            this.Refresh();
         }
+
+        public List<clsKeyValue> getKeyValues()
+        {
+            return myShapes.arrlistKeyValue;
+        }
+
+
+        //public List<clsKeyValue> arrlistKeyValue
+        //{
+        //    get
+        //    {
+        //        return myShapes.arrlistKeyValue;
+        //    }
+        //    set
+        //    {
+        //        myShapes.arrlistKeyValue = value;
+        //        this.Refresh();
+        //    }
+
+        //}
 
 
         //定义事件

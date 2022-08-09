@@ -19,7 +19,7 @@ namespace BarcodeTerminator
 
             //将main表填充到窗体中。
             ClsDataBase myClsDataBase=new ClsDataBase ();
-            dataGridView1.DataSource = myClsDataBase.getMainTable();
+            //dataGridView1.DataSource = myClsDataBase.getMainTable();
 
             strTableName = "";//初始化而已
         }

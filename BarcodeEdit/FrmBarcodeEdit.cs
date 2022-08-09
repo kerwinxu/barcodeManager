@@ -18,6 +18,7 @@ namespace BarcodeTerminator
     public partial class FrmBarcodeEdit : Form
     {
         public clsKeyValue shapesFileData;//保存xml需要用到这个里边的路径信息
+
         //private  ArrayList arrlistKeyValue;//保存变量信息的。
         public  DataTable CurrentDataTable;
         public  string strTableName;
@@ -43,52 +44,12 @@ namespace BarcodeTerminator
         {
             InitializeComponent();
 
-            //新建的话也得有个打开啊。
-            string strFileName = Application.StartupPath + "\\BarcodeModel\\templet.barcode";
+            // 默认的话是打开这个，
+            shapesFileData = new clsKeyValue("templet", null);
 
-            /**
-            //如果不存在这个文件就新建一个，并且写入默认的
-            if (!File.Exists(strFileName))
-            {
-                if (!Directory.Exists(Application.StartupPath + "\\BarcodeModel"))
-                {
-                    Directory.CreateDirectory(Application.StartupPath + "\\BarcodeModel"); 
-                }
-                using (Stream stream = new FileStream(strFileName, FileMode.Create))
-                {
-                    using (StreamWriter sw=new StreamWriter(stream))
-                    {
-                        //sw.Write(_strTemplet);
-                    }
-                }         
-
-            }
-             * */
-
-
-            if (File.Exists(strFileName))
-            {
-                userControlCanvas1.Loader(strFileName);
-
-            }
-
-            shapesFileData = new clsKeyValue(Path.GetFileNameWithoutExtension(strFileName), strFileName);
-
-            //我自己的初始化自己的初始化中有放大到屏幕，这个容易出问题。，所以如下两个是吧设置工具和画布大小的放在这里来。
-            //myInit();
-            //设置工具可以操作画布的。
-            userControlToolBox1.setCanvas(userControlCanvas1);
-            //设置画布的尺寸同布局大小
-            canvasResie();
-
-            ClsBarcodePrint c = new ClsBarcodePrint();//只是一个启动计时器的
-
-            if (ClsBarcodePrint.strPrinterName == "")
-            {
-                ClsBarcodePrint.strPrinterName = c.myPrintDocument.PrinterSettings.PrinterName;//默认打印机
-            }
-
-            toolStripLabelPrintingName.Text = ClsBarcodePrint.strPrinterName;//默认打印机
+            //
+            myInit();
+            
 
         }
         public FrmBarcodeEdit(clsKeyValue lt , DataTable dataTable , List<clsKeyValue> arrlist , string tableName)
@@ -149,7 +110,7 @@ namespace BarcodeTerminator
                     //给画布更新变量信息。
                     setKeyValue(arrlist);
                     //更新到画布
-                    userControlCanvas1.arrlistKeyValue = arrlist;
+                    userControlCanvas1.setKeyValues(arrlist) ;
 
                     loadPrintedQtytoComboBox();// 判断哪像是数字
                 }
@@ -205,9 +166,7 @@ namespace BarcodeTerminator
             //设置画布的尺寸同布局大小
             canvasResie();
 
-            userControlCanvas1.ZoomPaperToScreen();
-
-            
+            //userControlCanvas1.ZoomPaperToScreen(); // 如果没有图形，这个容易出问题。
 
             ClsBarcodePrint c = new ClsBarcodePrint();//只是一个启动计时器的
 

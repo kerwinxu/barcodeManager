@@ -32,7 +32,7 @@ namespace BarcodeTerminator
         public static int intDpi;
 
         //当前选择的数据
-        public static ArrayList arrlistSellectRow = new ArrayList();
+        public static List<clsKeyValue> arrlistSellectRow = new List<clsKeyValue>();
 
         //当前正在打印的表的表名
         private string strCurrentTableName = "";//一开始就是空值 
@@ -499,7 +499,7 @@ namespace BarcodeTerminator
 
                 //导入打印记录,判断是根据表名和数据，
                 ClsDataBase myClsDataBase = new ClsDataBase();
-                dataGridViewPrintedRecords.DataSource = myClsDataBase.commandSelectPrintedRecord(strCurrentTableName, arrlistSellectRow);
+                //dataGridViewPrintedRecords.DataSource = myClsDataBase.commandSelectPrintedRecord(strCurrentTableName, arrlistSellectRow);
 
                 //更新图片
                 XmlDocument xmlDoc = new XmlDocument();
@@ -507,7 +507,7 @@ namespace BarcodeTerminator
                 //如下得判断路径是否是绝对路径
 
                 //值深度拷贝
-                ArrayList arrlisttemp = new ArrayList();
+                List<clsKeyValue> arrlisttemp = new List<clsKeyValue>();
                 if (arrlistSellectRow != null)
                 {
                     foreach (clsKeyValue item in arrlistSellectRow)
@@ -762,7 +762,7 @@ namespace BarcodeTerminator
             //myBarcodePrint.myPrintDocument.EndPrint += new PrintEventHandler(myPrintDocument_EndPrint);
 
             //如下是添加到打印队列
-            ArrayList arrlist = new ArrayList();//用这个是因为 arrlistSellectRow 也是静态变量，读取的时候会读取到不是想要的值,这里用深拷贝
+            List<clsKeyValue> arrlist = new List<clsKeyValue>();//用这个是因为 arrlistSellectRow 也是静态变量，读取的时候会读取到不是想要的值,这里用深拷贝
             if (arrlistSellectRow != null)
             {
                 foreach (clsKeyValue myKeyValue in arrlistSellectRow)
@@ -919,7 +919,7 @@ namespace BarcodeTerminator
                     {
                         foreach (DataGridViewRow item in dataGridView1.SelectedRows)
                         {
-                            ArrayList arrlist = new ArrayList();
+                            List<clsKeyValue> arrlist = new List<clsKeyValue>();
 
                             //如下是构造数据的
                             for (int i = 0; i < dataGridView1.ColumnCount; i++)
@@ -1045,7 +1045,7 @@ namespace BarcodeTerminator
             {
                 //timer1.Enabled = false;//这个好像是没有必要
 
-                ArrayList arrlist = new ArrayList();//用这个是因为 arrlistSellectRow 也是静态变量，读取的时候会读取到不是想要的值,这里用深拷贝
+                List<clsKeyValue> arrlist = new List<clsKeyValue>();//用这个是因为 arrlistSellectRow 也是静态变量，读取的时候会读取到不是想要的值,这里用深拷贝
                 if (arrlistSellectRow != null)
                 {
                     foreach (clsKeyValue myKeyValue in arrlistSellectRow)
@@ -1240,7 +1240,7 @@ namespace BarcodeTerminator
 
             //从数据库中导入这个表
             ClsDataBase myClsDataBase = new ClsDataBase();
-            dataGridView1.DataSource = myClsDataBase.getUserLoadTable(strCurrentTableName);
+            //dataGridView1.DataSource = myClsDataBase.getUserLoadTable(strCurrentTableName);
 
             //还得选择哪个是数量
             loadPrintedQtytoComboBox();
@@ -1528,7 +1528,7 @@ namespace BarcodeTerminator
                     //得根据选中的行迭代DataGridViewTextBoxCell
                     foreach (DataGridViewRow item in dataGridView1.SelectedRows)
                     {
-                        ArrayList arrlist = new ArrayList();
+                        List<clsKeyValue> arrlist = new List<clsKeyValue>();
                         int intPages = 0;//默认打印0页
 
                         //如下是构造数据的
@@ -1682,7 +1682,7 @@ namespace BarcodeTerminator
 
                     //导入打印记录,判断是根据表名和数据，
                     ClsDataBase myClsDataBase = new ClsDataBase();
-                    dataGridViewPrintedRecords.DataSource = myClsDataBase.commandSelectPrintedRecord(strCurrentTableName, arrlistSellectRow);
+                    //dataGridViewPrintedRecords.DataSource = myClsDataBase.commandSelectPrintedRecord(strCurrentTableName, arrlistSellectRow);
                 }
           
 

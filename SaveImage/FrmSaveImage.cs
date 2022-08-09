@@ -172,7 +172,7 @@ namespace BarcodeTerminator
             //如下是根据用户选择的多行数据进行迭代了
             if (arrlistRows != null)
             {
-                foreach (ArrayList arrlistRow in arrlistRows)
+                foreach (List<clsKeyValue> arrlistRow in arrlistRows)
                 {
                     //arrlistRow只是表示一行的数据的 
 
