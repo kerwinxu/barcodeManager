@@ -591,8 +591,7 @@ namespace BarcodeTerminator
 
             //从数据库中导入这个表
             ClsDataBase myClsDataBase = new ClsDataBase();
-            // TODO
-            //LoadDataTable(myClsDataBase.getUserLoadTable(strTableName));
+            LoadDataTable(myClsDataBase.sellectTable(strTableName));
             //还得选择哪个是数量
             loadPrintedQtytoComboBox();
 

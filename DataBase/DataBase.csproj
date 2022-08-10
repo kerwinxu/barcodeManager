@@ -75,11 +75,10 @@
     <Compile Include="FrmLoadExcelRecords.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmLoadExcelRecords.designer.cs" />
+    <Compile Include="FrmLoadExcelRecords.Designer.cs">
+      <DependentUpon>FrmLoadExcelRecords.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="FrmLoadExcelRecords.resx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyDataStructure\MyDataStructure.csproj">
@@ -97,6 +96,11 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FrmLoadExcelRecords.resx">
+      <DependentUpon>FrmLoadExcelRecords.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

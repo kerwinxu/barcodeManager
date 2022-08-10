@@ -19,7 +19,7 @@ namespace BarcodeTerminator
 
             //将main表填充到窗体中。
             ClsDataBase myClsDataBase=new ClsDataBase ();
-            //dataGridView1.DataSource = myClsDataBase.getMainTable();
+            dataGridView1.DataSource = myClsDataBase.getMainTable();
 
             strTableName = "";//初始化而已
         }
@@ -29,7 +29,7 @@ namespace BarcodeTerminator
             //首先判断是否选择了某一行，如果选择了，就取得相应的表名并关闭就可以了,如果没有取得就弹出对框框说请选择，最后设置返回值属性。
             if (dataGridView1.SelectedCells.Count > 0)
             {
-                strTableName = dataGridView1.CurrentRow.Cells["表名"].Value.ToString();//获取用户选择的表名
+                strTableName = dataGridView1.CurrentRow.Cells["现文件名"].Value.ToString();//获取用户选择的表名
                 this.DialogResult = DialogResult.OK;//对话框返回值
                 this.Dispose();
             }

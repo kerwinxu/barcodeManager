@@ -811,7 +811,7 @@ namespace BarcodeTerminator
                             //记录打印。
                             ClsDataBase myClsDataBase = new ClsDataBase();
                             // TODO
-                            //myClsDataBase.commandAddPrintedRecord(printDetails.strTableName, arrlist, i);
+                            myClsDataBase.appendPrintedTable(printDetails.strTableName, arrlist, i);
 
                             OnBarcodePrinted(new printedEventArgs());//发出打印消息
                         }

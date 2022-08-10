@@ -5,8 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Xuhengxiao.DataBase;
 
-namespace Xuhengxiao.DataBase
+namespace BarcodeTerminator
 {
     public partial class FrmLoadExcelRecords : Form
     {
@@ -18,8 +19,7 @@ namespace Xuhengxiao.DataBase
 
             //将main表填充到窗体中。
             ClsDataBase myClsDataBase=new ClsDataBase ();
-            // TODO
-            // dataGridView1.DataSource = myClsDataBase.getMainTable();
+            dataGridView1.DataSource = myClsDataBase.getMainTable();
 
             strTableName = "";//初始化而已
         }
@@ -29,7 +29,7 @@ namespace Xuhengxiao.DataBase
             //首先判断是否选择了某一行，如果选择了，就取得相应的表名并关闭就可以了,如果没有取得就弹出对框框说请选择，最后设置返回值属性。
             if (dataGridView1.SelectedCells.Count > 0)
             {
-                strTableName = dataGridView1.CurrentRow.Cells["表名"].Value.ToString();//获取用户选择的表名
+                strTableName = dataGridView1.CurrentRow.Cells["现文件名"].Value.ToString();//获取用户选择的表名
                 this.DialogResult = DialogResult.OK;//对话框返回值
                 this.Dispose();
             }
@@ -47,25 +47,7 @@ namespace Xuhengxiao.DataBase
             this.Dispose();
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            ClsDataBase myClsDataBase = new ClsDataBase();
-            if (txtStrSC.Text=="")
-            {
-                MessageBox.Show("您没有输入订单号");
-                //将main表填充到窗体中。
-                // TODO
-                //dataGridView1.DataSource = myClsDataBase.getMainTable();
-                strTableName = "";//初始化而已
-                return;
-            }
-            //将main表填充到窗体中。
-            // TODO
-            // dataGridView1.DataSource = myClsDataBase.commandSelect("select * from main where [单号]=\"" + txtStrSC.Text+"\";");
-
-        }
-
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             //这个跟单击确定唯一的区别是，如果没有选择，不用弹出让用户选择的的消息。
             //首先判断是否选择了某一行，如果选择了，就取得相应的表名并关闭就可以了,如果没有取得就弹出对框框说请选择，最后设置返回值属性。
@@ -75,6 +57,7 @@ namespace Xuhengxiao.DataBase
                 this.DialogResult = DialogResult.OK;//对话框返回值
                 this.Dispose();
             }
+
         }
     }
 }

@@ -52,7 +52,6 @@ namespace Xuhengxiao.ImportData
             // 首先判断这个excel表格有几页，如果只有一页就直接导入，如果不止一页就让用户选择
             string[] strSheetNames = GetExcelSheetNames(strFile);
 
-           
 
             if (strSheetNames.Length == 1)
             {
@@ -70,9 +69,8 @@ namespace Xuhengxiao.ImportData
             }
 
             //将导入的表导入到数据库,
-            // TODO
-            //ClsDataBase myClsDataBase = new ClsDataBase();
-            //strCurrentTableName = myClsDataBase.loadExcel(FrmSCAndShop.strSC, FrmSCAndShop.strShop, Path.GetFileName(strFile), loadExcelDataTalbe);
+            ClsDataBase myClsDataBase = new ClsDataBase();
+            strCurrentTableName = myClsDataBase.loadExcel(FrmSCAndShop.strSC, FrmSCAndShop.strShop,  strFile, loadExcelDataTalbe);
 
 
         }

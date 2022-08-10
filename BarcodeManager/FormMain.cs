@@ -521,7 +521,9 @@ namespace BarcodeTerminator
 
 
                 userControlCanvas1.setArrKeyValue(arrlisttemp);
+                userControlCanvas1.ZoomPaperToScreen(); // 这里添加
                 userControlCanvas1.Refresh();
+
                 /**
 
                 {
@@ -1240,7 +1242,8 @@ namespace BarcodeTerminator
 
             //从数据库中导入这个表
             ClsDataBase myClsDataBase = new ClsDataBase();
-            //dataGridView1.DataSource = myClsDataBase.getUserLoadTable(strCurrentTableName);
+            dataGridView1.DataSource = myClsDataBase.sellectTable(strCurrentTableName);
+
 
             //还得选择哪个是数量
             loadPrintedQtytoComboBox();
@@ -1560,6 +1563,7 @@ namespace BarcodeTerminator
                         queuePrintItemRowAndPages queuePrintItemRowAndPages1 = new queuePrintItemRowAndPages();
                         queuePrintItemRowAndPages1.arrlistRow = arrlist;
                         queuePrintItemRowAndPages1.intPages = intPages;
+                        
                         printDetails.addQueuePrintItemRowAndPages(queuePrintItemRowAndPages1);
 
                     }
