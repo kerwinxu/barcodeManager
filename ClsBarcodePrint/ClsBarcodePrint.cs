@@ -332,15 +332,20 @@ namespace BarcodeTerminator
 
    public    class ClsBarcodePrint
     {
+
+
+        private static ClsBarcodePrint clsBarcodePrint = null;  // 这个是静态的类。
+
+
         public   PrintDocument myPrintDocument = new PrintDocument();
         public  int intPrintPage;//实际打印的页数
-        public static ArrayList arrlistPrint = new ArrayList();//表示要打印的队列
+        public static Queue<queuePrintItem>  arrlistPrint = new Queue<queuePrintItem>();//表示要打印的队列
         //如下是打印间隔的两项参数
         public static string strJianGe;
         public static bool isPrintJiange;
 
         private static TimerCallback myTimerCallBack = timeCallBackPrintManaget;
-        public static System.Threading.Timer timerPrint = new System.Threading.Timer(myTimerCallBack, null, 0, 200);
+        public static System.Threading.Timer timerPrint = new System.Threading.Timer(myTimerCallBack, null, 0, 500);
 
         private UserControlCanvas barcodeCanvas=new UserControlCanvas ();//将这个类作为条形码类画布类
 
@@ -403,36 +408,44 @@ namespace BarcodeTerminator
         public static bool isZhuCe;//是否已经注册
 
 
+        private static bool isPrinting = false;//是否打印的。
+
         //我用定时器来管理打印顺序，并且做出相应事件的。
         private  static   void timeCallBackPrintManaget(Object state)
         {
             //判断是否打印的依据是打印机为空闲，且队列不为空。且不能是正在打印，因为那个会引发冲突
-             if (//(PrinterCheck.GetPrinterStatus(strPrinterName) == PrinterCheck.PrinterStatus.空闲)&&
-                  (arrlistPrint.Count > 0) && (!isprintDocument_PrintPage))
-             {
-                 ClsBarcodePrint myBarcodePrint = new ClsBarcodePrint();
+            if (//(PrinterCheck.GetPrinterStatus(strPrinterName) == PrinterCheck.PrinterStatus.空闲)&&
+                 (arrlistPrint.Count > 0) && (!isPrinting))
+            {
+                isPrinting = true; // 首先设置这个。
 
-                 try
-                 {
-                     //获取第一项，并删除第一项。不清楚原因，但有时候会打印双份，我这里先清除在打印。
-                     queuePrintItem qtm = (queuePrintItem)arrlistPrint[0];
-                     arrlistPrint.RemoveAt(0);
-                     myBarcodePrint.PrintBarcode(qtm);
-                     
-                 }
-                 catch (Exception ex)
-                 {
-                     ClsErrorFile.WriteLine(ex);
-                     //Console.Error.WriteLine(ex.Message);
-                 }
+                if (clsBarcodePrint == null)
+                {
+                    clsBarcodePrint = new ClsBarcodePrint();
+                }
 
-             }
+                try
+                {
+                    //获取第一项，并删除第一项。不清楚原因，但有时候会打印双份，我这里先清除在打印。
+                    queuePrintItem qtm = arrlistPrint.Dequeue();
+                    clsBarcodePrint.PrintBarcode(qtm);
+
+                }
+                catch (Exception ex)
+                {
+                    ClsErrorFile.WriteLine(ex);
+                    //Console.Error.WriteLine(ex.Message);
+                }
+
+                isPrinting = false;// 最后取消这个。
+
+            }
 
         }
 
         public void addPrintDetails(queuePrintItem printDetails)
         {
-            arrlistPrint.Add(printDetails);
+            arrlistPrint.Enqueue(printDetails);
 
         }
 
@@ -798,7 +811,7 @@ namespace BarcodeTerminator
                 while ((printDetails.IntCount > 0))
                 {
                     //如下的才能打印
-                    if (!isprintDocument_PrintPage)
+                    if  (!isprintDocument_PrintPage)
                     {
                         //ArrayList arrlist = ((queuePrintItemRowAndPages)printDetails.arrlistqueuePrintItemRowAndPages[0]).arrlistRow;
                         List<clsKeyValue> arrlist = ((queuePrintItemRowAndPages)printDetails.arrlistqueuePrintItemRowAndPages[0]).arrlistRow;
@@ -811,7 +824,7 @@ namespace BarcodeTerminator
                             //记录打印。
                             ClsDataBase myClsDataBase = new ClsDataBase();
                             // TODO
-                            myClsDataBase.appendPrintedTable(printDetails.strTableName, arrlist, i);
+                            //myClsDataBase.appendPrintedTable(printDetails.strTableName, arrlist, i);
 
                             OnBarcodePrinted(new printedEventArgs());//发出打印消息
                         }
@@ -860,6 +873,7 @@ namespace BarcodeTerminator
                 //如下的才能打印
                 if (!isprintDocument_PrintPage)
                 {
+                    isprintDocument_PrintPage = true;
                     //如下的就是具体构造每一个printDocument了
                     myPrintDocument = new PrintDocument();
                     myPrintDocument.DefaultPageSettings.Landscape = myShapes.BarcodePageSettings.BarcodePaperLayout.LandScape;//设置是否横向
@@ -902,7 +916,7 @@ namespace BarcodeTerminator
 
                     try
                     {
-                        isprintDocument_PrintPage = true;
+                       
                         myPrintDocument.Print();
                         //这里发出打印消息。
                         //isprintDocument_PrintPage = true;// 因为上一个打印进程也需要时间，所以这里先设置了。
@@ -916,6 +930,8 @@ namespace BarcodeTerminator
                         isprintDocument_PrintPage = false;
                         return;
                     }
+
+                    isprintDocument_PrintPage = false;
 
                 }
             }
