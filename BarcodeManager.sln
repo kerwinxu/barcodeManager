@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.489
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32510.428
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeManager", "BarcodeManager\BarcodeManager.csproj", "{95B91518-B786-45C3-819C-4E243A490766}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Help", "Help\Help.csproj", "{998DA8FB-1CC7-467A-85A5-404FADAC5ED8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveImage", "SaveImage\SaveImage.csproj", "{7DCE1981-7E71-4EB2-9617-B620B5D0032F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDataStructureTests", "MyDataStructureTests\MyDataStructureTests.csproj", "{F524D3D1-767F-46FE-8404-C078249E163A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -169,6 +171,18 @@ Global
 		{7DCE1981-7E71-4EB2-9617-B620B5D0032F}.x86|Any CPU.Build.0 = x86|x86
 		{7DCE1981-7E71-4EB2-9617-B620B5D0032F}.x86|x86.ActiveCfg = x86|x86
 		{7DCE1981-7E71-4EB2-9617-B620B5D0032F}.x86|x86.Build.0 = x86|x86
+		{F524D3D1-767F-46FE-8404-C078249E163A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F524D3D1-767F-46FE-8404-C078249E163A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F524D3D1-767F-46FE-8404-C078249E163A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F524D3D1-767F-46FE-8404-C078249E163A}.Debug|x86.Build.0 = Debug|Any CPU
+		{F524D3D1-767F-46FE-8404-C078249E163A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F524D3D1-767F-46FE-8404-C078249E163A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F524D3D1-767F-46FE-8404-C078249E163A}.Release|x86.ActiveCfg = Release|Any CPU
+		{F524D3D1-767F-46FE-8404-C078249E163A}.Release|x86.Build.0 = Release|Any CPU
+		{F524D3D1-767F-46FE-8404-C078249E163A}.x86|Any CPU.ActiveCfg = Debug|Any CPU
+		{F524D3D1-767F-46FE-8404-C078249E163A}.x86|Any CPU.Build.0 = Debug|Any CPU
+		{F524D3D1-767F-46FE-8404-C078249E163A}.x86|x86.ActiveCfg = Debug|Any CPU
+		{F524D3D1-767F-46FE-8404-C078249E163A}.x86|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

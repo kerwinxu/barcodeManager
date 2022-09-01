@@ -18,6 +18,12 @@ using Xuhengxiao.DataBase;
 using System.Xml.Serialization;
 
 
+/**
+ * 我这里打算重新做这个类，
+ * 
+ * **/
+
+
 namespace BarcodeTerminator
 {
     /**

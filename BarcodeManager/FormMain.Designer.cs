@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -50,12 +49,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtSunHao = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnQueuePrint = new System.Windows.Forms.Button();
             this.chkJianGe = new System.Windows.Forms.CheckBox();
-            this.lblQtyWaitPrint = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnLoadzPreviously = new System.Windows.Forms.Button();
-            this.txtAlreadyPrinted = new System.Windows.Forms.TextBox();
             this.comboBoxQtyOfWantToPrinted = new System.Windows.Forms.ComboBox();
             this.txtQtyOfWantToPrinted = new System.Windows.Forms.TextBox();
             this.lblPrinterName = new System.Windows.Forms.Label();
@@ -65,12 +60,10 @@
             this.btnLoadBarcodeModel = new System.Windows.Forms.Button();
             this.txtInterval = new System.Windows.Forms.TextBox();
             this.btnPrint = new System.Windows.Forms.Button();
-            this.btnTestPrint = new System.Windows.Forms.Button();
             this.btnNewBarcodeModel = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnEditBarcodeModel = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.comboBoxBarcodeModel = new System.Windows.Forms.ComboBox();
             this.dataGridViewPrintedRecords = new System.Windows.Forms.DataGridView();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -239,12 +232,8 @@
             this.splitContainer4.Panel1.Controls.Add(this.label6);
             this.splitContainer4.Panel1.Controls.Add(this.txtSunHao);
             this.splitContainer4.Panel1.Controls.Add(this.label5);
-            this.splitContainer4.Panel1.Controls.Add(this.btnQueuePrint);
             this.splitContainer4.Panel1.Controls.Add(this.chkJianGe);
-            this.splitContainer4.Panel1.Controls.Add(this.lblQtyWaitPrint);
-            this.splitContainer4.Panel1.Controls.Add(this.label1);
             this.splitContainer4.Panel1.Controls.Add(this.btnLoadzPreviously);
-            this.splitContainer4.Panel1.Controls.Add(this.txtAlreadyPrinted);
             this.splitContainer4.Panel1.Controls.Add(this.comboBoxQtyOfWantToPrinted);
             this.splitContainer4.Panel1.Controls.Add(this.txtQtyOfWantToPrinted);
             this.splitContainer4.Panel1.Controls.Add(this.lblPrinterName);
@@ -254,12 +243,10 @@
             this.splitContainer4.Panel1.Controls.Add(this.btnLoadBarcodeModel);
             this.splitContainer4.Panel1.Controls.Add(this.txtInterval);
             this.splitContainer4.Panel1.Controls.Add(this.btnPrint);
-            this.splitContainer4.Panel1.Controls.Add(this.btnTestPrint);
             this.splitContainer4.Panel1.Controls.Add(this.btnNewBarcodeModel);
             this.splitContainer4.Panel1.Controls.Add(this.label4);
             this.splitContainer4.Panel1.Controls.Add(this.label2);
             this.splitContainer4.Panel1.Controls.Add(this.btnEditBarcodeModel);
-            this.splitContainer4.Panel1.Controls.Add(this.label3);
             this.splitContainer4.Panel1.Controls.Add(this.comboBoxBarcodeModel);
             this.splitContainer4.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer4_Panel1_Paint);
             // 
@@ -384,16 +371,6 @@
             this.label5.TabIndex = 31;
             this.label5.Text = "条形码模板";
             // 
-            // btnQueuePrint
-            // 
-            this.btnQueuePrint.Location = new System.Drawing.Point(200, 200);
-            this.btnQueuePrint.Name = "btnQueuePrint";
-            this.btnQueuePrint.Size = new System.Drawing.Size(75, 23);
-            this.btnQueuePrint.TabIndex = 30;
-            this.btnQueuePrint.Text = "打印队列";
-            this.btnQueuePrint.UseVisualStyleBackColor = true;
-            this.btnQueuePrint.Click += new System.EventHandler(this.btnQueuePrint_Click);
-            // 
             // chkJianGe
             // 
             this.chkJianGe.AutoSize = true;
@@ -403,25 +380,8 @@
             this.chkJianGe.TabIndex = 29;
             this.chkJianGe.Text = "是否在不同条形码间打印间隔";
             this.chkJianGe.UseVisualStyleBackColor = true;
+            this.chkJianGe.Visible = false;
             this.chkJianGe.CheckedChanged += new System.EventHandler(this.chkJianGe_CheckedChanged);
-            // 
-            // lblQtyWaitPrint
-            // 
-            this.lblQtyWaitPrint.AutoSize = true;
-            this.lblQtyWaitPrint.Location = new System.Drawing.Point(108, 146);
-            this.lblQtyWaitPrint.Name = "lblQtyWaitPrint";
-            this.lblQtyWaitPrint.Size = new System.Drawing.Size(11, 12);
-            this.lblQtyWaitPrint.TabIndex = 28;
-            this.lblQtyWaitPrint.Text = "0";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1, 146);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 12);
-            this.label1.TabIndex = 27;
-            this.label1.Text = "等待排队的打印：";
             // 
             // btnLoadzPreviously
             // 
@@ -433,13 +393,6 @@
             this.toolTipAutoPrint.SetToolTip(this.btnLoadzPreviously, "就是以前导入的excel文件，已经保存在数据库中了");
             this.btnLoadzPreviously.UseVisualStyleBackColor = true;
             this.btnLoadzPreviously.Click += new System.EventHandler(this.btnLoadzPreviously_Click);
-            // 
-            // txtAlreadyPrinted
-            // 
-            this.txtAlreadyPrinted.Location = new System.Drawing.Point(144, 90);
-            this.txtAlreadyPrinted.Name = "txtAlreadyPrinted";
-            this.txtAlreadyPrinted.Size = new System.Drawing.Size(46, 21);
-            this.txtAlreadyPrinted.TabIndex = 24;
             // 
             // comboBoxQtyOfWantToPrinted
             // 
@@ -463,9 +416,8 @@
             this.lblPrinterName.AutoSize = true;
             this.lblPrinterName.Location = new System.Drawing.Point(84, 207);
             this.lblPrinterName.Name = "lblPrinterName";
-            this.lblPrinterName.Size = new System.Drawing.Size(65, 12);
+            this.lblPrinterName.Size = new System.Drawing.Size(0, 12);
             this.lblPrinterName.TabIndex = 21;
-            this.lblPrinterName.Text = "默认打印机";
             // 
             // btnSelectPrinter
             // 
@@ -479,7 +431,7 @@
             // 
             // txtCurrentPrintPage
             // 
-            this.txtCurrentPrintPage.Location = new System.Drawing.Point(144, 114);
+            this.txtCurrentPrintPage.Location = new System.Drawing.Point(144, 103);
             this.txtCurrentPrintPage.Name = "txtCurrentPrintPage";
             this.txtCurrentPrintPage.Size = new System.Drawing.Size(46, 21);
             this.txtCurrentPrintPage.TabIndex = 18;
@@ -516,7 +468,7 @@
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(281, 112);
+            this.btnPrint.Location = new System.Drawing.Point(278, 101);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 23);
             this.btnPrint.TabIndex = 11;
@@ -524,17 +476,6 @@
             this.toolTipAutoPrint.SetToolTip(this.btnPrint, "根据左边的“手动输入打印数量”打印");
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
-            // btnTestPrint
-            // 
-            this.btnTestPrint.Location = new System.Drawing.Point(281, 88);
-            this.btnTestPrint.Name = "btnTestPrint";
-            this.btnTestPrint.Size = new System.Drawing.Size(75, 23);
-            this.btnTestPrint.TabIndex = 10;
-            this.btnTestPrint.Text = "测试打印";
-            this.toolTipAutoPrint.SetToolTip(this.btnTestPrint, "只会打印一个");
-            this.btnTestPrint.UseVisualStyleBackColor = true;
-            this.btnTestPrint.Click += new System.EventHandler(this.btnTestPrint_Click);
             // 
             // btnNewBarcodeModel
             // 
@@ -550,7 +491,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1, 117);
+            this.label4.Location = new System.Drawing.Point(3, 112);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(101, 12);
             this.label4.TabIndex = 6;
@@ -575,15 +516,6 @@
             this.toolTipAutoPrint.SetToolTip(this.btnEditBarcodeModel, "编辑模板");
             this.btnEditBarcodeModel.UseVisualStyleBackColor = true;
             this.btnEditBarcodeModel.Click += new System.EventHandler(this.btnEditBarcodeModel_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1, 93);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 12);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "已打印数量";
             // 
             // comboBoxBarcodeModel
             // 
@@ -672,9 +604,7 @@
         private System.Windows.Forms.ComboBox comboBoxBarcodeModel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnPrint;
-        private System.Windows.Forms.Button btnTestPrint;
         private System.Windows.Forms.TextBox txtInterval;
         private System.Windows.Forms.Button btnLoadBarcodeModel;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
@@ -686,14 +616,10 @@
         private System.Windows.Forms.DataGridView dataGridViewPrintedRecords;
         private System.Windows.Forms.ComboBox comboBoxQtyOfWantToPrinted;
         private System.Windows.Forms.TextBox txtQtyOfWantToPrinted;
-        private System.Windows.Forms.TextBox txtAlreadyPrinted;
         private System.Windows.Forms.Button btnLoadzPreviously;
-        private System.Windows.Forms.Label lblQtyWaitPrint;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolTip toolTipAutoPrint;
         private System.Windows.Forms.CheckBox chkJianGe;
-        private System.Windows.Forms.Button btnQueuePrint;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label5;

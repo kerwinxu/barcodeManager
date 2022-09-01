@@ -21,8 +21,7 @@ using System.Xml.Serialization;
 using Xuhengxiao.ImportData;
 
 using Xuhengxiao.DataBase;
-
-
+using Io.Github.Kerwinxu.BarcodeManager.ClsBarcodePrint;
 
 namespace BarcodeTerminator
 {
@@ -889,11 +888,9 @@ namespace BarcodeTerminator
         {
             int intPages = getCurrentPrintPages();//这个数量是钉死的
 
-            if (chkIsMulti.Checked)
+            try
             {
-                //创建打印信息。
-                queuePrintItem printDetails = new queuePrintItem();
-                printDetails.strTableName = strCurrentTableName;
+
                 //如下是取得模板的路径
                 string strPathName = ((clsKeyValue)comboBoxBarcodeModel.SelectedItem).Value;
                 //还得判断是否是相对路径，我的简单判断方法是是否有冒号":"
@@ -910,99 +907,43 @@ namespace BarcodeTerminator
                     }
                 }
 
-                printDetails.ShapesFileName = strPathName;//设置目录
+                BarcodePrintImpl barcodePrintImpl = new BarcodePrintImpl();
+                List<List<clsKeyValue>> arr2Data = new List<List<clsKeyValue>>();  // 变量
+                List<int> printPages = new List<int>();                            // 打印数量
 
-                printDetails.IsFull = chkIsFull.Checked;
 
-                try
+
+                //得根据选中的行迭代DataGridViewTextBoxCell
+                foreach (DataGridViewRow item in dataGridView1.SelectedRows)
                 {
-                    //得根据选中的行迭代
-                    if (dataGridView1.SelectedRows.Count>0)
+                    List<clsKeyValue> arrlist = new List<clsKeyValue>();
+ 
+
+                    //如下是构造数据的
+                    for (int i = 0; i < dataGridView1.ColumnCount; i++)
                     {
-                        foreach (DataGridViewRow item in dataGridView1.SelectedRows)
-                        {
-                            List<clsKeyValue> arrlist = new List<clsKeyValue>();
-
-                            //如下是构造数据的
-                            for (int i = 0; i < dataGridView1.ColumnCount; i++)
-                            {
-                                clsKeyValue keyvalue = new clsKeyValue(dataGridView1.Columns[i].Name, item.Cells[i].Value.ToString());
-                                arrlist.Add(keyvalue);
-
-                            }
-                            //如下就是构造打印了。
-
-                            queuePrintItemRowAndPages queuePrintItemRowAndPages1 = new queuePrintItemRowAndPages();
-                            queuePrintItemRowAndPages1.arrlistRow = arrlist;
-                            queuePrintItemRowAndPages1.intPages = intPages;
-                            printDetails.addQueuePrintItemRowAndPages(queuePrintItemRowAndPages1);
-
-                            //queuePrintItem printDetails = new queuePrintItem(strCurrentTableName, ((clsKeyValue)comboBoxBarcodeModel.SelectedItem).Value, arrlist, intPages);
-
-                        }
+                        clsKeyValue keyvalue = new clsKeyValue(dataGridView1.Columns[i].Name, item.Cells[i].Value.ToString());
+                        arrlist.Add(keyvalue);
 
                     }
-                    else
-                    {
+                    //如下就是构造打印了。
 
-                        queuePrintItemRowAndPages queuePrintItemRowAndPages1 = new queuePrintItemRowAndPages();
-                        queuePrintItemRowAndPages1.arrlistRow = null;
-                        queuePrintItemRowAndPages1.intPages = intPages;
-                        printDetails.addQueuePrintItemRowAndPages(queuePrintItemRowAndPages1);
-
-                    }
-
-
-                    ClsBarcodePrint myBarcodePrint = new ClsBarcodePrint();
-                    myBarcodePrint.addPrintDetails(printDetails);
-
+                    arr2Data.Add(arrlist);
+                    printPages.Add(intPages);
 
                 }
-                catch (System.Exception ex)
-                {
-                    ClsErrorFile.WriteLine(ex);
-                }
 
+                barcodePrintImpl.print(userControlCanvas1.myShapes, arr2Data, printPages, lblPrinterName.Text, chkIsFull.Checked);
 
             }
-            else
+            catch (System.Exception ex)
             {
-
-                //只有大于零才打印
-                if (intPages > 0)
-                {
-                    printBarcode(intPages);
-
-                }
-
+                MessageBox.Show(ex.Message);
             }
 
-            /**如下的会产生问题，比如说在读取打印数量后已经抛出来一场，但结果还是打印了。
-             * 
-            timer1.Enabled = false;
-            int intPages = 0;
-            
-            try
-            {
-                if (txtCurrentPrintPage.Text != "")
-                {
-                    intPages = Convert.ToInt32(txtCurrentPrintPage.Text);
-                    printBarcode(intPages);
-                }
-                else
-                {
 
-                    MessageBox.Show("请输入本次要打印的页数");
-                    return;
-                }
 
-            }
-            catch (Exception ex)
-            {
 
-                MessageBox.Show("不能取得打印数量，原因是" + ex.Message);
-            }
-             * */
         }
 
         //取得用户实际要打印的数量
@@ -1502,110 +1443,81 @@ namespace BarcodeTerminator
         /// <param name="e"></param>
         private void btnPrint2_Click(object sender, EventArgs e)
         {
-            //如果是选择多行，每一项都得判断有多少数据的
-            if (chkIsMulti.Checked)
-            {
-                try
-                {
-                    queuePrintItem printDetails = new queuePrintItem();
-                    printDetails.strTableName = strCurrentTableName;
-                    //如下是取得模板的路径
-                    string strPathName = ((clsKeyValue)comboBoxBarcodeModel.SelectedItem).Value;
-                    //还得判断是否是相对路径，我的简单判断方法是是否有冒号":"
-                    if (strPathName.IndexOf(":") < 0)
-                    {
-                        //还有得判断首字符是不是"\\"，如果不是就加上
-                        if (strPathName.Substring(0) == "\\")
-                        {
-                            strPathName = Application.StartupPath + strPathName;
-                        }
-                        else
-                        {
-                            strPathName = Application.StartupPath + "\\" + strPathName;
-                        }
-                    }
-
-                    printDetails.ShapesFileName = strPathName;
-                    printDetails.IsFull = chkIsFull.Checked;
-
-                    //得根据选中的行迭代DataGridViewTextBoxCell
-                    foreach (DataGridViewRow item in dataGridView1.SelectedRows)
-                    {
-                        List<clsKeyValue> arrlist = new List<clsKeyValue>();
-                        int intPages = 0;//默认打印0页
-
-                        //如下是构造数据的
-                        for (int i = 0; i < dataGridView1.ColumnCount; i++)
-                        {
-                            clsKeyValue keyvalue = new clsKeyValue(dataGridView1.Columns[i].Name, item.Cells[i].Value.ToString());
-                            arrlist.Add(keyvalue);
-
-                            //判断哪个是数量
-                            if (dataGridView1.Columns[i].Name == comboBoxQtyOfWantToPrinted.Text)
-                            {
-                                try
-                                {
-                                    intPages = Convert.ToInt32(item.Cells[i].Value.ToString());
-                                }
-                                catch (System.Exception ex)
-                                {
-                                    MessageBox.Show("读取不到数量，请在“要打印数量”后选择一项作为数量，这个是自动读取的，错误原因是："+ex.Message);
-                                    ClsErrorFile.WriteLine("读取不到数量，请在“要打印数量”后选择一项作为数量，这个是自动读取的，错误原因是：" + ex.Message);
-                                    return;
-                                }
-                            }
-
-                        }
-                        //如下就是构造打印了。
-
-                        //创建打印信息。
-
-                        queuePrintItemRowAndPages queuePrintItemRowAndPages1 = new queuePrintItemRowAndPages();
-                        queuePrintItemRowAndPages1.arrlistRow = arrlist;
-                        queuePrintItemRowAndPages1.intPages = intPages;
-                        
-                        printDetails.addQueuePrintItemRowAndPages(queuePrintItemRowAndPages1);
-
-                    }
-
-                    ClsBarcodePrint myBarcodePrint = new ClsBarcodePrint();
-                    myBarcodePrint.addPrintDetails(printDetails);
-                    
-                }
-                catch (System.Exception ex)
-                {
-                    ClsErrorFile.WriteLine(ex);
-                }
-            }
-            else
-            {
-                int intPages = getQtyOfWantToPrinted();//取得打印数量，加上损耗
-
-                if (intPages > 0)
-                {
-                    timer1.Enabled = false;
-                    printBarcode(intPages);
-                }
-
-
-            }
-
-            /**
-             * 如下的会产生问题，比如说在读取打印数量时已经跑出异常了，但是还是系统还是崩溃了,所以加上如上判断
 
             try
             {
-                float fltSunHao = Convert.ToSingle(txtSunHao.Text)/100;
-                int intPages = Convert.ToInt32(txtQtyOfWantToPrinted.Text);
-                intPages += ((int)(intPages * fltSunHao));
-                printBarcode(intPages);
+
+                //如下是取得模板的路径
+                string strPathName = ((clsKeyValue)comboBoxBarcodeModel.SelectedItem).Value;
+                //还得判断是否是相对路径，我的简单判断方法是是否有冒号":"
+                if (strPathName.IndexOf(":") < 0)
+                {
+                    //还有得判断首字符是不是"\\"，如果不是就加上
+                    if (strPathName.Substring(0) == "\\")
+                    {
+                        strPathName = Application.StartupPath + strPathName;
+                    }
+                    else
+                    {
+                        strPathName = Application.StartupPath + "\\" + strPathName;
+                    }
+                }
+
+                BarcodePrintImpl barcodePrintImpl = new BarcodePrintImpl();
+                List<List<clsKeyValue>> arr2Data = new List<List<clsKeyValue>>();  // 变量
+                List<int> printPages = new List<int>();                            // 打印数量
+
+
+
+                //得根据选中的行迭代DataGridViewTextBoxCell
+                foreach (DataGridViewRow item in dataGridView1.SelectedRows)
+                {
+                    List<clsKeyValue> arrlist = new List<clsKeyValue>();
+                    int intPages = 0;//默认打印0页
+
+                    //如下是构造数据的
+                    for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                    {
+                        clsKeyValue keyvalue = new clsKeyValue(dataGridView1.Columns[i].Name, item.Cells[i].Value.ToString());
+                        arrlist.Add(keyvalue);
+
+                        //判断哪个是数量
+                        if (dataGridView1.Columns[i].Name == comboBoxQtyOfWantToPrinted.Text)
+                        {
+                            try
+                            {
+                                intPages = Convert.ToInt32(item.Cells[i].Value.ToString());
+                                // 这里要计算损耗
+                                float fltSunHao = Convert.ToSingle(txtSunHao.Text) / 100;//取得损耗
+                                intPages += ((int)(intPages * fltSunHao));//加上损耗
+
+                            }
+                            catch (System.Exception ex)
+                            {
+                                MessageBox.Show("读取不到数量，请在“要打印数量”后选择一项作为数量，这个是自动读取的，错误原因是：" + ex.Message);
+                                ClsErrorFile.WriteLine("读取不到数量，请在“要打印数量”后选择一项作为数量，这个是自动读取的，错误原因是：" + ex.Message);
+                                return;
+                            }
+                        }
+
+                    }
+                    //如下就是构造打印了。
+
+                    arr2Data.Add(arrlist);
+                    printPages.Add(intPages);
+
+                }
+
+
+                barcodePrintImpl.print(userControlCanvas1.myShapes, arr2Data, printPages, lblPrinterName.Text, chkIsFull.Checked);
+
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                throw;
             }
-             * */
+
+
         }
 
         private int getQtyOfWantToPrinted()
@@ -1635,8 +1547,85 @@ namespace BarcodeTerminator
 
         private void btnAutoPrint_Click(object sender, EventArgs e)
         {
-            timer1.Enabled = true;//计时器开始运行
-            isAutoPrint = true;//设置自动打印标识
+            try
+            {
+
+                //如下是取得模板的路径
+                string strPathName = ((clsKeyValue)comboBoxBarcodeModel.SelectedItem).Value;
+                //还得判断是否是相对路径，我的简单判断方法是是否有冒号":"
+                if (strPathName.IndexOf(":") < 0)
+                {
+                    //还有得判断首字符是不是"\\"，如果不是就加上
+                    if (strPathName.Substring(0) == "\\")
+                    {
+                        strPathName = Application.StartupPath + strPathName;
+                    }
+                    else
+                    {
+                        strPathName = Application.StartupPath + "\\" + strPathName;
+                    }
+                }
+
+                BarcodePrintImpl barcodePrintImpl = new BarcodePrintImpl();
+                List<List<clsKeyValue>> arr2Data = new List<List<clsKeyValue>>();  // 变量
+                List<int> printPages = new List<int>();                            // 打印数量
+
+
+
+                //得根据选中的行迭代DataGridViewTextBoxCell
+                foreach (DataGridViewRow item in dataGridView1.Rows)
+                {
+                    List<clsKeyValue> arrlist = new List<clsKeyValue>();
+                    int intPages = 0;//默认打印0页
+
+                    //如下是构造数据的
+                    for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                    {
+                        clsKeyValue keyvalue = new clsKeyValue(dataGridView1.Columns[i].Name, item.Cells[i].Value.ToString());
+                        arrlist.Add(keyvalue);
+
+                        //判断哪个是数量
+                        if (dataGridView1.Columns[i].Name == comboBoxQtyOfWantToPrinted.Text)
+                        {
+                            try
+                            {
+                                intPages = Convert.ToInt32(item.Cells[i].Value.ToString());
+                                // 这里要计算损耗
+                                if (chkSunHao.Checked)
+                                {
+                                    float fltSunHao = Convert.ToSingle(txtSunHao.Text) / 100;//取得损耗
+                                    intPages += ((int)(intPages * fltSunHao));//加上损耗
+
+                                }
+                               
+
+                            }
+                            catch (System.Exception ex)
+                            {
+                                MessageBox.Show("读取不到数量，请在“要打印数量”后选择一项作为数量，这个是自动读取的，错误原因是：" + ex.Message);
+                                ClsErrorFile.WriteLine("读取不到数量，请在“要打印数量”后选择一项作为数量，这个是自动读取的，错误原因是：" + ex.Message);
+                                return;
+                            }
+                        }
+
+                    }
+                    //如下就是构造打印了。
+
+                    arr2Data.Add(arrlist);
+                    printPages.Add(intPages);
+
+                }
+
+
+                barcodePrintImpl.print(userControlCanvas1.myShapes, arr2Data, printPages, lblPrinterName.Text, chkIsFull.Checked);
+
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
         private void timer2_Tick(object sender, EventArgs e)

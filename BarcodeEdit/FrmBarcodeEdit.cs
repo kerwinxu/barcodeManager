@@ -13,6 +13,8 @@ using Xuhengxiao.DataBase;
 
 using Xuhengxiao.ImportData;
 
+using Io.Github.Kerwinxu.BarcodeManager.ClsBarcodePrint;
+
 namespace BarcodeTerminator
 {
     public partial class FrmBarcodeEdit : Form
@@ -436,16 +438,29 @@ namespace BarcodeTerminator
 
             }
 
-            //创建打印信息。
-            queuePrintItem printDetails = new queuePrintItem();
-            printDetails.strTableName = strTableName;
-            printDetails.ShapesFileName = (shapesFileData).Value;
-            printDetails.IsFull = chkIsFull.Checked;
-            queuePrintItemRowAndPages queuePrintItemRowAndPages1 = new queuePrintItemRowAndPages();
-            queuePrintItemRowAndPages1.arrlistRow = arrlist;
-            queuePrintItemRowAndPages1.intPages = intPages;
-            printDetails.addQueuePrintItemRowAndPages(queuePrintItemRowAndPages1);
-            myBarcodePrint.addPrintDetails  (printDetails);
+            // 这里直接打印吧
+            // Shapes shapes, List<List<clsKeyValue>> arr2Data, List<int> printCount, string PrinterName, bool isFull=false
+            var shapes = userControlCanvas1.myShapes; //
+            List<List<clsKeyValue>> arr2Data = new List<List<clsKeyValue>>();
+            arr2Data.Add(arrlist);
+            List<int> pages = new List<int>();
+            pages.Add(intPages);
+            var printerName = string.Empty;
+            if (!string.IsNullOrEmpty(toolStripLabelPrintingName.Text)) printerName = toolStripLabelPrintingName.Text;
+            bool isFull = chkIsFull.Checked;
+            new BarcodePrintImpl().print(shapes, arr2Data, pages, printerName, isFull);
+
+
+            ////创建打印信息。
+            //queuePrintItem printDetails = new queuePrintItem();
+            //printDetails.strTableName = strTableName;
+            //printDetails.ShapesFileName = (shapesFileData).Value;
+            //printDetails.IsFull = chkIsFull.Checked;
+            //queuePrintItemRowAndPages queuePrintItemRowAndPages1 = new queuePrintItemRowAndPages();
+            //queuePrintItemRowAndPages1.arrlistRow = arrlist;
+            //queuePrintItemRowAndPages1.intPages = intPages;
+            //printDetails.addQueuePrintItemRowAndPages(queuePrintItemRowAndPages1);
+            //myBarcodePrint.addPrintDetails  (printDetails);
 
         }
 

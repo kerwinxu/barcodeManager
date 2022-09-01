@@ -7,7 +7,7 @@
     <ProjectGuid>{465AEE03-8B54-4475-9B03-28AE85CF0238}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClsBarcodePrint</RootNamespace>
+    <RootNamespace>Io.Github.Kerwinxu.BarcodeManager.ClsBarcodePrint</RootNamespace>
     <AssemblyName>ClsBarcodePrint</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -69,11 +69,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BarcodePrintImpl.cs" />
     <Compile Include="ClsBarcodePrint.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs" />
+    <Compile Include="IBarcodePrint.cs" />
+    <Compile Include="PrintItems.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,6 +93,9 @@
       <Project>{ace5c531-6dd6-4cf6-b8c8-8cbe042eaf79}</Project>
       <Name>VestShapes</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
