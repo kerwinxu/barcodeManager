@@ -6,6 +6,8 @@ using System.Text;
 using VestShapes;
 using Xuhengxiao.MyDataStructure;
 using Io.Github.Kerwinxu.BarcodeManager.ClsBarcodePrint;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Io.Github.Kerwinxu.BarcodeManager.ClsBarcodePrint
 {
@@ -38,6 +40,8 @@ namespace Io.Github.Kerwinxu.BarcodeManager.ClsBarcodePrint
             //throw new NotImplementedException();
         }
 
+
+
         public void print(Shapes shapes, List<List<clsKeyValue>> arr2Data, List<int> printCount, string PrinterName, bool isFull=false)
         {
             var shapes2 = ClsXmlSerialization.DeepCopy<VestShapes.Shapes>(shapes);
@@ -64,6 +68,29 @@ namespace Io.Github.Kerwinxu.BarcodeManager.ClsBarcodePrint
             //throw new NotImplementedException();
         }
 
+
+        public void print(string sharpname, List<List<clsKeyValue>> arr2Data, List<int> printCount, string PrinterName, bool isFull = false)
+        {
+            // 这里先导入文件
+            try
+            {
+                using (Stream stream = new FileStream(sharpname, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    XmlSerializer formatter = new XmlSerializer(typeof(Shapes));
+                    var myShapes = formatter.Deserialize(stream) as Shapes;
+
+                    print(myShapes, arr2Data, printCount, PrinterName, isFull);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            //throw new NotImplementedException();
+        }
 
         /// <summary>
         /// 充满打印
@@ -140,8 +167,8 @@ namespace Io.Github.Kerwinxu.BarcodeManager.ClsBarcodePrint
                 // 然后画图
                 int row = i / intNumOfColumn;
                 int column = i % intNumOfColumn;
-                float fx = printItem.Shapes.BarcodePageSettings.BarcodePaperLayout.Left + row * (printItem.Shapes.BarcodePageSettings.BarcodePaperLayout.ModelWidth + printItem.Shapes.BarcodePageSettings.BarcodePaperLayout.HorizontalInterval);
-                float fy = printItem.Shapes.BarcodePageSettings.BarcodePaperLayout.Top + column * (printItem.Shapes.BarcodePageSettings.BarcodePaperLayout.ModelHeight + printItem.Shapes.BarcodePageSettings.BarcodePaperLayout.VerticalInterval);
+                float fx = printItem.Shapes.BarcodePageSettings.BarcodePaperLayout.Left + column * (printItem.Shapes.BarcodePageSettings.BarcodePaperLayout.ModelWidth + printItem.Shapes.BarcodePageSettings.BarcodePaperLayout.HorizontalInterval);
+                float fy = printItem.Shapes.BarcodePageSettings.BarcodePaperLayout.Top + row * (printItem.Shapes.BarcodePageSettings.BarcodePaperLayout.ModelHeight + printItem.Shapes.BarcodePageSettings.BarcodePaperLayout.VerticalInterval);
                 printItem.Shapes.DrawShapes(e.Graphics, fx, fy);
 
             }
