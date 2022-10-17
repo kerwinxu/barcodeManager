@@ -829,7 +829,7 @@ namespace BarcodeTerminator
                             //到这一步就保存打印记录了
                             //记录打印。
                             ClsDataBase myClsDataBase = new ClsDataBase();
-                            // TODO
+ 
                             //myClsDataBase.appendPrintedTable(printDetails.strTableName, arrlist, i);
 
                             OnBarcodePrinted(new printedEventArgs());//发出打印消息
@@ -946,7 +946,6 @@ namespace BarcodeTerminator
             ClsDataBase myClsDataBase = new ClsDataBase();
             foreach (queuePrintItemRowAndPages item in printDetails.arrlistqueuePrintItemRowAndPages)
             {
-                // TODO
                 // myClsDataBase.commandAddPrintedRecord(printDetails.strTableName, item.arrlistRow, item.intPages);
                 OnBarcodePrinted(new printedEventArgs());//发出打印消息
 

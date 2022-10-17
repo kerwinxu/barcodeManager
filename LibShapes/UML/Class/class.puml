@@ -1,0 +1,309 @@
+@startuml class
+
+
+class ShapeEle{
+    .. 属性 ..
+    +int Id
+    +float X
+    +float Y
+    +float Width
+    +float Height
+    +float Angle
+    + string VarName
+    + string VarValue
+    - float XAdd
+    - float YAdd
+    - float WidthAdd
+    - float HeightAdd
+    .. 公开方法 ..
+    + Draw(Graphics g)
+    + GraphicsPath getGraphicsPath(Matrix matrix)
+    + GraphicsPath getGraphicsPathNoOffsetRoute()
+    + RectangleF GetBounds()
+    + bool isContains(PointF mousePointF)
+    + bool isBeContains(RectangleF ract)
+    + move()
+    + resize()
+}
+
+
+class PointTransform{
+    .. 属性 .. 
+    float OffsetX
+    float OffsetY
+    float Zoom
+    .. 公开方法 ..
+    + PointF TransfromToVirtualPoint(PointF)
+    + Matrix GetMatrix()
+}
+note left of PointTransform
+    这个是虚拟世界的坐标
+    跟屏幕上的坐标转换的
+end note
+
+
+class PaperSize{
+    float PaperWidth
+    float PaperHeight
+    float Top
+    flaot Left
+    float Right
+    float Bottom
+    int Cols 
+    int Rows
+    float HorizontalIntervalDistance
+    float VerticalIntervalDistance
+    ShapeEle Shape
+}
+PaperSize o-- ShapeEle
+note right of PaperSize::Top
+    模板距离纸张顶部的距离
+end note
+note right of PaperSize::Left
+    模板距离纸张左边的距离
+end note
+note right of PaperSize::Cols
+    列数
+end note
+note right of PaperSize::Rows
+    行数
+end note
+note right of PaperSize::HorizontalIntervalDistance
+    模板之间的水平间隔
+end note
+note right of PaperSize::VerticalIntervalDistance
+    模板之间的垂直间隔
+end note
+
+
+class Shapes{
+    .. 属性 ..
+    + List<ShapeEle> lstShapes
+    + PointTransform PointTransform
+    + PaperSize PaperSize
+    + Dictionary<string,string> keyvalue
+    .. 方法 ..
+    +ShapeEle getSelectShape()
+    +List<ShapeEle> getSelectShapes()
+    +Draw(Graphics g, Matrix matrix, bool isShowPaperBack=true)
+    +int getNextId()
+    +getShape(int Id)
+    + forward(ShapeEle shape)
+    + forwardToFront(ShapeEle shape)
+    + backward(ShapeEle shape)
+    + backwardToEnd(ShapeEle shape)
+    + void addGroup(List<ShapeEle> shapes)
+    - initGraphics(Graphics g)
+}
+Shapes o-- ShapeEle
+Shapes o-- PointTransform
+Shapes o-- PaperSize
+
+note right of Shapes::getSelectShape
+    鼠标点击下取得一个选择的图形，
+end note
+note right of Shapes::getSelectShapes
+    鼠标画矩形框下选择的图形。
+end note
+note right of Shapes::DrawWithPaperBack
+    绘图，连带纸张的背景。
+end note
+note right of Shapes::Draw
+    绘图，不带纸张
+end note
+note right of Shapes::getNextId
+    取得下一个可用的id
+end note
+
+
+class ShapeGroup{
+    -- 属性 --
+    List<ShapeEle>group
+    -- 方法 --
+    +Draw(Graphics g)
+    +bool isContains(PointF mousePointF)
+    +bool isBeContains(RactangleF ract)
+    +move()
+    +resize()
+}
+ShapeEle <|-- ShapeGroup
+
+
+class ShapeLine{
+    -- 方法 --
+    + getGraphicsPath getGraphicsPathNoOffsetRoute()
+}
+ShapeEle <|-- ShapeLine
+
+class ShapeRectangle{
+    -- 方法 --
+    + getGraphicsPath getGraphicsPathNoOffsetRoute()
+}
+ShapeEle <|-- ShapeRectangle
+
+
+class ShapeSelected{
+    
+}
+ShapeRectangle <|-- ShapeSelected
+
+class ShapeText{
+    + string PreText
+    + string SuffixText
+    + string MidText
+}
+
+
+class UserControlCanvas{
+    -- 属性 --
+    + Shapes Shapes
+    + bool isDrawDridding
+    + int GriddingInterval
+    + bool isAlignGridding
+    + ICommandRecorder commandRecorder
+    + Dictionary<string,string> Vals
+    + ShapeEle SelectShapes
+    + State state
+    + isShift
+    -- 方法
+    - keyDown()
+    - keyUp()
+    - MouseDown()
+    - MouseUp()
+    - print()
+    + Undo()
+    + Redo()
+}
+UserControlCanvas o-- Shapes
+UserControlCanvas o-- ShapeGroup
+UserControlCanvas o-- ICommandRecorder
+UserControlCanvas o-- State
+note right of UserControlCanvas::isDrawDridding
+    显示网格
+end note
+note right of UserControlCanvas::GriddingInterval
+    网格间隔
+end note
+note right of UserControlCanvas::isAlignGridding
+    对齐网格
+end note
+note right of UserControlCanvas::print
+    这里会用到双缓冲BufferedGraphics，
+    首先建立双缓冲，然后提高精度
+    首先绘制所有的图形
+    然后绘制虚拟选择框
+    然后绘制刻度表
+    最后刷新双缓冲
+end note
+
+
+interface  IInvoke{
+    ExecuteCommand(Command command)
+}
+
+interface ICommandRecorder{
+    addCommand(Command command)
+    Undo()
+    Redo()
+}
+
+
+class CommandRecorder{
+    -- 属性 --
+    - List<Command>commands
+    -- 方法 -- 
+    addCommand(Command command)
+    Undo()
+    Redo()
+}
+ICommandRecorder <|-- CommandRecorder
+
+
+abstract class Command {
+    + string ID
+    +Undo()
+    +Redo()
+}
+
+class MoveCommand{
+    +float oldX
+    +float oldY
+    +float newX
+    +flaot newY
+}
+Command <|-- MoveCommand
+
+class ResizeCommand{
+    float oldX
+    float oldY
+    float oldWidth
+    float oldHeight
+    float newX
+    flaot newY
+    float newWidth
+    float newHeight
+}
+Command <|-- ResizeCommand
+
+class PropertyChangedCommand{
+    ShapeEle oldShape
+    ShapeEle newShape
+}
+Command <|-- PropertyChangedCommand
+
+abstract class CommandEx{
+    Shapes Shapes
+}
+Command <|-- CommandEx
+
+class AddCommand{
+    float X
+    float Y
+}
+CommandEx <|-- AddCommand
+
+class DeleteCommand{
+}
+CommandEx <|-- DeleteCommand
+
+
+class ResizeStrategy{
+
+}
+
+abstract class State{
+    -- 属性 --
+    - UserControlCanvas canvas
+    - PointF   startPoint
+    -- 构造函数 --
+    State(UserControlCanvas canvas, PointF startPoint)
+    -- 方法 --
+    + keyDown()
+    + keyup()
+    + LeftMouseDown()
+    + LeftMouseMove()
+    + LeftMouseUp()
+    + rightMouse()
+}
+
+class StateStandby{
+
+}
+State <|-- StateStandby
+
+class StateCreate{
+
+}
+State <|-- StateCreate
+
+class StateSelected{
+
+}
+State <|-- StateSelected
+
+class StateRectSelected{
+
+}
+State <|-- StateRectSelected
+
+@enduml

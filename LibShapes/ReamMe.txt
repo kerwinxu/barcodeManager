@@ -1,0 +1,26 @@
+﻿这个是将绘图打印的核心部分重写，
+
+重要的分类
+	ShapeEle ： 形状部分负责在虚拟空间的所有
+	PaperSize : 纸张的尺寸以及行间距，列间距之类的
+	Transform ： 偏移的类，放大系数以及偏移原点的。
+	Shapes    ： 包括如上的3个类，图形的集合，纸张尺寸以及转换的。
+	UserControlCanvas ： 面板类，图形方面的操作在这里边，包括鼠标和键盘操作
+	UserControlToolbox ： 工具箱，各种工具以及一个属性。
+	IInvoke ： 负责命令的执行
+	CommandRecorder ： 命令记录的，可以支持undo和redo
+	Command ： 命令类，
+	PrintBarcode : 打印的部分。
+	状态枚举
+		上下左右，还有4个角。
+		移动
+		选择
+		矩形选择
+
+我取消clsKeyValue，而转成Dictionary类型，并且输出转成json格式,我这个是是一个简化的图形设计，最大的功能是打印条形码，
+所以功能方面是有精简的，
+
+ShapeEle中的形状保存的xy宽高等都是虚拟世界的尺寸，没有经过转换的
+GetGraphicsPathWithAngle中返回的是虚拟的路径。
+GetGraphicsPath(Matrix matrix) ： 转换来的是实际的路径了
+

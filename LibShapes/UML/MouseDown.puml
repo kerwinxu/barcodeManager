@@ -1,0 +1,23 @@
+﻿@startuml MouseDown
+'' MouseDown
+start
+: 保存鼠标在虚拟空间的坐标;
+if (鼠标左键) then (yes)
+	if (是否在已经选择框内) then (yes)
+		if (是否在四周的点上) then (yes)
+			: 四周方向改变大小;
+		elseif (是否在四周的线上) then (yes)
+			: 向8方改变大小;
+		else (nothing)
+			: 移动图形模式;
+		endif
+	else (no)
+		if (是否在某个图形内) then (yes)
+			: 将这个设置成已选择形状;
+		else (no)
+			: 画矩阵多选模式;
+		endif
+	endif
+endif
+stop
+@enduml

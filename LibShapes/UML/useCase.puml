@@ -1,0 +1,42 @@
+@startuml UseCase
+left to right direction
+
+actor User 
+
+rectangle  编辑图形 {
+    usecase "鼠标左键选择某个图形" as edit1
+    usecase "鼠标左键更改某个图形的大小" as edit2
+    usecase "鼠标左键更改某个图形的位置" as edit3
+    usecase "手动更改某个图形的某个属性" as edit4
+}
+
+User --> edit1
+User --> edit2
+User --> edit3
+User --> edit4
+
+rectangle 创建图形{
+    usecase "选择要创建的是什么图形" as create1
+    usecase "自定义创建的图形的大小" as create2
+}
+User --> create1
+User --> create2
+
+rectangle 整体操作{
+    usecase "读取文件" as total1
+    usecase "保存文件" as total2
+    usecase "放大屏幕" as total3
+    usecase "移动屏幕" as total4
+    usecase "Undo" as total5
+    usecase "Redo" as total6
+}
+
+
+total1 <-- User
+total2 <-- User
+total3 <-- User
+total4 <-- User
+total5 <-- User
+total6 <-- User
+
+@enduml

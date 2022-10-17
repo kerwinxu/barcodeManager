@@ -70,8 +70,8 @@ namespace TestStreamPlus
         ///</summary>
         public void WriteXmlTestHelper<TKey, TValue>()
         {
-            SerializableDictionary<TKey, TValue> target = new SerializableDictionary<TKey, TValue>(); // TODO: 初始化为适当的值
-            XmlWriter write = null; // TODO: 初始化为适当的值
+            SerializableDictionary<TKey, TValue> target = new SerializableDictionary<TKey, TValue>();
+            XmlWriter write = null; 
             target.WriteXml(write);
             Assert.Inconclusive("无法验证不返回值的方法。");
         }

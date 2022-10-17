@@ -32,14 +32,14 @@ namespace BarcodeTerminator
             if (ClsBarcodePrint.arrlistPrint.Equals(queuePrintList))
                 return;//如果相同了，那么就直接返回就可以了。
 
-            queuePrintList =(ArrayList) ClsBarcodePrint.arrlistPrint.Clone();
+            //queuePrintList =(ArrayList) ClsBarcodePrint.arrlistPrint.Clone();
             
-            //首先清除所有项目，再重新添加
-            lstQueuePrint.Items.Clear();
-            foreach (queuePrintItem myqueuePrintItem in queuePrintList)
-            {
-                lstQueuePrint.Items.Add(myqueuePrintItem.ToString());
-            }            
+            ////首先清除所有项目，再重新添加
+            //lstQueuePrint.Items.Clear();
+            //foreach (queuePrintItem myqueuePrintItem in queuePrintList)
+            //{
+            //    lstQueuePrint.Items.Add(myqueuePrintItem.ToString());
+            //}            
 
             if (lstQueuePrint.Items.Contains(strSelectPrint))
                 lstQueuePrint.Text = strSelectPrint;
@@ -64,7 +64,7 @@ namespace BarcodeTerminator
                  * queuePrintList[lstQueuePrint.SelectedIndex]，就是项目的值了
                  * Remove 是删除匹配项
                  * */
-                ClsBarcodePrint.arrlistPrint.Remove((queuePrintItem)(queuePrintList[lstQueuePrint.SelectedIndex]));
+                //ClsBarcodePrint.arrlistPrint.Remove((queuePrintItem)(queuePrintList[lstQueuePrint.SelectedIndex]));
             }
 
         }

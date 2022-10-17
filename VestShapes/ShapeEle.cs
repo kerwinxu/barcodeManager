@@ -559,6 +559,7 @@ namespace VestShapes
                     path.Transform(listMatrix[i]);
 
                 }
+                
             }
             return path;
 

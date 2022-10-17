@@ -1,0 +1,16 @@
+@startuml MouseMove
+'' MouseMove
+start
+: 取得这个点在虚拟世界的坐标;
+: 计算现在坐标跟原先坐标的偏移;
+if (状态是移动) then (yes)
+    : 发送移动事件;
+elseif (状态是四面扩展) then (yes)
+    : 发送四面扩展事件;
+elseif (状态是8方扩展) then (yes)
+    : 发送8方扩展事件;
+elseif (状态是矩形选择) then (yes)
+    : 矩形选择绘图;
+endif
+stop
+@enduml

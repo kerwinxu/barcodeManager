@@ -267,7 +267,7 @@ namespace VestShapes
 
 
 
-                g.ResetTransform();
+             g.ResetTransform();
             //base.Draw(g, arrlistMatrix);
 
         }

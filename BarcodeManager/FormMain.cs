@@ -1203,7 +1203,7 @@ namespace BarcodeTerminator
                 intPrintedQty = intPrintedQty + Convert.ToInt32(dataGridViewPrintedRecords.Rows[i].Cells[1].Value.ToString());
             }
 
-            txtAlreadyPrinted.Text = intPrintedQty.ToString();
+            //txtAlreadyPrinted.Text = intPrintedQty.ToString();
 
         }
 
@@ -1215,7 +1215,7 @@ namespace BarcodeTerminator
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            lblQtyWaitPrint.Text = ClsBarcodePrint.arrlistPrint.Count.ToString();//打印队列中的数量
+            //lblQtyWaitPrint.Text = ClsBarcodePrint.arrlistPrint.Count.ToString();//打印队列中的数量
 
             //dataGridViewChangedCell();//主要是更新记录用，貌似没有必要用这个不断更新记录
 

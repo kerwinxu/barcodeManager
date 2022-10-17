@@ -123,6 +123,7 @@ namespace VestShapes
         public void setKeyValues(List<clsKeyValue> value)
         {
             myShapes.arrlistKeyValue = value;
+            
             this.Refresh();
         }
 
