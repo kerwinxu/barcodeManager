@@ -152,6 +152,10 @@
       <Project>{998da8fb-1cc7-467a-85a5-404fadac5ed8}</Project>
       <Name>Help</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LibShapes\LibShapes.csproj">
+      <Project>{ee859868-a204-44e8-85b3-b080ae587c38}</Project>
+      <Name>LibShapes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MyDataStructure\MyDataStructure.csproj">
       <Project>{7a35f89b-1043-4df7-b2b9-721eedb519a2}</Project>
       <Name>MyDataStructure</Name>

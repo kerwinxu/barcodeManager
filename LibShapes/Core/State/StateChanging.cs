@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Io.Github.Kerwinxu.LibShapes.Core.State
 {
@@ -58,6 +59,8 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
                 if (item.isRight(points, pointF))
                 {
                     changeStrategy = item;
+                    Cursor cursor = item.changeCursor();
+                    if (cursor != null) this.canvas.Cursor = cursor;// 更改鼠标样式。
                     return;
                 }
             }
@@ -98,6 +101,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
             }
             // 转成
             this.canvas.state = new StateSelected(this.canvas);
+            this.canvas.Cursor = Cursors.Default;// 换到原先的鼠标样式
             this.canvas.Refresh();
             //base.LeftMouseUp(pointF);
         }

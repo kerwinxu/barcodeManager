@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Io.Github.Kerwinxu.LibShapes.Core.State.ChangeStrategy
 {
@@ -41,6 +42,12 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State.ChangeStrategy
             }
             Trace.WriteLine($"更改:{rect}");
             shape.Change(rect);
+        }
+
+        public Cursor changeCursor()
+        {
+            return Cursors.PanNE;
+            //throw new NotImplementedException();
         }
 
         public bool isRight(PointF[] pointFs, PointF start_pointF)

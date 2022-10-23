@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBarcodeEdit));
+            Io.Github.Kerwinxu.LibShapes.Core.Command.CommandRecorder commandRecorder3 = new Io.Github.Kerwinxu.LibShapes.Core.Command.CommandRecorder();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.bindingNavigator1 = new System.Windows.Forms.BindingNavigator(this.components);
@@ -56,8 +57,8 @@
             this.btnPrint = new System.Windows.Forms.Button();
             this.chkIsFull = new System.Windows.Forms.CheckBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.userControlCanvas1 = new VestShapes.UserControlCanvas();
-            this.userControlToolBox1 = new VestShapes.UserControlToolBox();
+            this.canvas = new Io.Github.Kerwinxu.LibShapes.Core.UserControlCanvas();
+            this.toolBox = new Io.Github.Kerwinxu.LibShapes.Core.UserControlToolbox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.文件FToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,7 +69,6 @@
             this.另存为AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.导入EXCEL表格ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.查看以前导入的ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.退出XToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.编辑EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -107,12 +107,12 @@
             this.粘贴PToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.导入EXCEL = new System.Windows.Forms.ToolStripButton();
-            this.查看以前导入的toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.帮助LToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabelPrintingName = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButtonSellectPrinting = new System.Windows.Forms.ToolStripButton();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -193,7 +193,7 @@
             this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(206, 25);
+            this.bindingNavigator1.Size = new System.Drawing.Size(213, 25);
             this.bindingNavigator1.TabIndex = 18;
             this.bindingNavigator1.Text = "bindingNavigator1";
             // 
@@ -210,8 +210,8 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
-            this.bindingNavigatorCountItem.Text = "/ {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(39, 22);
+            this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "总项数";
             // 
             // bindingNavigatorDeleteItem
@@ -232,6 +232,7 @@
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveFirstItem.Text = "移到第一条记录";
+            this.bindingNavigatorMoveFirstItem.Click += new System.EventHandler(this.bindingNavigatorMoveFirstItem_Click);
             // 
             // bindingNavigatorMovePreviousItem
             // 
@@ -241,6 +242,7 @@
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMovePreviousItem.Text = "移到上一条记录";
+            this.bindingNavigatorMovePreviousItem.Click += new System.EventHandler(this.bindingNavigatorMovePreviousItem_Click);
             // 
             // bindingNavigatorSeparator
             // 
@@ -256,7 +258,6 @@
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "当前位置";
-            this.bindingNavigatorPositionItem.TextChanged += new System.EventHandler(this.bindingNavigatorPositionItem_TextChanged);
             // 
             // bindingNavigatorSeparator1
             // 
@@ -271,6 +272,7 @@
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveNextItem.Text = "移到下一条记录";
+            this.bindingNavigatorMoveNextItem.Click += new System.EventHandler(this.bindingNavigatorMoveNextItem_Click);
             // 
             // bindingNavigatorMoveLastItem
             // 
@@ -280,7 +282,7 @@
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveLastItem.Text = "移到最后一条记录";
-            this.bindingNavigatorMoveLastItem.TextChanged += new System.EventHandler(this.bindingNavigatorMoveLastItem_TextChanged);
+            this.bindingNavigatorMoveLastItem.Click += new System.EventHandler(this.bindingNavigatorMoveLastItem_Click);
             // 
             // bindingNavigatorSeparator2
             // 
@@ -290,20 +292,20 @@
             // btnTestPrint
             // 
             this.btnTestPrint.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnTestPrint.Location = new System.Drawing.Point(209, 3);
+            this.btnTestPrint.Location = new System.Drawing.Point(216, 3);
             this.btnTestPrint.Name = "btnTestPrint";
             this.btnTestPrint.Size = new System.Drawing.Size(75, 23);
             this.btnTestPrint.TabIndex = 9;
             this.btnTestPrint.Text = "测试打印";
             this.btnTestPrint.UseVisualStyleBackColor = true;
-            this.btnTestPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            this.btnTestPrint.Click += new System.EventHandler(this.btnTestPrint_Click);
             // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("宋体", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(290, 8);
+            this.label2.Font = new System.Drawing.Font("SimSun", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(297, 8);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 13);
             this.label2.TabIndex = 39;
@@ -314,16 +316,15 @@
             this.comboBoxQtyOfWantToPrinted.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.comboBoxQtyOfWantToPrinted.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxQtyOfWantToPrinted.FormattingEnabled = true;
-            this.comboBoxQtyOfWantToPrinted.Location = new System.Drawing.Point(368, 4);
+            this.comboBoxQtyOfWantToPrinted.Location = new System.Drawing.Point(375, 4);
             this.comboBoxQtyOfWantToPrinted.Name = "comboBoxQtyOfWantToPrinted";
             this.comboBoxQtyOfWantToPrinted.Size = new System.Drawing.Size(72, 20);
             this.comboBoxQtyOfWantToPrinted.TabIndex = 40;
-            this.comboBoxQtyOfWantToPrinted.SelectedIndexChanged += new System.EventHandler(this.comboBoxQtyOfWantToPrinted_SelectedIndexChanged);
             // 
             // txtQtyOfWantToPrinted
             // 
             this.txtQtyOfWantToPrinted.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txtQtyOfWantToPrinted.Location = new System.Drawing.Point(446, 4);
+            this.txtQtyOfWantToPrinted.Location = new System.Drawing.Point(453, 4);
             this.txtQtyOfWantToPrinted.Name = "txtQtyOfWantToPrinted";
             this.txtQtyOfWantToPrinted.Size = new System.Drawing.Size(46, 21);
             this.txtQtyOfWantToPrinted.TabIndex = 41;
@@ -332,8 +333,8 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(498, 5);
+            this.label7.Font = new System.Drawing.Font("SimSun", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Location = new System.Drawing.Point(505, 5);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(28, 19);
             this.label7.TabIndex = 44;
@@ -342,7 +343,7 @@
             // txtSunHao
             // 
             this.txtSunHao.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txtSunHao.Location = new System.Drawing.Point(532, 4);
+            this.txtSunHao.Location = new System.Drawing.Point(539, 4);
             this.txtSunHao.Name = "txtSunHao";
             this.txtSunHao.Size = new System.Drawing.Size(31, 21);
             this.txtSunHao.TabIndex = 42;
@@ -351,7 +352,7 @@
             // btnPrint2
             // 
             this.btnPrint2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnPrint2.Location = new System.Drawing.Point(569, 3);
+            this.btnPrint2.Location = new System.Drawing.Point(576, 3);
             this.btnPrint2.Name = "btnPrint2";
             this.btnPrint2.Size = new System.Drawing.Size(75, 23);
             this.btnPrint2.TabIndex = 43;
@@ -363,8 +364,8 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("宋体", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(650, 8);
+            this.label4.Font = new System.Drawing.Font("SimSun", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(657, 8);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(111, 13);
             this.label4.TabIndex = 45;
@@ -373,7 +374,7 @@
             // txtCurrentPrintPage
             // 
             this.txtCurrentPrintPage.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txtCurrentPrintPage.Location = new System.Drawing.Point(767, 4);
+            this.txtCurrentPrintPage.Location = new System.Drawing.Point(774, 4);
             this.txtCurrentPrintPage.Name = "txtCurrentPrintPage";
             this.txtCurrentPrintPage.Size = new System.Drawing.Size(46, 21);
             this.txtCurrentPrintPage.TabIndex = 47;
@@ -381,19 +382,19 @@
             // btnPrint
             // 
             this.btnPrint.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnPrint.Location = new System.Drawing.Point(819, 3);
+            this.btnPrint.Location = new System.Drawing.Point(826, 3);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(54, 23);
             this.btnPrint.TabIndex = 46;
             this.btnPrint.Text = "打印";
             this.btnPrint.UseVisualStyleBackColor = true;
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click_1);
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // chkIsFull
             // 
             this.chkIsFull.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chkIsFull.AutoSize = true;
-            this.chkIsFull.Location = new System.Drawing.Point(879, 6);
+            this.chkIsFull.Location = new System.Drawing.Point(886, 6);
             this.chkIsFull.Name = "chkIsFull";
             this.chkIsFull.Size = new System.Drawing.Size(72, 16);
             this.chkIsFull.TabIndex = 48;
@@ -409,34 +410,38 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.userControlCanvas1);
+            this.splitContainer2.Panel1.Controls.Add(this.canvas);
             this.splitContainer2.Panel1.Resize += new System.EventHandler(this.splitContainer2_Panel1_Resize);
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.userControlToolBox1);
+            this.splitContainer2.Panel2.Controls.Add(this.toolBox);
+            this.splitContainer2.Panel2.SizeChanged += new System.EventHandler(this.splitContainer2_Panel2_SizeChanged);
             this.splitContainer2.Size = new System.Drawing.Size(984, 557);
             this.splitContainer2.SplitterDistance = 729;
             this.splitContainer2.TabIndex = 0;
             // 
-            // userControlCanvas1
+            // canvas
             // 
-            this.userControlCanvas1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.userControlCanvas1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.userControlCanvas1.Location = new System.Drawing.Point(0, 0);
-            this.userControlCanvas1.Name = "userControlCanvas1";
-            this.userControlCanvas1.Option = "drawRect";
-            this.userControlCanvas1.Size = new System.Drawing.Size(199, 235);
-            this.userControlCanvas1.TabIndex = 0;
-            this.userControlCanvas1.Zoom = 1F;
+            this.canvas.commandRecorder = commandRecorder3;
+            this.canvas.GriddingInterval = 2;
+            this.canvas.isAlignDridding = false;
+            this.canvas.isDrawDridding = false;
+            this.canvas.IsEdit = true;
+            this.canvas.isShift = false;
+            this.canvas.Location = new System.Drawing.Point(3, 3);
+            this.canvas.Name = "canvas";
+            this.canvas.SelectShape = null;
+            this.canvas.Size = new System.Drawing.Size(447, 279);
+            this.canvas.TabIndex = 1;
             // 
-            // userControlToolBox1
+            // toolBox
             // 
-            this.userControlToolBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.userControlToolBox1.Location = new System.Drawing.Point(0, 0);
-            this.userControlToolBox1.Name = "userControlToolBox1";
-            this.userControlToolBox1.Size = new System.Drawing.Size(248, 550);
-            this.userControlToolBox1.TabIndex = 0;
+            this.toolBox.canvas = null;
+            this.toolBox.Location = new System.Drawing.Point(3, 3);
+            this.toolBox.Name = "toolBox";
+            this.toolBox.Size = new System.Drawing.Size(228, 573);
+            this.toolBox.TabIndex = 0;
             // 
             // openFileDialog1
             // 
@@ -466,7 +471,6 @@
             this.另存为AToolStripMenuItem,
             this.toolStripSeparator10,
             this.导入EXCEL表格ToolStripMenuItem,
-            this.查看以前导入的ToolStripMenuItem,
             this.toolStripSeparator1,
             this.退出XToolStripMenuItem});
             this.文件FToolStripMenuItem.Name = "文件FToolStripMenuItem";
@@ -528,13 +532,6 @@
             this.导入EXCEL表格ToolStripMenuItem.Text = "导入EXCEL表格";
             this.导入EXCEL表格ToolStripMenuItem.Click += new System.EventHandler(this.导入EXCEL表格ToolStripMenuItem_Click);
             // 
-            // 查看以前导入的ToolStripMenuItem
-            // 
-            this.查看以前导入的ToolStripMenuItem.Name = "查看以前导入的ToolStripMenuItem";
-            this.查看以前导入的ToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.查看以前导入的ToolStripMenuItem.Text = "查看以前导入的";
-            this.查看以前导入的ToolStripMenuItem.Click += new System.EventHandler(this.查看以前导入的ToolStripMenuItem_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -563,13 +560,12 @@
             this.编辑EToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.编辑EToolStripMenuItem.Size = new System.Drawing.Size(59, 21);
             this.编辑EToolStripMenuItem.Text = "编辑(&E)";
-            this.编辑EToolStripMenuItem.Click += new System.EventHandler(this.编辑EToolStripMenuItem_Click);
             // 
             // 撤消UToolStripMenuItem
             // 
             this.撤消UToolStripMenuItem.Name = "撤消UToolStripMenuItem";
             this.撤消UToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.撤消UToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.撤消UToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.撤消UToolStripMenuItem.Text = "撤消(&U)";
             this.撤消UToolStripMenuItem.Click += new System.EventHandler(this.撤消UToolStripMenuItem_Click);
             // 
@@ -577,14 +573,14 @@
             // 
             this.重复RToolStripMenuItem.Name = "重复RToolStripMenuItem";
             this.重复RToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.重复RToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.重复RToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.重复RToolStripMenuItem.Text = "重复(&R)";
             this.重复RToolStripMenuItem.Click += new System.EventHandler(this.重复RToolStripMenuItem_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(188, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(170, 6);
             // 
             // 剪切TToolStripMenuItem
             // 
@@ -592,7 +588,7 @@
             this.剪切TToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.剪切TToolStripMenuItem.Name = "剪切TToolStripMenuItem";
             this.剪切TToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.剪切TToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.剪切TToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.剪切TToolStripMenuItem.Text = "剪切(&T)";
             this.剪切TToolStripMenuItem.Click += new System.EventHandler(this.剪切TToolStripMenuItem_Click);
             // 
@@ -602,7 +598,7 @@
             this.复制CToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.复制CToolStripMenuItem.Name = "复制CToolStripMenuItem";
             this.复制CToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.复制CToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.复制CToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.复制CToolStripMenuItem.Text = "复制(&C)";
             this.复制CToolStripMenuItem.Click += new System.EventHandler(this.复制CToolStripMenuItem_Click);
             // 
@@ -612,20 +608,20 @@
             this.粘贴PToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.粘贴PToolStripMenuItem.Name = "粘贴PToolStripMenuItem";
             this.粘贴PToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.粘贴PToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.粘贴PToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.粘贴PToolStripMenuItem.Text = "粘贴(&P)";
             this.粘贴PToolStripMenuItem.Click += new System.EventHandler(this.粘贴PToolStripMenuItem_Click);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(188, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(170, 6);
             // 
             // 全选AToolStripMenuItem
             // 
             this.全选AToolStripMenuItem.Name = "全选AToolStripMenuItem";
             this.全选AToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.全选AToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.全选AToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.全选AToolStripMenuItem.Text = "全选(&A)";
             this.全选AToolStripMenuItem.Click += new System.EventHandler(this.全选AToolStripMenuItem_Click);
             // 
@@ -633,7 +629,7 @@
             // 
             this.删除DToolStripMenuItem.Name = "删除DToolStripMenuItem";
             this.删除DToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Delete)));
-            this.删除DToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.删除DToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.删除DToolStripMenuItem.Text = "删除(&D)";
             this.删除DToolStripMenuItem.Click += new System.EventHandler(this.删除DToolStripMenuItem_Click);
             // 
@@ -645,7 +641,6 @@
             this.查看ToolStripMenuItem.Name = "查看ToolStripMenuItem";
             this.查看ToolStripMenuItem.Size = new System.Drawing.Size(60, 21);
             this.查看ToolStripMenuItem.Text = "查看(&V)";
-            this.查看ToolStripMenuItem.Click += new System.EventHandler(this.查看ToolStripMenuItem_Click);
             // 
             // 讲ToolStripMenuItem
             // 
@@ -772,7 +767,6 @@
             this.粘贴PToolStripButton,
             this.toolStripSeparator5,
             this.导入EXCEL,
-            this.查看以前导入的toolStripButton2,
             this.toolStripSeparator9,
             this.帮助LToolStripButton,
             this.toolStripLabelPrintingName,
@@ -863,16 +857,6 @@
             this.导入EXCEL.Text = "导入EXCEL";
             this.导入EXCEL.Click += new System.EventHandler(this.导入EXCEL_Click);
             // 
-            // 查看以前导入的toolStripButton2
-            // 
-            this.查看以前导入的toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.查看以前导入的toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("查看以前导入的toolStripButton2.Image")));
-            this.查看以前导入的toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.查看以前导入的toolStripButton2.Name = "查看以前导入的toolStripButton2";
-            this.查看以前导入的toolStripButton2.Size = new System.Drawing.Size(96, 22);
-            this.查看以前导入的toolStripButton2.Text = "查看以前导入的";
-            this.查看以前导入的toolStripButton2.Click += new System.EventHandler(this.查看以前导入的toolStripButton2_Click);
-            // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
@@ -886,7 +870,6 @@
             this.帮助LToolStripButton.Name = "帮助LToolStripButton";
             this.帮助LToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.帮助LToolStripButton.Text = "帮助(&L)";
-            this.帮助LToolStripButton.Click += new System.EventHandler(this.帮助LToolStripButton_Click);
             // 
             // toolStripLabelPrintingName
             // 
@@ -915,10 +898,7 @@
             this.KeyPreview = true;
             this.Name = "FrmBarcodeEdit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "条形码编辑设计 http://www.xuhengxiao.com/";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmBarcodeEdit_FormClosing);
-            this.Load += new System.EventHandler(this.frmBarcodeEdit_Load);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FrmBarcodeEdit_KeyUp);
+            this.Text = "条形码编辑设计";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -946,8 +926,6 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private VestShapes.UserControlCanvas userControlCanvas1;
-        private VestShapes.UserControlToolBox userControlToolBox1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.BindingSource bindingSource1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
@@ -982,7 +960,6 @@
         private System.Windows.Forms.ToolStripMenuItem 另存为AToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem 导入EXCEL表格ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 查看以前导入的ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem 退出XToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 编辑EToolStripMenuItem;
@@ -1021,11 +998,13 @@
         private System.Windows.Forms.ToolStripButton 粘贴PToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton 导入EXCEL;
-        private System.Windows.Forms.ToolStripButton 查看以前导入的toolStripButton2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripButton 帮助LToolStripButton;
         private System.Windows.Forms.ToolStripLabel toolStripLabelPrintingName;
         private System.Windows.Forms.ToolStripButton toolStripButtonSellectPrinting;
         private System.Windows.Forms.CheckBox chkIsFull;
+        private Io.Github.Kerwinxu.LibShapes.Core.UserControlCanvas canvas;
+        private Io.Github.Kerwinxu.LibShapes.Core.UserControlToolbox toolBox;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

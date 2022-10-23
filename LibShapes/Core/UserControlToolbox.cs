@@ -53,10 +53,22 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
             {
                 btn_move_canvas.Checked = true;
             }
-            else
+            else 
             {
                 btn_select.Checked = true;
             }
+
+            if (e.CurrentState is StateCreate)
+            {
+                // 如果是创建模式，要看看是哪个形状的
+                // todo
+            }
+            else
+            {
+
+            }
+
+
         }
 
         /// <summary>
@@ -323,10 +335,11 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
                         this.canvas.GriddingInterval = 5;
                         this.canvas.isDrawDridding = true;
                         break;
-
                     default:
                         break;
                 }
+
+                this.canvas.Refresh(); // 刷新。
             }
         }
 
@@ -362,32 +375,50 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
 
         private void btn_align_top_Click(object sender, EventArgs e)
         {
-            // todo
+            if (this.canvas != null)
+            {
+                this.canvas.align_top();
+            }
         }
 
         private void btn_align_bottom_Click(object sender, EventArgs e)
         {
-            // todo
+            if (this.canvas != null)
+            {
+                this.canvas.align_bottom();
+            }
         }
 
         private void btn_align_left_Click(object sender, EventArgs e)
         {
-            // todo
+            if (this.canvas != null)
+            {
+                this.canvas.align_left();
+            }
         }
 
         private void btn_align_right_Click(object sender, EventArgs e)
         {
-            // todo
+            if (this.canvas != null)
+            {
+                this.canvas.align_right();
+            }
         }
 
         private void btn_align_center_Click(object sender, EventArgs e)
         {
-            // todo
+            if (this.canvas != null)
+            {
+                this.canvas.align_center();
+            }
         }
 
         private void btn_align_middle_Click(object sender, EventArgs e)
         {
-            // todo
+            if (this.canvas != null)
+            {
+                this.canvas.align_midele();
+            }
         }
 
         private void UserControlToolbox_Resize(object sender, EventArgs e)

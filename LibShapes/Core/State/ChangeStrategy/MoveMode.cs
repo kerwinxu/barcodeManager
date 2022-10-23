@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Io.Github.Kerwinxu.LibShapes.Core.State.ChangeStrategy
 {
@@ -21,6 +22,12 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State.ChangeStrategy
             };
             shape.Change(rect);
             //throw new NotImplementedException();
+        }
+
+        public Cursor changeCursor()
+        {
+            return Cursors.Hand;
+            throw new NotImplementedException();
         }
 
         public bool isRight(PointF[] pointFs, PointF start_pointF)

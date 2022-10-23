@@ -28,6 +28,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
     /// </summary>
     public partial class UserControlCanvas : UserControl
     {
+
         #region 构造函数
         public UserControlCanvas()
         {
@@ -44,15 +45,24 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
             // 一堆的事件
             // 如下的鼠标事件，先将坐标转换成毫米了。
             bool isLeftDown = false; // 左键是否按下。移动的时候需要判断是否按下的。
-            // 
-            this.MouseDown += (sender, e) => { isLeftDown = true; if(e.Button == MouseButtons.Left) this.state.LeftMouseDown(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X,e.Y))); this.Refresh(); };
-            this.MouseMove += (sender, e) => { if (!isLeftDown) return; if (e.Button == MouseButtons.Left) this.state.LeftMouseMove(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
-            this.MouseUp += (sender, e) => { isLeftDown = false; if(e.Button == MouseButtons.Left) this.state.LeftMouseUp(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
-            this.MouseClick += (sender, e) => { if (e.Button == MouseButtons.Right) this.state.RightMouseClick(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
+            // todo 加入键盘事件的处理，暂时只是支持上下左右。
+            this.MouseDown += (sender, e) => { if (!IsEdit) return ; isLeftDown = true; if(e.Button == MouseButtons.Left) this.state.LeftMouseDown(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X,e.Y))); this.Refresh(); };
+            this.MouseMove += (sender, e) => { if (!IsEdit) return;  if (!isLeftDown) return; if (e.Button == MouseButtons.Left) this.state.LeftMouseMove(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
+            this.MouseUp += (sender, e) => { if (!IsEdit) return;  isLeftDown = false; if(e.Button == MouseButtons.Left) this.state.LeftMouseUp(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
+            this.MouseClick += (sender, e) => { if (!IsEdit) return;  if (e.Button == MouseButtons.Right) this.state.RightMouseClick(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
             // 双缓冲，这里需要打开。
             this.DoubleBuffered = true;
             // 说是推荐如上的这个，
             //this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.UserPaint, true);
+            // 这里有一个特殊的设置，如果偏移为空的话，这里默认的偏移是有这个刻度尺的
+            if (shapes.pointTransform == null || 
+                (shapes.pointTransform != null && shapes.pointTransform.OffsetX == 0 && shapes.pointTransform.OffsetY == 0)
+                )
+            {
+                // 稍微多留一点出来。
+                shapes.pointTransform.OffsetX = scaleWidth * 1.5f;
+                shapes.pointTransform.OffsetY = scaleWidth * 1.5f;
+            }
         }
 
         #endregion
@@ -66,16 +76,22 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         private Color scaleBackColor = Color.Orange;
         private float grid_width = 0.25f;                        // 绘制的网格的宽度
         private Brush grid_brush = new SolidBrush(Color.Black);  // 网格的
-        private Pen penSelectShape = new Pen(Color.Black) {      // 选择框的画笔
+        private Pen penSelectShape = new Pen(Color.Pink) {      // 选择框的画笔
             DashStyle=DashStyle.Dash,
-            Width = 0.2f
-        };  
+            Width = 1f
+        };
 
         #endregion
 
         #region 属性
 
         // 如下的很多设置成属性是因为我方便从别的地方设置，这个属性其实是有个set方法的。
+
+
+        /// <summary>
+        /// 是否可以编辑
+        /// </summary>
+        public bool IsEdit { get; set; }
 
         /// <summary>
         /// 形状
@@ -711,10 +727,34 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         }
 
         #region 各种对齐
-        // todo 各种对齐。
+
+        // todo 实现如下的对齐
+        
+        /// <summary>
+        /// 上对齐
+        /// </summary>
+        public void align_top() { }
+
+        /// <summary>
+        /// 下对齐
+        /// </summary>
+        public void align_bottom() {  }
 
 
+        /// <summary>
+        /// 左对齐
+        /// </summary>
+        public void align_left() { }
 
+        /// <summary>
+        /// 右对齐
+        /// </summary>
+        public void align_right() { }
+
+        public void align_center() { }
+
+
+        public void align_midele() { }
 
         #endregion
 

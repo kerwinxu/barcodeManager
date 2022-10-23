@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Io.Github.Kerwinxu.LibShapes.Core.State.ChangeStrategy
 {
@@ -24,6 +25,12 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State.ChangeStrategy
                 rect.Width = diff;
             }
             shape.Change(rect);
+            //throw new NotImplementedException();
+        }
+
+        public Cursor changeCursor()
+        {
+            return Cursors.PanEast;
             //throw new NotImplementedException();
         }
 

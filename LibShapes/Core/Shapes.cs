@@ -1,4 +1,5 @@
-﻿using Io.Github.Kerwinxu.LibShapes.Core.Shape;
+﻿using Io.Github.Kerwinxu.LibShapes.Core.Serialize;
+using Io.Github.Kerwinxu.LibShapes.Core.Shape;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,6 +14,44 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
     /// </summary>
     public  class Shapes
     {
+        #region 保存读取相关
+
+        private static  ISerialize serialize = new JsonSerialize();
+
+        /// <summary>
+        /// 读取
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public static Shapes load(string filename)
+        {
+            if (serialize != null)
+            {
+                return serialize.DeserializeObject<Shapes>(System.IO.File.ReadAllText(filename));
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 写入
+        /// </summary>
+        /// <param name="filename"></param>
+        public void save(string filename)
+        {
+            // 写入文件
+            if (serialize != null)
+            {
+                System.IO.File.WriteAllText(filename, serialize.SerializeObject(this));
+            }
+        }
+
+
+        #endregion
+
+
         #region 一堆属性，这些可以被json保存
         // 图形的集合
         public List<ShapeEle> lstShapes { get; set; }
@@ -154,6 +193,11 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
             // 首先取得所有的id
             var ids = getIds(this.lstShapes);
 
+            if (ids.Count == 0)
+            {
+                return 1;
+            }
+
             int i = ids.Max() + 1;
             while (ids.Contains(i))
             {
@@ -257,7 +301,15 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
             var height2 = (height - spacing * 2) / dpiy * 25.4; // 转成mm
             // 然后计算所有图形的的宽度和高度
             ShapeGroup group = new ShapeGroup();
-            group.shapes = lstShapes;
+            group.shapes = lstShapes.Select(x => x).ToList();// 这里用复制的方式
+            // 这里要判断是否有纸张
+            if (this.Paper != null && this.Paper.ModelShape != null)
+            {
+                group.shapes.Add(this.Paper.ModelShape);
+            }
+            // 如果没有图形，就直接退出
+            if (group.shapes.Count == 0) return;
+            //
             var rect = group.GetBounds(new Matrix());// 取得不存在放大偏移的情况下，这个的尺寸
             // 这里解方程，思路是，画布的宽度=倍数*（形状总宽度+两边间距的宽度）
             //width/dpix*25.4 = zoom * (rect.Width + spacing*2/dpix*25.4 /zoom)

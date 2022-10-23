@@ -30,7 +30,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             init_printer();
         }
 
-        public FrmPaperSetting(Paper paper):base()
+        public FrmPaperSetting(Paper paper):this()
         {
             this.paper = paper;
             paper_to_ui();
@@ -118,7 +118,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             {
                 this.paper.PaperWidth = float.Parse(txt_paper_width.Text);
                 this.paper.PaperHeight = float.Parse(txt_paper_height.Text);
-                this.paper.Landscape = radioButton1.Checked;// 纵向
+                this.paper.Landscape = !radioButton1.Checked;// 纵向
                 this.paper.Rows = (int)UpDownNumberOfLine.Value;
                 this.paper.Cols = (int)UpDownNumberOfColumn.Value;
                 this.paper.Top = float.Parse(txtMaginsTop.Text);
@@ -141,6 +141,12 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
                 {
                     this.paper.ModelShape = new Shape.ShapeEllipse(); // 椭圆
                 }
+                // 设置填充白色
+                this.paper.ModelShape.IsFill = true;
+                this.paper.ModelShape.FillColor = Color.White;
+                // 设置这个纸张的宽和高
+                this.paper.ModelShape.Height = this.paper.ModelHeight;
+                this.paper.ModelShape.Width = this.paper.ModelWidth;
 
                 return true;
             }

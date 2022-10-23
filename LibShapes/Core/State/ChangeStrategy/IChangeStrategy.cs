@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Io.Github.Kerwinxu.LibShapes.Core.State.ChangeStrategy
 {
@@ -26,5 +27,11 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State.ChangeStrategy
         /// </summary>
         /// <param name="shape"></param>
         void action(ShapeEle shape, PointF start_pointF, PointF end_pointF);
+
+        /// <summary>
+        /// 更改成的鼠标样式
+        /// </summary>
+        /// <returns></returns>
+        Cursor changeCursor();
     }
 }
