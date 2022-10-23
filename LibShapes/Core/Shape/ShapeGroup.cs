@@ -7,10 +7,12 @@ using System.Text;
 
 namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
 {
+#pragma warning disable CS0659 // 'ShapeGroup' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     public class ShapeGroup : ShapeEle
+#pragma warning restore CS0659 // 'ShapeGroup' overrides Object.Equals(object o) but does not override Object.GetHashCode()
     {
 
-        private List<ShapeEle> shapes = new List<ShapeEle>();
+        public  List<ShapeEle> shapes = new List<ShapeEle>();
 
         public override void Draw(Graphics g, Matrix matrix)
         {
@@ -60,6 +62,40 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
             // 这个不需要返回什么。
             return  null; 
 
+        }
+
+        public override ShapeEle DeepClone()
+        {
+            // 首先组建一个新的
+            ShapeGroup group = new ShapeGroup();
+            if (shapes != null)
+            {
+                foreach (var item in shapes)
+                {
+                    group.shapes.Add(item.DeepClone());
+                }
+            }
+
+
+            return group;
+            //throw new NotImplementedException();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var shape = obj as ShapeGroup;
+            if (shape == null) return false; // 转换失败就是不同啦
+            // 群组，需要判断每一个是否相同。
+            if (shapes.Count != shape.shapes.Count) return false;
+            for (int i = 0; i < shapes.Count; i++)
+            {
+                if (shapes[i] != shape.shapes[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+            //return base.Equals(obj);
         }
     }
 }

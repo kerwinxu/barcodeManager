@@ -445,5 +445,9 @@ namespace VestShapes
             _canvas.doVerticalAlignWithModel(System.Windows.Forms.VisualStyles.VerticalAlignment.Center);
         }
 
+        private void 关闭ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

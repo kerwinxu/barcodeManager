@@ -34,25 +34,12 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
             this.SelectBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton13 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton14 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton15 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton16 = new System.Windows.Forms.ToolStripButton();
             this.RectBtn = new System.Windows.Forms.ToolStripButton();
             this.btnRoundRect = new System.Windows.Forms.ToolStripButton();
             this.LineBtn = new System.Windows.Forms.ToolStripButton();
@@ -71,6 +58,7 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.关闭ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,8 +67,20 @@
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.btnZoom = new System.Windows.Forms.ToolStripButton();
             this.btnHand = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton8 = new System.Windows.Forms.ToolStripButton();
+            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolStrip3 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton9 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton10 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton11 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton12 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton13 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton14 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton15 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton16 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStrip3.SuspendLayout();
@@ -107,6 +107,27 @@
             this.toolStrip2.TabIndex = 4;
             this.toolStrip2.Text = "Pen";
             // 
+            // toolStripButton7
+            // 
+            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
+            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton7.Name = "toolStripButton7";
+            this.toolStripButton7.Size = new System.Drawing.Size(60, 22);
+            this.toolStripButton7.Text = "页面设置";
+            this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
+            // 
+            // toolStripButton8
+            // 
+            this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
+            this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton8.Name = "toolStripButton8";
+            this.toolStripButton8.Size = new System.Drawing.Size(72, 22);
+            this.toolStripButton8.Text = "放大到屏幕";
+            this.toolStripButton8.ToolTipText = "就是纸张放大到屏幕";
+            this.toolStripButton8.Click += new System.EventHandler(this.toolStripButton8_Click_1);
+            // 
             // SelectBtn
             // 
             this.SelectBtn.Checked = true;
@@ -115,7 +136,7 @@
             this.SelectBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.SelectBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.SelectBtn.Name = "SelectBtn";
-            this.SelectBtn.Size = new System.Drawing.Size(56, 16);
+            this.SelectBtn.Size = new System.Drawing.Size(56, 21);
             this.SelectBtn.Text = "选择";
             this.SelectBtn.ToolTipText = "选择，点击这个可以退出“放大缩小”状态";
             this.SelectBtn.Click += new System.EventHandler(this.SelectBtn_Click);
@@ -170,10 +191,271 @@
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // RectBtn
+            // 
+            this.RectBtn.CheckOnClick = true;
+            this.RectBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.RectBtn.Image = ((System.Drawing.Image)(resources.GetObject("RectBtn.Image")));
+            this.RectBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.RectBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.RectBtn.Name = "RectBtn";
+            this.RectBtn.Size = new System.Drawing.Size(56, 21);
+            this.RectBtn.Text = "矩形";
+            this.RectBtn.Click += new System.EventHandler(this.RectBtn_Click);
+            // 
+            // btnRoundRect
+            // 
+            this.btnRoundRect.CheckOnClick = true;
+            this.btnRoundRect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnRoundRect.Image = ((System.Drawing.Image)(resources.GetObject("btnRoundRect.Image")));
+            this.btnRoundRect.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnRoundRect.Margin = new System.Windows.Forms.Padding(0);
+            this.btnRoundRect.Name = "btnRoundRect";
+            this.btnRoundRect.Size = new System.Drawing.Size(56, 21);
+            this.btnRoundRect.Text = "圆角矩形";
+            this.btnRoundRect.Click += new System.EventHandler(this.btnRoundRect_Click);
+            // 
+            // LineBtn
+            // 
+            this.LineBtn.CheckOnClick = true;
+            this.LineBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.LineBtn.Image = ((System.Drawing.Image)(resources.GetObject("LineBtn.Image")));
+            this.LineBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.LineBtn.Name = "LineBtn";
+            this.LineBtn.Size = new System.Drawing.Size(56, 21);
+            this.LineBtn.Text = "线段";
+            this.LineBtn.Click += new System.EventHandler(this.LineBtn_Click);
+            // 
+            // btnEllipse
+            // 
+            this.btnEllipse.CheckOnClick = true;
+            this.btnEllipse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnEllipse.Image = ((System.Drawing.Image)(resources.GetObject("btnEllipse.Image")));
+            this.btnEllipse.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEllipse.Name = "btnEllipse";
+            this.btnEllipse.Size = new System.Drawing.Size(56, 21);
+            this.btnEllipse.Text = "椭圆";
+            this.btnEllipse.Click += new System.EventHandler(this.CirciBtn_Click);
+            // 
+            // btnArc
+            // 
+            this.btnArc.CheckOnClick = true;
+            this.btnArc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnArc.Image = ((System.Drawing.Image)(resources.GetObject("btnArc.Image")));
+            this.btnArc.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnArc.Name = "btnArc";
+            this.btnArc.Size = new System.Drawing.Size(56, 21);
+            this.btnArc.Text = "圆弧";
+            this.btnArc.Click += new System.EventHandler(this.RRectBtn_Click);
+            // 
+            // btnPie
+            // 
+            this.btnPie.CheckOnClick = true;
+            this.btnPie.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnPie.Image = ((System.Drawing.Image)(resources.GetObject("btnPie.Image")));
+            this.btnPie.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPie.Name = "btnPie";
+            this.btnPie.Size = new System.Drawing.Size(56, 21);
+            this.btnPie.Text = "扇形";
+            this.btnPie.Click += new System.EventHandler(this.btnPie_Click);
+            // 
+            // ImageBtn
+            // 
+            this.ImageBtn.CheckOnClick = true;
+            this.ImageBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.ImageBtn.Image = ((System.Drawing.Image)(resources.GetObject("ImageBtn.Image")));
+            this.ImageBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ImageBtn.Name = "ImageBtn";
+            this.ImageBtn.Size = new System.Drawing.Size(56, 21);
+            this.ImageBtn.Text = "图片";
+            this.ImageBtn.ToolTipText = "图片";
+            this.ImageBtn.Click += new System.EventHandler(this.ImageBtn_Click);
+            // 
+            // btnSingleText
+            // 
+            this.btnSingleText.CheckOnClick = true;
+            this.btnSingleText.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnSingleText.Image = ((System.Drawing.Image)(resources.GetObject("btnSingleText.Image")));
+            this.btnSingleText.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSingleText.Name = "btnSingleText";
+            this.btnSingleText.Size = new System.Drawing.Size(56, 21);
+            this.btnSingleText.Text = "单行文本";
+            this.btnSingleText.Click += new System.EventHandler(this.TextBtn_Click);
+            // 
+            // btnMultiLineText
+            // 
+            this.btnMultiLineText.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnMultiLineText.Image = ((System.Drawing.Image)(resources.GetObject("btnMultiLineText.Image")));
+            this.btnMultiLineText.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnMultiLineText.Name = "btnMultiLineText";
+            this.btnMultiLineText.Size = new System.Drawing.Size(56, 21);
+            this.btnMultiLineText.Text = "多行文本";
+            this.btnMultiLineText.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            this.btnMultiLineText.Click += new System.EventHandler(this.btnVarText_Click);
+            // 
+            // btnBarcode
+            // 
+            this.btnBarcode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnBarcode.Image = ((System.Drawing.Image)(resources.GetObject("btnBarcode.Image")));
+            this.btnBarcode.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnBarcode.Name = "btnBarcode";
+            this.btnBarcode.Size = new System.Drawing.Size(56, 21);
+            this.btnBarcode.Text = "条形码";
+            this.btnBarcode.Click += new System.EventHandler(this.btnBarcode_Click);
+            // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(56, 21);
+            this.toolStripButton3.Text = "删除";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.GroupBtn,
+            this.deGroupBtn});
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(56, 21);
+            this.toolStripSplitButton1.Text = "群组";
+            // 
+            // GroupBtn
+            // 
+            this.GroupBtn.Name = "GroupBtn";
+            this.GroupBtn.Size = new System.Drawing.Size(124, 22);
+            this.GroupBtn.Text = "组成群组";
+            this.GroupBtn.Click += new System.EventHandler(this.GroupBtn_Click);
+            // 
+            // deGroupBtn
+            // 
+            this.deGroupBtn.Name = "deGroupBtn";
+            this.deGroupBtn.Size = new System.Drawing.Size(124, 22);
+            this.deGroupBtn.Text = "撤销群组";
+            this.deGroupBtn.Click += new System.EventHandler(this.deGroupBtn_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(56, 21);
+            this.toolStripButton1.Text = "移前一位";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click_1);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(56, 21);
+            this.toolStripButton2.Text = "移到最前";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripButton5
+            // 
+            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
+            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton5.Name = "toolStripButton5";
+            this.toolStripButton5.Size = new System.Drawing.Size(56, 21);
+            this.toolStripButton5.Text = "移后一位";
+            this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click_1);
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(56, 21);
+            this.toolStripButton6.Text = "移到最后";
+            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(56, 6);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.关闭ToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem1});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(56, 21);
+            this.toolStripDropDownButton1.Text = "网格";
+            this.toolStripDropDownButton1.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripDropDownButton1_DropDownItemClicked);
+            // 
+            // 关闭ToolStripMenuItem
+            // 
+            this.关闭ToolStripMenuItem.Name = "关闭ToolStripMenuItem";
+            this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.关闭ToolStripMenuItem.Text = "关闭";
+            this.关闭ToolStripMenuItem.Click += new System.EventHandler(this.关闭ToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Text = "1";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Text = "2";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem1.Text = "5";
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(56, 21);
+            this.toolStripButton4.Text = "对齐网格";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+            // 
+            // btnZoom
+            // 
+            this.btnZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnZoom.Image = ((System.Drawing.Image)(resources.GetObject("btnZoom.Image")));
+            this.btnZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnZoom.Name = "btnZoom";
+            this.btnZoom.Size = new System.Drawing.Size(56, 21);
+            this.btnZoom.Text = "放大缩小";
+            this.btnZoom.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            this.btnZoom.ToolTipText = "左键是放大，右键是缩小,双击是纸张最大化到屏幕，退出放大缩小是按“选择”";
+            this.btnZoom.Click += new System.EventHandler(this.btnZoom_Click);
+            // 
+            // btnHand
+            // 
+            this.btnHand.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnHand.Image = ((System.Drawing.Image)(resources.GetObject("btnHand.Image")));
+            this.btnHand.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnHand.Name = "btnHand";
+            this.btnHand.Size = new System.Drawing.Size(56, 21);
+            this.btnHand.Text = "拖动画布";
+            this.btnHand.ToolTipText = "可以拖动画布，完成后需要手动点击上边的“选择”按钮才能选择东西。";
+            this.btnHand.Click += new System.EventHandler(this.toolStripButton8_Click);
             // 
             // propertyGrid1
             // 
@@ -215,21 +497,6 @@
             this.toolStrip3.TabIndex = 6;
             this.toolStrip3.Text = "toolStrip3";
             // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(17, 6);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(17, 6);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(17, 6);
-            // 
             // toolStripButton9
             // 
             this.toolStripButton9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -270,6 +537,11 @@
             this.toolStripButton12.Text = "将所选对象的下侧与主对象的下侧对齐";
             this.toolStripButton12.Click += new System.EventHandler(this.toolStripButton12_Click);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(17, 6);
+            // 
             // toolStripButton13
             // 
             this.toolStripButton13.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -289,6 +561,11 @@
             this.toolStripButton14.Size = new System.Drawing.Size(17, 20);
             this.toolStripButton14.Text = "将所选对象与所选主对象垂直对齐";
             this.toolStripButton14.Click += new System.EventHandler(this.toolStripButton14_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(17, 6);
             // 
             // toolStripButton15
             // 
@@ -310,286 +587,10 @@
             this.toolStripButton16.Text = "在模板上垂直居中";
             this.toolStripButton16.Click += new System.EventHandler(this.toolStripButton16_Click);
             // 
-            // RectBtn
+            // toolStripSeparator6
             // 
-            this.RectBtn.CheckOnClick = true;
-            this.RectBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.RectBtn.Image = ((System.Drawing.Image)(resources.GetObject("RectBtn.Image")));
-            this.RectBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.RectBtn.Margin = new System.Windows.Forms.Padding(0);
-            this.RectBtn.Name = "RectBtn";
-            this.RectBtn.Size = new System.Drawing.Size(56, 16);
-            this.RectBtn.Text = "矩形";
-            this.RectBtn.Click += new System.EventHandler(this.RectBtn_Click);
-            // 
-            // btnRoundRect
-            // 
-            this.btnRoundRect.CheckOnClick = true;
-            this.btnRoundRect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnRoundRect.Image = ((System.Drawing.Image)(resources.GetObject("btnRoundRect.Image")));
-            this.btnRoundRect.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnRoundRect.Margin = new System.Windows.Forms.Padding(0);
-            this.btnRoundRect.Name = "btnRoundRect";
-            this.btnRoundRect.Size = new System.Drawing.Size(56, 16);
-            this.btnRoundRect.Text = "圆角矩形";
-            this.btnRoundRect.Click += new System.EventHandler(this.btnRoundRect_Click);
-            // 
-            // LineBtn
-            // 
-            this.LineBtn.CheckOnClick = true;
-            this.LineBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.LineBtn.Image = ((System.Drawing.Image)(resources.GetObject("LineBtn.Image")));
-            this.LineBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.LineBtn.Name = "LineBtn";
-            this.LineBtn.Size = new System.Drawing.Size(56, 16);
-            this.LineBtn.Text = "线段";
-            this.LineBtn.Click += new System.EventHandler(this.LineBtn_Click);
-            // 
-            // btnEllipse
-            // 
-            this.btnEllipse.CheckOnClick = true;
-            this.btnEllipse.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnEllipse.Image = ((System.Drawing.Image)(resources.GetObject("btnEllipse.Image")));
-            this.btnEllipse.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnEllipse.Name = "btnEllipse";
-            this.btnEllipse.Size = new System.Drawing.Size(56, 16);
-            this.btnEllipse.Text = "椭圆";
-            this.btnEllipse.Click += new System.EventHandler(this.CirciBtn_Click);
-            // 
-            // btnArc
-            // 
-            this.btnArc.CheckOnClick = true;
-            this.btnArc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnArc.Image = ((System.Drawing.Image)(resources.GetObject("btnArc.Image")));
-            this.btnArc.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnArc.Name = "btnArc";
-            this.btnArc.Size = new System.Drawing.Size(56, 16);
-            this.btnArc.Text = "圆弧";
-            this.btnArc.Click += new System.EventHandler(this.RRectBtn_Click);
-            // 
-            // btnPie
-            // 
-            this.btnPie.CheckOnClick = true;
-            this.btnPie.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnPie.Image = ((System.Drawing.Image)(resources.GetObject("btnPie.Image")));
-            this.btnPie.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPie.Name = "btnPie";
-            this.btnPie.Size = new System.Drawing.Size(56, 16);
-            this.btnPie.Text = "扇形";
-            this.btnPie.Click += new System.EventHandler(this.btnPie_Click);
-            // 
-            // ImageBtn
-            // 
-            this.ImageBtn.CheckOnClick = true;
-            this.ImageBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.ImageBtn.Image = ((System.Drawing.Image)(resources.GetObject("ImageBtn.Image")));
-            this.ImageBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ImageBtn.Name = "ImageBtn";
-            this.ImageBtn.Size = new System.Drawing.Size(56, 16);
-            this.ImageBtn.Text = "图片";
-            this.ImageBtn.ToolTipText = "图片";
-            this.ImageBtn.Click += new System.EventHandler(this.ImageBtn_Click);
-            // 
-            // btnSingleText
-            // 
-            this.btnSingleText.CheckOnClick = true;
-            this.btnSingleText.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnSingleText.Image = ((System.Drawing.Image)(resources.GetObject("btnSingleText.Image")));
-            this.btnSingleText.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSingleText.Name = "btnSingleText";
-            this.btnSingleText.Size = new System.Drawing.Size(56, 16);
-            this.btnSingleText.Text = "单行文本";
-            this.btnSingleText.Click += new System.EventHandler(this.TextBtn_Click);
-            // 
-            // btnMultiLineText
-            // 
-            this.btnMultiLineText.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnMultiLineText.Image = ((System.Drawing.Image)(resources.GetObject("btnMultiLineText.Image")));
-            this.btnMultiLineText.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnMultiLineText.Name = "btnMultiLineText";
-            this.btnMultiLineText.Size = new System.Drawing.Size(56, 16);
-            this.btnMultiLineText.Text = "多行文本";
-            this.btnMultiLineText.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            this.btnMultiLineText.Click += new System.EventHandler(this.btnVarText_Click);
-            // 
-            // btnBarcode
-            // 
-            this.btnBarcode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnBarcode.Image = ((System.Drawing.Image)(resources.GetObject("btnBarcode.Image")));
-            this.btnBarcode.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnBarcode.Name = "btnBarcode";
-            this.btnBarcode.Size = new System.Drawing.Size(56, 16);
-            this.btnBarcode.Text = "条形码";
-            this.btnBarcode.Click += new System.EventHandler(this.btnBarcode_Click);
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(56, 16);
-            this.toolStripButton3.Text = "删除";
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
-            // 
-            // toolStripSplitButton1
-            // 
-            this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripSplitButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.GroupBtn,
-            this.deGroupBtn});
-            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
-            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(56, 16);
-            this.toolStripSplitButton1.Text = "群组";
-            // 
-            // GroupBtn
-            // 
-            this.GroupBtn.Name = "GroupBtn";
-            this.GroupBtn.Size = new System.Drawing.Size(118, 22);
-            this.GroupBtn.Text = "组成群组";
-            this.GroupBtn.Click += new System.EventHandler(this.GroupBtn_Click);
-            // 
-            // deGroupBtn
-            // 
-            this.deGroupBtn.Name = "deGroupBtn";
-            this.deGroupBtn.Size = new System.Drawing.Size(118, 22);
-            this.deGroupBtn.Text = "撤销群组";
-            this.deGroupBtn.Click += new System.EventHandler(this.deGroupBtn_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(56, 16);
-            this.toolStripButton1.Text = "移前一位";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click_1);
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(56, 16);
-            this.toolStripButton2.Text = "移到最前";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
-            // 
-            // toolStripButton5
-            // 
-            this.toolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton5.Image")));
-            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(56, 16);
-            this.toolStripButton5.Text = "移后一位";
-            this.toolStripButton5.Click += new System.EventHandler(this.toolStripButton5_Click_1);
-            // 
-            // toolStripButton6
-            // 
-            this.toolStripButton6.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
-            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton6.Name = "toolStripButton6";
-            this.toolStripButton6.Size = new System.Drawing.Size(56, 16);
-            this.toolStripButton6.Text = "移到最后";
-            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
-            // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.关闭ToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem1});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(56, 16);
-            this.toolStripDropDownButton1.Text = "网格";
-            this.toolStripDropDownButton1.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStripDropDownButton1_DropDownItemClicked);
-            // 
-            // 关闭ToolStripMenuItem
-            // 
-            this.关闭ToolStripMenuItem.Name = "关闭ToolStripMenuItem";
-            this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(94, 22);
-            this.关闭ToolStripMenuItem.Text = "关闭";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(94, 22);
-            this.toolStripMenuItem2.Text = "1";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(94, 22);
-            this.toolStripMenuItem3.Text = "2";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(94, 22);
-            this.toolStripMenuItem1.Text = "5";
-            // 
-            // toolStripButton4
-            // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(56, 16);
-            this.toolStripButton4.Text = "对齐网格";
-            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
-            // 
-            // btnZoom
-            // 
-            this.btnZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnZoom.Image = ((System.Drawing.Image)(resources.GetObject("btnZoom.Image")));
-            this.btnZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnZoom.Name = "btnZoom";
-            this.btnZoom.Size = new System.Drawing.Size(56, 16);
-            this.btnZoom.Text = "放大缩小";
-            this.btnZoom.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
-            this.btnZoom.ToolTipText = "左键是放大，右键是缩小,双击是纸张最大化到屏幕，退出放大缩小是按“选择”";
-            this.btnZoom.Click += new System.EventHandler(this.btnZoom_Click);
-            // 
-            // btnHand
-            // 
-            this.btnHand.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnHand.Image = ((System.Drawing.Image)(resources.GetObject("btnHand.Image")));
-            this.btnHand.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnHand.Name = "btnHand";
-            this.btnHand.Size = new System.Drawing.Size(56, 16);
-            this.btnHand.Text = "拖动画布";
-            this.btnHand.ToolTipText = "可以拖动画布，完成后需要手动点击上边的“选择”按钮才能选择东西。";
-            this.btnHand.Click += new System.EventHandler(this.toolStripButton8_Click);
-            // 
-            // toolStripButton7
-            // 
-            this.toolStripButton7.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
-            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton7.Name = "toolStripButton7";
-            this.toolStripButton7.Size = new System.Drawing.Size(57, 22);
-            this.toolStripButton7.Text = "页面设置";
-            this.toolStripButton7.Click += new System.EventHandler(this.toolStripButton7_Click);
-            // 
-            // toolStripButton8
-            // 
-            this.toolStripButton8.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton8.Image")));
-            this.toolStripButton8.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton8.Name = "toolStripButton8";
-            this.toolStripButton8.Size = new System.Drawing.Size(69, 22);
-            this.toolStripButton8.Text = "放大到屏幕";
-            this.toolStripButton8.ToolTipText = "就是纸张放大到屏幕";
-            this.toolStripButton8.Click += new System.EventHandler(this.toolStripButton8_Click_1);
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(17, 6);
             // 
             // UserControlToolBox
             // 

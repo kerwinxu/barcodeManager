@@ -33,8 +33,8 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         public PointF CanvasToVirtualPoint(PointF pointF)
         {
             return new PointF() {
-                X = pointF.X / Zoom - OffsetX,          // 这个是加偏移
-                Y = pointF.Y / Zoom - OffsetY
+                X = (pointF.X  - OffsetX) / Zoom ,          // 这个是加偏移
+                Y = (pointF.Y  - OffsetY) / Zoom
             };
         }
 
@@ -47,8 +47,8 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         {
             return new PointF()
             {
-                X = (pointF.X + OffsetX) * Zoom,      // 这个是减去偏移
-                Y = (pointF.Y + OffsetY) * Zoom
+                X = OffsetX + pointF.X * Zoom , 
+                Y = OffsetY + pointF.Y * Zoom
             };
         }
 
@@ -57,8 +57,19 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         {
             Matrix matrix = new Matrix();
             matrix.Translate(OffsetX, OffsetY);
-            matrix.Scale(Zoom, Zoom, MatrixOrder.Append);
+            matrix.Scale(Zoom, Zoom);
             return matrix;
+        }
+
+        /// <summary>
+        /// 像素转成毫米
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="pointF"></param>
+        /// <returns></returns>
+        public static PointF pixToMM(float dpiX, float dpiY,  PointF pointF)
+        {
+            return new  PointF(pointF.X/ dpiX * 25.4f,pointF.Y/ dpiY * 25.4f);
         }
 
     }

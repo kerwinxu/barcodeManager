@@ -1,4 +1,5 @@
 ﻿using Io.Github.Kerwinxu.LibShapes.Core.Command;
+using Io.Github.Kerwinxu.LibShapes.Core.Event;
 using Io.Github.Kerwinxu.LibShapes.Core.Shape;
 using System;
 using System.Collections.Generic;
@@ -10,32 +11,55 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+/**
+  这个画布需要对外联系的是
+    1. 各种属性
+    2. objectSelected ： 选择的对象更改事件。
+ * 
+ * **/
+
 namespace Io.Github.Kerwinxu.LibShapes.Core
 {
+
+
+
     /// <summary>
     /// 画布
     /// </summary>
     public partial class UserControlCanvas : UserControl
     {
+        #region 构造函数
         public UserControlCanvas()
         {
             InitializeComponent();
             // 这里设置默认颜色
-            state = new State.StateStandby(this); // 默认情况下是待机状态。
-            GriddingInterval = 2;                 // 默认网格2mm
+            GriddingInterval = 2;                    // 默认网格2mm
             commandRecorder = new CommandRecorder(); // 默认的命令记录器
+            shapes = new Shapes();                   // 默认的形状
+            state = new  State.StateStandby(this);   // 默认是待机状态。
+            // 这里先取得dpi
+            var g = this.CreateGraphics();
+            var _dpix = g.DpiX;
+            var _dpiy = g.DpiY;
             // 一堆的事件
-            this.KeyDown += (sender, e) => { this.state.KeyDown(e); };
-            this.KeyUp += (sender, e) => { this.state.KeyUp(e); };
-            this.MouseDown += (sender, e) => {if (e.Button == MouseButtons.Left) this.state.LeftMouseDown(e); };
-            this.MouseMove += (sender, e) => { if (e.Button == MouseButtons.Left) this.state.LeftMouseMove(e); };
-            this.MouseUp += (sender, e) => { if (e.Button == MouseButtons.Left) this.state.LeftMouseUp(e); };
-            this.MouseClick += (sender, e) => { if (e.Button == MouseButtons.Right) this.state.RightMouseClick(e); };
+            // 如下的鼠标事件，先将坐标转换成毫米了。
+            bool isLeftDown = false; // 左键是否按下。移动的时候需要判断是否按下的。
+            // 
+            this.MouseDown += (sender, e) => { isLeftDown = true; if(e.Button == MouseButtons.Left) this.state.LeftMouseDown(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X,e.Y))); this.Refresh(); };
+            this.MouseMove += (sender, e) => { if (!isLeftDown) return; if (e.Button == MouseButtons.Left) this.state.LeftMouseMove(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
+            this.MouseUp += (sender, e) => { isLeftDown = false; if(e.Button == MouseButtons.Left) this.state.LeftMouseUp(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
+            this.MouseClick += (sender, e) => { if (e.Button == MouseButtons.Right) this.state.RightMouseClick(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
+            // 双缓冲，这里需要打开。
+            this.DoubleBuffered = true;
+            // 说是推荐如上的这个，
+            //this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.UserPaint, true);
         }
+
+        #endregion
 
         #region 一堆的常量
 
-        private float scaleWidth = 6;   // 刻度尺的宽度的像素宽度，这个是固定的。
+        private float scaleWidth = 6;   // 刻度尺的宽度，这个是固定的，单位是mm
         private float scaleLineWidth = 0.1f;  // 刻度尺上的刻度线的宽度。
         private Font  scaleTextFont = new Font("Arial", 6); // 刻度尺上文字的字体。
         private float minIntervalpixel = 5;   // 比如网格，如果小于这个，就不打印了。
@@ -78,22 +102,18 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         /// </summary>
         public ICommandRecorder commandRecorder { get; set; }
 
-        /// <summary>
-        /// 已经选择的图形，也可以多个图形
-        /// </summary>
-        public ShapeEle SelectShapes { get; set; }
 
         /// <summary>
         /// 是否安装了shift键
         /// </summary>
         public bool isShift { get; set; }
 
+        private State.State _state;
         /// <summary>
-        /// 
+        /// 现在的状态
         /// </summary>
-        public State.State state { get; set; }
+        public State.State state { get { return _state; } set { _state = value; onStateChanged(); } }
 
-        
         /// <summary>
         /// 当前选择的图形
         /// </summary>
@@ -101,13 +121,88 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
 
         #endregion
 
+        #region 事件
+
+        #region 选择更改事件
+
+
+        // 委托
+        public delegate void ObjectSelected(object sender, ObjectSelectEventArgs e);
+        // 事件
+        public event ObjectSelected objectSelected;
+
+        private void onObjectSelected(Object obj)
+        {
+            // 首先生成参数
+            var args = new ObjectSelectEventArgs(obj);
+            // 然后看看是否有监听的。
+            if (objectSelected != null)
+            {
+                objectSelected(this, args);
+            }
+        }
+
+        /// <summary>
+        /// 给外部调用的，可以更改当前的选择。
+        /// </summary>
+        /// <param name="obj"></param>
+        public void changeSelect(Object obj)
+        {
+            SelectShape = obj as ShapeEle;
+
+            if (SelectShape == null)
+            {
+                // 这里是设置纸张。
+                onObjectSelected(shapes.Paper);
+            }else
+            {
+                onObjectSelected(obj);
+            }
+        }
+
+        #endregion
+
+        #region 状态更改事件
+
+        // 委托
+        public delegate void StateChanged(object sender, StateChangedEventArgs e);
+        // 事件
+        public event StateChanged stateChanged;
+
+        private void onStateChanged()
+        {
+            // 首先生成参数
+            var args = new StateChangedEventArgs(this.state);
+            // 然后看看是否有监听的。
+            if (stateChanged != null)
+            {
+                stateChanged(this, args);
+            }
+        }
+
+        #endregion
+
+
+        #endregion
+
+        #region 绘图相关
+
+        /// <summary>
+        /// 绘图
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UserControlCanvas_Paint(object sender, PaintEventArgs e)
         {
+            // 如下的取消了双缓冲，是因为并不能达到预期，反倒是非常闪烁。
+            // 最简单的方式是设置属性 this.DoubleBuffered = true;
             // 这里重新绘图用上了双缓冲
             // 1. 首先在内存中建立Graphics对象
-            BufferedGraphicsContext currentContext = BufferedGraphicsManager.Current;
-            BufferedGraphics myBuffer = currentContext.Allocate(e.Graphics, e.ClipRectangle);
-            Graphics g = myBuffer.Graphics;
+            //BufferedGraphicsContext currentContext = BufferedGraphicsManager.Current;
+            //BufferedGraphics myBuffer = currentContext.Allocate(e.Graphics, e.ClipRectangle);
+            //Graphics g = myBuffer.Graphics;
+            // 1. 取得Graphics对象
+            Graphics g = e.Graphics;
             // 全局的偏移和缩放,全局不涉及旋转，因为刻度尺。
             var matrix = shapes.GetMatrix();
             // 背景色，默认用这个控件的背景色填充。
@@ -133,13 +228,17 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
                 ((State.ShapeRectSelect)this.state).Draw(g);
             }
 
-
             // 7. 刷新双缓冲
-            myBuffer.Render(e.Graphics);
-            g.Dispose();
-            myBuffer.Dispose();//释放资源
+            //myBuffer.Render(e.Graphics);
+            //g.Dispose();
+            //myBuffer.Dispose();//释放资源
         }
 
+
+        /// <summary>
+        /// 绘制网格
+        /// </summary>
+        /// <param name="g"></param>
         private void drawGrid(Graphics g)
         {
             // 我的思路是，首先判断是否小于最小
@@ -177,6 +276,10 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
 
         }
 
+        /// <summary>
+        /// 绘制选择框
+        /// </summary>
+        /// <param name="g"></param>
         private void drawSelectRect(Graphics g)
         {
             if(this.SelectShape != null)
@@ -192,6 +295,10 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
             }
         }
 
+        /// <summary>
+        /// 绘制刻度。
+        /// </summary>
+        /// <param name="g"></param>
         private void drawScale(Graphics g)
         {
             // 这个刻度值是在上边和左边的。
@@ -234,6 +341,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
                 );
 
         }
+
         /// <summary>
         /// 水平刻度尺
         /// </summary>
@@ -360,6 +468,289 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
             }
         }
 
+        #endregion
+
+        #region 请注意，如下的几个操作都只是处理顶层的
+
+        /// <summary>
+        /// 以某个点为中心放大
+        /// </summary>
+        /// <param name="point"></param>
+        public void zoom(PointF point)
+        {
+            // 1. 取得这个点在虚拟画布上的地址
+            var point2 = this.shapes.pointTransform.CanvasToVirtualPoint(point);
+            // 2.  更新偏移
+            this.shapes.pointTransform.OffsetX -= point2.X * (this.shapes.pointTransform.Zoom );
+            this.shapes.pointTransform.OffsetY -= point2.Y * (this.shapes.pointTransform.Zoom );
+            // 3 放大
+            this.shapes.pointTransform.Zoom *= 2;
+            // 4. 刷新
+            this.Refresh();
+
+        }
+
+        /// <summary>
+        /// 以某个点为中心缩小。
+        /// </summary>
+        /// <param name="point"></param>
+        public void reduce(PointF point)
+        {
+            // 1. 取得这个点在虚拟画布上的地址
+            var point2 = this.shapes.pointTransform.CanvasToVirtualPoint(point);
+            // 2.  更新偏移
+            this.shapes.pointTransform.OffsetX += point2.X * (this.shapes.pointTransform.Zoom/2);
+            this.shapes.pointTransform.OffsetY += point2.Y * (this.shapes.pointTransform.Zoom/2);
+            // 3 放大
+            this.shapes.pointTransform.Zoom /= 2;
+            // 4. 刷新
+            this.Refresh();
+        }
+
+        /// <summary>
+        /// 放大到屏幕
+        /// </summary>
+        public void zoomToScreen()
+        {
+            if (shapes != null)
+            {
+                var g = this.CreateGraphics();
+                shapes.zoomTo(
+                    g.DpiX, 
+                    g.DpiY, 
+                    this.Width, 
+                    this.Height,
+                    scaleWidth/25.4f*g.DpiX* 1.5f    // scaleWidth/25.4f*g.DpiX表示刻度尺实际的像素宽度，
+                                                     // 而*1.5，表示两边流出1.5倍数的距离，这样，图形也不会太靠近边界。
+                    );
+                this.Refresh();
+            }
+        }
+
+
+        /// <summary>
+        /// 添加一个新的形状
+        /// </summary>
+        /// <param name="shape"></param>
+        public void addShape(ShapeEle shape)
+        {
+            // 只是在顶层添加。
+            shapes.lstShapes.Add(shape);
+            changeSelect(shape); // 添加后是当作当前选择的。
+        }
+
+        /// <summary>
+        /// 删除，
+        /// </summary>
+        public void deleteShapes(ShapeEle shape)
+        {
+            //返回的是第几个项目删除的。
+            var index = shapes.lstShapes.IndexOf(shape);
+            if (index == -1) return;
+
+            shapes.lstShapes.Remove(shape);// 请注意，这里只是删除顶层的。
+            // 这里添加command
+            CommandDelete commandDelete = new CommandDelete() {
+                canvas=this,           // 画布
+                NewShape = shape,      // 删除这个形状
+                index = index          // 从这个位置删除的。
+            };
+            commandRecorder.addCommand(commandDelete);
+        }
+
+        /// <summary>
+        /// 删除已经选中的形状
+        /// </summary>
+        public void deleteShapes()
+        {
+            if (SelectShape != null) deleteShapes(SelectShape);
+        }
+
+
+        public void forward(int id)
+        {
+            // todo 添加命令。
+
+            var shape = shapes.getShape(id);
+            int index = shapes.lstShapes.IndexOf(shape);// 取得下标
+            if (index > 0)
+            {
+                // 如果不是最前面的
+                shapes.lstShapes.Remove(shape);
+                shapes.lstShapes.Insert(index - 1, shape);
+            }
+        }
+        public void forwardToFront(int id)
+        {
+            // todo 添加命令。
+            var shape = shapes.getShape(id);
+            int index = shapes.lstShapes.IndexOf(shape);// 取得下标
+            if (index > 0)
+            {
+                // 如果不是最前面的
+                shapes.lstShapes.Remove(shape);
+                shapes.lstShapes.Insert(0, shape);
+            }
+        }
+
+        public void backward(int id)
+        {
+            // todo 添加命令。
+            var shape = shapes.getShape(id);
+            int index = shapes.lstShapes.IndexOf(shape);// 取得下标
+            if (index >=  0 && index < shapes.lstShapes.Count-1)
+            {
+                // 如果不是最前面的
+                shapes.lstShapes.Remove(shape);
+                shapes.lstShapes.Insert(index + 1, shape);
+            }
+        }
+        public void backwardToEnd(int id)
+        {
+            // todo 添加命令。
+            var shape = shapes.getShape(id);
+            int index = shapes.lstShapes.IndexOf(shape);// 取得下标
+            if (index >= 0 && index < shapes.lstShapes.Count - 1)
+            {
+                // 如果不是最前面的
+                shapes.lstShapes.Remove(shape);
+                shapes.lstShapes.Insert(shapes.lstShapes.Count-1, shape);
+            }
+        }
+
+
+        public void forward()
+        {
+            //这里用当前的
+            if (SelectShape != null)
+            {
+                forward(SelectShape.ID);
+            }
+        }
+        public void forwardToFront()
+        {
+            if (SelectShape != null)
+            {
+                forwardToFront(SelectShape.ID);
+            }
+        }
+        public void backward()
+        {
+            //这里用当前的
+            if (SelectShape != null)
+            {
+                backward(SelectShape.ID);
+            }
+        }
+        public void backwardToEnd()
+        {
+            //这里用当前的
+            if (SelectShape != null)
+            {
+                backwardToEnd(SelectShape.ID);
+            }
+        }
+
+
+
+        /// <summary>
+        /// 组成群组
+        /// </summary>
+        /// <param name="shapes"></param>
+        public ShapeGroup mergeGroup(List<ShapeEle> shapes)
+        {
+            // todo 添加命令。
+            ShapeGroup group = new ShapeGroup();
+            group.shapes.AddRange(shapes);
+            group.ID = this.shapes.getNextId();
+            foreach (var item in shapes)
+            {
+                this.shapes.lstShapes.Remove(item); // 从旧的里边删除。
+            }
+            addShape(group);
+            return group;
+        }
+
+        /// <summary>
+        /// 取消这个群组
+        /// </summary>
+        /// <param name="group"></param>
+        public void cancelGroup(ShapeGroup group)
+        {
+            // todo 添加命令。
+            this.shapes.lstShapes.Remove(group);
+            foreach (var item in group.shapes)
+            {
+                this.shapes.lstShapes.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// 将选择的组成群组
+        /// </summary>
+        public void mergeGroup()
+        {
+            if (SelectShape is ShapeGroup)
+            {
+                var group =  mergeGroup(((ShapeGroup)SelectShape).shapes);
+                changeSelect(group);
+            }
+            
+        }
+
+        /// <summary>
+        /// 将选择的取消群组
+        /// </summary>
+        public void cancelGroup()
+        {
+            if (SelectShape is ShapeGroup)
+            {
+                cancelGroup((ShapeGroup)SelectShape);
+                changeSelect(null);// 取消选择
+            }
+        }
+
+        #region 各种对齐
+        // todo 各种对齐。
+
+
+
+
+        #endregion
+
+        #endregion
+
+
+
+        #region 小函数
+
+        /// <summary>
+        /// 对齐网格后的坐标，这个主要是提供给更改尺寸的。
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns></returns>
+        public PointF gridAlign(PointF point)
+        {
+            // 这里首先判断是否需要对齐网格
+            if (isAlignDridding)
+            {
+                // 这里需要转换坐标
+                var p1 = this.shapes.pointTransform.CanvasToVirtualPoint(point); // 先转成虚拟的坐标
+                var p2 = new PointF()
+                {
+                    X = ((int)Math.Round(p1.X / GriddingInterval, 0)) * GriddingInterval,     // 对齐,四舍五入五
+                    Y = ((int)Math.Round(p1.Y / GriddingInterval, 0)) * GriddingInterval,
+                };
+                return this.shapes.pointTransform.VirtualToCanvasPoint(p2);      // 转成画布的坐标
+
+            }
+            else
+            {
+                return point; // 不用对齐，直接返回原先的。
+            }
+        }
+
+        #endregion
 
     }
 }

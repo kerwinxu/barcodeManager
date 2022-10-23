@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -40,25 +43,75 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="zxing, Version=0.16.8.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.8\lib\net35\zxing.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="Core\Command\Command.cs" />
-    <Compile Include="Core\Command\CommandAdd.cs" />
+    <Compile Include="Core\Command\CommandShapeBackward.cs" />
+    <Compile Include="Core\Command\CommandShapeBackwardToEnd.cs" />
+    <Compile Include="Core\Command\CommandShapeCancelGroup.cs" />
+    <Compile Include="Core\Command\CommandShapeForward.cs" />
+    <Compile Include="Core\Command\CommandShapeForwardToFront.cs" />
+    <Compile Include="Core\Command\CommandShapeMergeGroup.cs" />
+    <Compile Include="Core\Command\ShapeCommand.cs" />
+    <Compile Include="Core\Command\CommandCreate.cs" />
     <Compile Include="Core\Command\CommandDelete.cs" />
     <Compile Include="Core\Command\CommandMove.cs" />
     <Compile Include="Core\Command\CommandPropertyChanged.cs" />
     <Compile Include="Core\Command\CommandRecorder.cs" />
     <Compile Include="Core\Command\CommandResize.cs" />
     <Compile Include="Core\Command\ICommandRecorder.cs" />
-    <Compile Include="Core\Paper.cs" />
+    <Compile Include="Core\Converter\QrCodeErrorCorrectionLevelConverter.cs" />
+    <Compile Include="Core\Event\ObjectSelectEventArgs.cs" />
+    <Compile Include="Core\Event\StateChangedEventArgs.cs" />
+    <Compile Include="Core\Paper\IPaperSetting.cs" />
+    <Compile Include="Core\Paper\Paper.cs" />
+    <Compile Include="Core\Paper\FrmPaperSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Paper\FrmPaperSetting.Designer.cs">
+      <DependentUpon>FrmPaperSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Print\AbstractPrintItemFactory.cs" />
+    <Compile Include="Core\Print\IPrintItemFactory.cs" />
+    <Compile Include="Core\Print\IPrintManager.cs" />
     <Compile Include="Core\Print\PrintItem.cs" />
+    <Compile Include="Core\Print\PrintManagerImpl.cs" />
+    <Compile Include="Core\Print\SizeNotEqual.cs" />
+    <Compile Include="Core\SelectStrategy.cs" />
     <Compile Include="Core\Serialize\ISerialize.cs" />
+    <Compile Include="Core\Serialize\JsonSerialize.cs" />
     <Compile Include="Core\Shapes.cs" />
+    <Compile Include="Core\Converter\BarcodeEncodingConverter.cs" />
+    <Compile Include="Core\Shape\EnumConverter.cs" />
+    <Compile Include="Core\Shape\ShapeArc.cs" />
+    <Compile Include="Core\Shape\ShapeBarcode.cs" />
+    <Compile Include="Core\Shape\ShapeEllipse.cs" />
     <Compile Include="Core\Shape\ShapeGroup.cs" />
+    <Compile Include="Core\Shape\ShapeImage.cs" />
+    <Compile Include="Core\Shape\ShapePie.cs" />
     <Compile Include="Core\Shape\ShapeRectangle.cs" />
+    <Compile Include="Core\Shape\ShapeRoundedRectangle.cs" />
+    <Compile Include="Core\Shape\ShapeStretch.cs" />
+    <Compile Include="Core\Shape\ShapeText.cs" />
+    <Compile Include="Core\Shape\ShapeVar.cs" />
+    <Compile Include="Core\State\ChangeStrategy\IChangeStrategy.cs" />
+    <Compile Include="Core\State\ChangeStrategy\MoveMode.cs" />
+    <Compile Include="Core\State\ChangeStrategy\ResizeModeEast.cs" />
+    <Compile Include="Core\State\ChangeStrategy\ResizeModeNorth.cs" />
+    <Compile Include="Core\State\ChangeStrategy\ResizeModeNorthEast.cs" />
+    <Compile Include="Core\State\ChangeStrategy\ResizeModeNorthWest.cs" />
+    <Compile Include="Core\State\ChangeStrategy\ResizeModeSorthWest.cs" />
+    <Compile Include="Core\State\ChangeStrategy\ResizeModeSouth.cs" />
+    <Compile Include="Core\State\ChangeStrategy\ResizeModeSouthEast.cs" />
+    <Compile Include="Core\State\ChangeStrategy\ResizeModeWest.cs" />
     <Compile Include="Core\State\ShapeRectSelect.cs" />
     <Compile Include="Core\State\State.cs" />
+    <Compile Include="Core\State\StateCanvasMove.cs" />
+    <Compile Include="Core\State\StateCanvasZoom.cs" />
+    <Compile Include="Core\State\StateChanging.cs" />
     <Compile Include="Core\State\StateCreate.cs" />
     <Compile Include="Core\State\StateSelected.cs" />
     <Compile Include="Core\State\StateStandby.cs" />
@@ -68,15 +121,36 @@
     <Compile Include="Core\UserControlCanvas.Designer.cs">
       <DependentUpon>UserControlCanvas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\UserControlToolbox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Core\UserControlToolbox.Designer.cs">
+      <DependentUpon>UserControlToolbox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Core\PointTransform.cs" />
     <Compile Include="Core\Shape\ShapeEle.cs" />
     <Compile Include="Core\Shape\ShapeLine.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\DistanceCalculation.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="png\20130410051542730_easyicon_net_24.png" />
+    <Content Include="png\20130410051552262_easyicon_net_24.png" />
+    <Content Include="png\align-right.png" />
+    <Content Include="png\shape_align_bottom.png" />
+    <Content Include="png\shape_align_center.png" />
+    <Content Include="png\shape_align_left.png" />
+    <Content Include="png\shape_align_middle.png" />
+    <Content Include="png\shape_align_top.png" />
     <Content Include="ReamMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="UML\class.puml" />
     <None Include="UML\MouseDown.puml" />
     <None Include="UML\MouseMove.puml" />
@@ -86,8 +160,18 @@
     <None Include="UML\useCase.puml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Core\Paper\FrmPaperSetting.resx">
+      <DependentUpon>FrmPaperSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Core\UserControlCanvas.resx">
       <DependentUpon>UserControlCanvas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\UserControlToolbox.resx">
+      <DependentUpon>UserControlToolbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

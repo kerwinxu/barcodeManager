@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Io.Github.Kerwinxu.LibShapes.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -11,8 +12,21 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
     /// <summary>
     /// 形状的基类
     /// </summary>
-    public abstract class ShapeEle
-    {
+     public abstract class ShapeEle
+     {
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public ShapeEle()
+        {
+            // 提供一些默认的参数
+            PenWidth = 1;
+            PenColor = Color.Black;
+
+        }
+
+
         #region 一堆属性
         #region  设计
         /// <summary>
@@ -20,13 +34,6 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
         /// </summary>
         [CategoryAttribute("设计")]
         public int ID { get; set; }
-
-        [DescriptionAttribute("变量名"), DisplayName("变量名"), CategoryAttribute("布局")]
-        public string VarName { get; set; }
-
-
-        [Browsable(false)]//不在PropertyGrid上显示
-        public string VarValue { get; set; }
 
         #endregion
 
@@ -66,7 +73,6 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
 
         [DescriptionAttribute("填充颜色"), DisplayName("填充颜色"), CategoryAttribute("外观")]
         public Color FillColor { get; set; }
-
 
 
         #region 如下的几个是为了更改大小或者移动的时候用的
@@ -120,10 +126,52 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
         }
 
         /// <summary>
-        /// 返回不包括旋转的路径，且这个是虚拟世界的坐标。
+        /// 矫正矩形，宽和高都不能是复数
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <returns></returns>
+        protected RectangleF correctRectangle(RectangleF rect)
+        {
+            RectangleF rect2 = new RectangleF() { 
+                X = rect.X,
+                Y = rect.Y,
+                Width = rect.Width,
+                Height = rect.Height,
+            };
+            if (rect2.Width < 0)
+            {
+                rect2.X += rect2.Width;
+                rect2.Width = -rect2.Width;
+            }
+            if (rect2.Height < 0)
+            {
+                rect2.Y += rect2.Height;
+                rect2.Height = -rect2.Height;
+            }
+
+            return rect2;
+        }
+
+        /// <summary>
+        /// 返回不包括旋转的路径，且这个是虚拟世界的坐标，不用考虑画布中实际的坐标。
         /// </summary>
         /// <returns></returns>
-        public abstract GraphicsPath GetGraphicsPathWithAngle();
+        public virtual GraphicsPath GetGraphicsPathWithAngle()
+        {
+            GraphicsPath path = new GraphicsPath();
+
+            var rect = new System.Drawing.RectangleF()
+            {
+                X = getX(),
+                Y = getY(),
+                Width = getWidth(),
+                Height = getHeight()
+            };
+            var rect2 = correctRectangle(rect);
+
+            path.AddRectangle(rect2);
+            return path;
+        }
 
         /// <summary>
         /// 返回外接矩形
@@ -136,14 +184,36 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
         }
 
         /// <summary>
-        ///  这个点是否在这个图形内部，文字需要重写这个方法
+        /// 选择的容忍度
+        /// </summary>
+        private Pen pen_select_tolerance = new Pen(Color.White) {
+            Width = DistanceCalculation.select_tolerance
+        };
+
+        /// <summary>
+        ///  这个点是否在这个图形的轮廓上
         /// </summary>
         /// <param name="mousePointF"></param>
         /// <returns></returns>
-        public virtual bool isContains(Matrix matrix, PointF mousePointF)
+        public virtual bool isOutlineVisible(Matrix matrix, PointF mousePointF)
+        {
+            return GetGraphicsPath(matrix).IsOutlineVisible(mousePointF, pen_select_tolerance);
+
+            //return GetGraphicsPath(matrix).IsVisible(mousePointF);
+        }
+
+        /// <summary>
+        ///  这个点是否在这个图形的的内部
+        /// </summary>
+        /// <param name="mousePointF"></param>
+        /// <returns></returns>
+        public virtual bool isVisible(Matrix matrix, PointF mousePointF)
         {
             return GetGraphicsPath(matrix).IsVisible(mousePointF);
+
+            //return GetGraphicsPath(matrix).IsVisible(mousePointF);
         }
+
 
         /// <summary>
         /// 这个表示是否被包含在这个矩形内
@@ -155,23 +225,29 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
             return rect.Contains(GetBounds(matrix));
         }
 
-        /// <summary>
-        /// 真正的移动
-        /// </summary>
-        public virtual void move()
+  
+
+        public virtual void setVals(Dictionary<string, string> vars)
         {
-            X += x_add;
-            Y += y_add;
-            // 清零
-            x_add = 0;
-            y_add = 0;
+            // 什么都不做，子类如果需要，就自己实现。
         }
 
         /// <summary>
-        /// 真正的改变尺寸
+        /// 根据这个矩形更改
         /// </summary>
-        public virtual void resize()
+        /// <param name="rect"></param>
+        public  void Change(RectangleF rect)
         {
+            x_add = rect.X;
+            y_add = rect.Y;
+            width_add = rect.Width;
+            height_add = rect.Height;
+        }
+
+
+        public virtual void ChangeComplated()
+        {
+            // 将更改固定下来
             X += x_add;
             Y += y_add;
             Width += width_add;
@@ -182,20 +258,49 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
             width_add = 0;
             height_add = 0;
 
+            // 这里要注意矫正 todo
+            if (Width < 0)
+            {
+                X += Width;
+                Width = -Width;
+            }
+            if (Height < 0)
+            {
+                Y += Height;
+                Height = -Height;
+            }
+
         }
 
-        public virtual void setVals(Dictionary<string, string> vars)
+        /// <summary>
+        /// 深度拷贝
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public abstract ShapeEle DeepClone();
+
+        public override bool Equals(object obj)
         {
-            //首先判断是否有这个
-            if (vars.ContainsKey(VarName))
-            {
-                VarName = vars[VarName]; // 这个变量的值
-            }
-            else
-            {
-                VarValue = string.Empty;         // 没有是空字符串。
-            }
+            // 首先判断是否是
+
+            var shape = obj as ShapeEle;
+            if (shape == null) return false; // 转换失败就是不同啦
+
+            return this.X == shape.X && 
+                this.Y == shape.Y &&
+                this.Width == shape.Width &&
+                this.Height == shape.Height &&
+                this.Angle == shape.Angle &&
+                this.ID == shape.ID &&
+                this.PenColor == shape.PenColor &&
+                this.PenWidth == shape.PenWidth &&
+                this.PenDashStyle == shape.PenDashStyle &&
+                this.IsFill == shape.IsFill &&
+                this.FillColor == shape.FillColor;
+
+            //return base.Equals(obj);
         }
+
 
         #region 如下的几个是添加add后的参数
         protected float getX()
@@ -219,5 +324,11 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
         #endregion
 
         #endregion
+
+        public override int GetHashCode()
+        {
+            return ID * base.GetHashCode();
+            //return base.GetHashCode();
+        }
     }
 }

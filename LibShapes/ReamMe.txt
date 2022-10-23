@@ -24,3 +24,6 @@ ShapeEle中的形状保存的xy宽高等都是虚拟世界的尺寸，没有经�
 GetGraphicsPathWithAngle中返回的是虚拟的路径。
 GetGraphicsPath(Matrix matrix) ： 转换来的是实际的路径了
 
+关于命令，我这里一律保存对象的深度拷贝，
+
+

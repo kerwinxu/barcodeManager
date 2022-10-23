@@ -28,14 +28,11 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
             this.canvas = canvas;
         }
 
-        public virtual void KeyDown(KeyEventArgs e) { }
-        public virtual void KeyUp(KeyEventArgs e) { }
+        public virtual void LeftMouseDown(PointF pointF) { }
+        public virtual void LeftMouseMove(PointF pointF) { }
+        public virtual void LeftMouseUp(PointF pointF) {}
 
-        public virtual void LeftMouseDown(MouseEventArgs e) { }
-        public virtual void LeftMouseMove(MouseEventArgs e) { }
-        public virtual void LeftMouseUp(MouseEventArgs e){}
-
-        public virtual void RightMouseClick(MouseEventArgs e) { }
+        public virtual void RightMouseClick(PointF pointF) { }
 
     }
 }

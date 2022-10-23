@@ -39,8 +39,10 @@
             this.btn_paper_ok = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.txt_paper_width = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.txt_paper_height = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
@@ -89,8 +91,6 @@
             this.lblModelSize = new System.Windows.Forms.Label();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPagePaper.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -164,6 +164,7 @@
             this.comboPrinters.Name = "comboPrinters";
             this.comboPrinters.Size = new System.Drawing.Size(286, 20);
             this.comboPrinters.TabIndex = 1;
+            this.comboPrinters.SelectedIndexChanged += new System.EventHandler(this.comboPrinters_SelectedIndexChanged);
             // 
             // groupBox9
             // 
@@ -211,7 +212,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.3871F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.6129F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txt_paper_width, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label14, 2, 0);
@@ -230,32 +231,52 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 9);
+            this.label1.Location = new System.Drawing.Point(15, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 0;
             this.label1.Text = "宽度：";
             // 
+            // txt_paper_width
+            // 
+            this.txt_paper_width.Location = new System.Drawing.Point(75, 3);
+            this.txt_paper_width.Name = "txt_paper_width";
+            this.txt_paper_width.Size = new System.Drawing.Size(63, 21);
+            this.txt_paper_width.TabIndex = 2;
+            // 
+            // label14
+            // 
+            this.label14.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(154, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(17, 12);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "mm";
+            // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 40);
+            this.label2.Location = new System.Drawing.Point(15, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 1;
             this.label2.Text = "高度：";
             // 
-            // txt_paper_width
+            // label15
             // 
-            this.txt_paper_width.Location = new System.Drawing.Point(76, 3);
-            this.txt_paper_width.Name = "txt_paper_width";
-            this.txt_paper_width.Size = new System.Drawing.Size(63, 21);
-            this.txt_paper_width.TabIndex = 2;
+            this.label15.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(154, 40);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(17, 12);
+            this.label15.TabIndex = 5;
+            this.label15.Text = "mm";
             // 
             // txt_paper_height
             // 
-            this.txt_paper_height.Location = new System.Drawing.Point(76, 34);
+            this.txt_paper_height.Location = new System.Drawing.Point(75, 34);
             this.txt_paper_height.Name = "txt_paper_height";
             this.txt_paper_height.Size = new System.Drawing.Size(63, 21);
             this.txt_paper_height.TabIndex = 3;
@@ -753,26 +774,6 @@
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // label14
-            // 
-            this.label14.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(155, 9);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(17, 12);
-            this.label14.TabIndex = 4;
-            this.label14.Text = "mm";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(155, 40);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(17, 12);
-            this.label15.TabIndex = 5;
-            this.label15.Text = "mm";
             // 
             // FrmPageSettings
             // 

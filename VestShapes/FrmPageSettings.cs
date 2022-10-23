@@ -638,6 +638,11 @@ namespace VestShapes
 
 
         }
+
+        private void comboPrinters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class ClsKeyOjbect

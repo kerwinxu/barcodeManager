@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
@@ -17,9 +18,17 @@ namespace 测试序列化
             Console.WriteLine(json);
             ColorHolder colorHolder2 = JsonConvert.DeserializeObject<ColorHolder>(json);
             Console.WriteLine(colorHolder2.Value);
-            Console.ReadKey();
+           
             // 说明颜色可以直接转成json
 
+            // 我这里看一下矩阵是否支持序列化
+            Matrix matrix = new Matrix();
+            matrix.Translate(10, 20);
+            matrix.Scale(2, 3);
+            string json2 = JsonConvert.SerializeObject(matrix);
+            Console.WriteLine(json2);
+
+            Console.ReadKey();
 
         }
 
