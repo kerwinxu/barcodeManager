@@ -19,5 +19,10 @@ namespace BarcodeTerminator
         {
             this.Dispose();
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://xinyiya.taobao.com/");
+        }
     }
 }

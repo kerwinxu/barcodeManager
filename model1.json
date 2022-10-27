@@ -1,0 +1,98 @@
+{
+  "$type": "Io.Github.Kerwinxu.LibShapes.Core.Shapes, LibShapes",
+  "lstShapes": {
+    "$type": "System.Collections.Generic.List`1[[Io.Github.Kerwinxu.LibShapes.Core.Shape.ShapeEle, LibShapes]], mscorlib",
+    "$values": [
+      {
+        "$type": "Io.Github.Kerwinxu.LibShapes.Core.Shape.ShapeText, LibShapes",
+        "Piefix": "品名:",
+        "Suffix": "",
+        "Font": "Arial, 6pt",
+        "Alignment": 0,
+        "LineAlignment": 0,
+        "VarName": "品名",
+        "VarValue": "男装T恤",
+        "StaticText": "文本",
+        "isStretch": false,
+        "ID": 1,
+        "X": 0.902092,
+        "Y": 3.01065969,
+        "Width": 47.995,
+        "Height": 10.4424286,
+        "Angle": 0.0,
+        "PenColor": "Black",
+        "PenWidth": 0.0,
+        "PenDashStyle": 0,
+        "IsFill": true,
+        "FillColor": "Black"
+      },
+      {
+        "$type": "Io.Github.Kerwinxu.LibShapes.Core.Shape.ShapeBarcode, LibShapes",
+        "QrCodeErrorLevel": "容错7%",
+        "Encoding": "CODE_39",
+        "Font": null,
+        "isIncludeLabel": true,
+        "VarName": "条形码",
+        "VarValue": "123456789010",
+        "StaticText": "690123456789",
+        "isStretch": false,
+        "ID": 2,
+        "X": 3.11106515,
+        "Y": 18.4734879,
+        "Width": 42.67338,
+        "Height": 27.4113731,
+        "Angle": 0.0,
+        "PenColor": "Black",
+        "PenWidth": 1.0,
+        "PenDashStyle": 0,
+        "IsFill": false,
+        "FillColor": ""
+      }
+    ]
+  },
+  "pointTransform": {
+    "$type": "Io.Github.Kerwinxu.LibShapes.Core.PointTransform, LibShapes",
+    "OffsetX": 8.999999,
+    "OffsetY": 8.999999,
+    "Zoom": 2.6350832
+  },
+  "Paper": {
+    "$type": "Io.Github.Kerwinxu.LibShapes.Core.Paper.Paper, LibShapes",
+    "ModelShape": {
+      "$type": "Io.Github.Kerwinxu.LibShapes.Core.Shape.ShapeRectangle, LibShapes",
+      "ID": 0,
+      "X": 0.0,
+      "Y": 0.0,
+      "Width": 50.0,
+      "Height": 50.0,
+      "Angle": 0.0,
+      "PenColor": "Black",
+      "PenWidth": 1.0,
+      "PenDashStyle": 0,
+      "IsFill": true,
+      "FillColor": "White"
+    },
+    "PaperWidth": 210.058,
+    "PaperHeight": 296.926,
+    "Top": 0.0,
+    "Left": 0.0,
+    "Right": 0.0,
+    "Bottom": 0.0,
+    "Rows": 4,
+    "Cols": 3,
+    "HorizontalIntervalDistance": 30.029,
+    "VerticalIntervalDistance": 32.3086662,
+    "ModelWidth": 50.0,
+    "ModelHeight": 50.0,
+    "Landscape": true,
+    "LandscapeAngle": 0
+  },
+  "Vars": {
+    "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String, mscorlib]], mscorlib",
+    "款号": "1",
+    "品名": "男装T恤",
+    "数量": "342",
+    "打印数量": "1",
+    "条形码": "123456789010"
+  }
+}

@@ -24,6 +24,11 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
         }
 
         /// <summary>
+        ///  原先的 
+        /// </summary>
+        private Shapes oldShapes;
+
+        /// <summary>
         ///  当前选择的策略
         /// </summary>
         private IChangeStrategy changeStrategy;
@@ -48,6 +53,8 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
 
         public override void LeftMouseDown(PointF pointF)
         {
+            oldShapes = this.canvas.shapes.DeepClone();
+
             // 这个首先看一下是在四面还是八方上，运算是不同的。
             // 这里取得坐标
             var path = new GraphicsPath();
@@ -74,13 +81,15 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
             {
                 // 这里要判断是否对齐网格
                 changeStrategy.action(
-                    this.canvas.SelectShape, 
-                    this.startPoint, 
-                    this.canvas.gridAlign(pointF));
+                    this.canvas.SelectShape,
+                    cantosPointToVirtualPoint(this.startPoint),
+                    cantosPointToVirtualPoint(this.canvas.gridAlign(pointF)));
                 this.canvas.Refresh();
             }
             //base.LeftMouseMove(pointF);
         }
+
+
 
         public override void LeftMouseUp(PointF pointF)
         {
@@ -88,16 +97,19 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
             if (changeStrategy != null &&  this.canvas.SelectShape != null)
             {
                 changeStrategy.action(
-                    this.canvas.SelectShape, 
-                    this.startPoint,
-                    this.canvas.gridAlign(pointF));
+                    this.canvas.SelectShape,
+                    cantosPointToVirtualPoint(this.startPoint),
+                    cantosPointToVirtualPoint(this.canvas.gridAlign(pointF)));
                 var old = this.canvas.SelectShape.DeepClone();  // 保存旧的
                 this.canvas.SelectShape.ChangeComplated();      // 更改状态
+                //
                 this.canvas.commandRecorder.addCommand(         // 发送命令
-                    new Command.CommandResize() { 
-                        OldShape = old,
-                        NewShape = this.canvas.SelectShape
-                    });
+                    new Command.CommandShapesChanged()
+                    {
+                        canvas = this.canvas,
+                        OldShapes = this.oldShapes,
+                        NewShapes = this.canvas.shapes.DeepClone()
+                    }) ;
             }
             // 转成
             this.canvas.state = new StateSelected(this.canvas);

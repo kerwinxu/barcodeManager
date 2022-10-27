@@ -23,6 +23,8 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
 
         }
 
+        private Shapes oldShapes;
+
         public ShapeEle shape { get; set; }
 
         public StateCreate(UserControlCanvas canvas, ShapeEle shape):base(canvas)
@@ -35,12 +37,13 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
 
         public override void LeftMouseDown(PointF pointF)
         {
+            oldShapes = this.canvas.shapes.DeepClone();
             // 这里先创建一个拷贝
             newshape = shape.DeepClone();
             // 判断是否需要对齐
             startPoint = this.canvas.gridAlign(pointF);
             // 这里的坐标要转换成虚拟中的坐标
-            var point3 = this.canvas.shapes.pointTransform.CanvasToVirtualPoint(startPoint);
+            var point3 = cantosPointToVirtualPoint(startPoint);
             // 这个x和y就有了
             newshape.X = point3.X;
             newshape.Y = point3.Y;
@@ -58,8 +61,8 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
         public override void LeftMouseMove(PointF pointF)
         {
             // 判断是否需要对齐
-            var point2 = this.canvas.gridAlign(pointF);
-            strategy.action(newshape, startPoint, point2);
+            var point2 = cantosPointToVirtualPoint(this.canvas.gridAlign(pointF));
+            strategy.action(newshape, cantosPointToVirtualPoint(startPoint), point2);
             // 刷新
             this.canvas.Refresh();
             base.LeftMouseMove(pointF);
@@ -67,23 +70,36 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
 
         public override void LeftMouseUp(PointF pointF)
         {
-            var point2 = this.canvas.gridAlign(pointF);
-            strategy.action(newshape, startPoint, point2);
+            // 这里有一个特殊的情况，就是宽和高都是0的情况下，会死机
+
+            var point2 = cantosPointToVirtualPoint(this.canvas.gridAlign(pointF));
+            strategy.action(newshape, cantosPointToVirtualPoint(startPoint), point2);
             newshape.ChangeComplated();
-            // 更改成选择模式
-            this.canvas.state = new StateSelected(this.canvas);
+
+            if (newshape.Width == 0 && newshape.Height == 0)
+            {
+                this.canvas.deleteShapes(newshape);
+            }
+            else
+            {
+                // 更改成选择模式
+                this.canvas.state = new StateSelected(this.canvas);
+                // 需要发送命令
+                this.canvas.commandRecorder.addCommand(
+                    new Command.CommandShapesChanged()
+                    {
+                        canvas=this.canvas,
+                        OldShapes = this.oldShapes,
+                        NewShapes = this.canvas.shapes.DeepClone()
+                    }
+                    ) ;
+                // 这里还是发出改变通知
+                this.canvas.changeSelect(newshape);
+            }
+
+            //base.LeftMouseUp(pointF);
             // 刷新
             this.canvas.Refresh();
-            // 需要发送命令
-            this.canvas.commandRecorder.addCommand(
-                new Command.CommandCreate()
-                {
-                    NewShape = newshape
-                }
-                ) ;
-            // 这里还是发出改变通知
-            this.canvas.changeSelect(newshape);
-            //base.LeftMouseUp(pointF);
         }
 
     }

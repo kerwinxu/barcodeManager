@@ -48,6 +48,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
             // 一个临时的打印变量。
             PrintItem printItem_tmp = new PrintItem();
             printItem_tmp.PrinterName = printItem.PrinterName;
+            printItem_tmp.Shapes = printItem.Shapes;
             // 循环条件是还有要打印的。
             while (printItem.Valss.Count > 0)
             {
@@ -68,6 +69,18 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
                         sendToPrinter(printItem_tmp, num);  // 发送给打印机
                         printItem_tmp = new PrintItem();    // 重新 
                         printItem_tmp.PrinterName = printItem.PrinterName;
+                        printItem_tmp.Shapes = printItem.Shapes;
+                    }
+                    else
+                    {
+                        // 这里表示不够一页啊
+                        for (int i = 0; i < printItem.PrintCounts.First(); i++)
+                        {
+                            printItem_tmp.Valss.Add(printItem.Valss.First());
+                        }
+                        // 添加上去
+                        printItem.PrintCounts[0] = 0;
+
                     }
 
                 }
@@ -88,12 +101,13 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
                         sendToPrinter(printItem_tmp, 1);  // 发送给打印机
                         printItem_tmp = new PrintItem();    // 重新 
                         printItem_tmp.PrinterName = printItem.PrinterName;
+                        printItem_tmp.Shapes = printItem.Shapes;
                     }
                     else
                     {
                         for (int i = 0; i < printItem.PrintCounts.First(); i++)
                         {
-                            printItem.Valss.Add(printItem.Valss.First());
+                            printItem_tmp.Valss.Add(printItem.Valss.First());
                         }
                         printItem.PrintCounts[0] = 0;// 不够减，看看下一个把。
                     }
@@ -109,6 +123,13 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
                 }
 
             }
+
+            // 如果还有数据，就打印吧
+            if (printItem_tmp.Valss.Count != 0)
+            {
+                sendToPrinter(printItem_tmp, 1);  // 发送给打印机
+            }
+
         }
 
 
@@ -180,6 +201,8 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
                 for (int j = 0; j < cols; j++)
                 {
                     // 更改变量
+                    // 这里要判断一下是否超过索引
+                    if (i * rows + j >= printItem.Valss.Count) break;
                     shapes.Vars = valsss[i * rows + j];
                     // 然后计算偏移
                     Matrix matrix = new Matrix();

@@ -34,5 +34,15 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
 
         public virtual void RightMouseClick(PointF pointF) { }
 
+        /// <summary>
+        /// 将画布的坐标转成虚拟的坐标
+        /// </summary>
+        /// <param name="pointF"></param>
+        /// <returns></returns>
+        protected PointF cantosPointToVirtualPoint(PointF pointF)
+        {
+            return this.canvas.shapes.pointTransform.CanvasToVirtualPoint(pointF);
+        }
+
     }
 }

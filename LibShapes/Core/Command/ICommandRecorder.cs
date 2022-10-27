@@ -7,7 +7,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Command
 {
     public  interface ICommandRecorder
     {
-        void addCommand(ShapeCommand command);
+        void addCommand(ICommand command);
 
          void Undo();
 

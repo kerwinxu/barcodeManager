@@ -8,11 +8,11 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Command
     public class CommandRecorder:ICommandRecorder
     {
         // 保存一堆的命令
-        private List<ShapeCommand> commands = new List<ShapeCommand>();
+        private List<ICommand> commands = new List<ICommand>();
         // 当前的下标
         private int current_index = -1; 
 
-        public void addCommand(ShapeCommand command)
+        public void addCommand(ICommand command)
         {
             // 这里要判断是否是最后一个
             if (current_index < commands.Count - 1)

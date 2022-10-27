@@ -1,5 +1,6 @@
 ﻿using Io.Github.Kerwinxu.LibShapes.Core.Serialize;
 using Io.Github.Kerwinxu.LibShapes.Core.Shape;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -25,7 +26,9 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         /// <returns></returns>
         public static Shapes load(string filename)
         {
-            if (serialize != null)
+            if (serialize != null 
+                && ! string.IsNullOrEmpty(filename) 
+                && System.IO.File.Exists(filename)) 
             {
                 return serialize.DeserializeObject<Shapes>(System.IO.File.ReadAllText(filename));
             }
@@ -163,10 +166,21 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
             {
                 foreach (var shape in lstShapes)
                 {
-                    if (shape.isOutlineVisible(pointTransform.GetMatrix(),pointF))
+                    if (shape.IsFill)
                     {
-                        return shape;
+                        if (shape.isVisible(pointTransform.GetMatrix(), pointF))
+                        {
+                            return shape;
+                        }
                     }
+                    else
+                    {
+                        if (shape.isOutlineVisible(pointTransform.GetMatrix(), pointF))
+                        {
+                            return shape;
+                        }
+                    }
+                    
                 }
             }
             return null;
@@ -321,6 +335,18 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
             // 然后这里有一个偏移，要算正负两个方向的偏移，要流出两边的spacing，主要留出左边和上边就可以了。
             this.pointTransform.OffsetX = - rect.X + spacing / dpix * 25.4f ;
             this.pointTransform.OffsetY = - rect.Y + spacing / dpix * 25.4f ;
+        }
+
+        /// <summary>
+        /// 深度复制一个
+        /// </summary>
+        /// <returns></returns>
+        public Shapes DeepClone()
+        {
+            // 这里用json的方式
+            JsonSerialize jsonSerialize = new JsonSerialize();
+            string json = jsonSerialize.SerializeObject(this);
+            return jsonSerialize.DeserializeObject<Shapes>(json);
         }
 
         #endregion

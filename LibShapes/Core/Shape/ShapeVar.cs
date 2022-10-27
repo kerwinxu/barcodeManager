@@ -34,15 +34,19 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
 
         public override  void setVals(Dictionary<string, string> vars)
         {
-            //首先判断是否有这个
-            if (vars.ContainsKey(VarName))
+            if (VarName != null)
             {
-                VarName = vars[VarName]; // 这个变量的值
+                //首先判断是否有这个
+                if (vars.ContainsKey(VarName))
+                {
+                    VarValue = vars[VarName]; // 这个变量的值
+                }
+                else
+                {
+                    VarValue = string.Empty;         // 没有是空字符串。
+                }
             }
-            else
-            {
-                VarValue = string.Empty;         // 没有是空字符串。
-            }
+  
         }
 
         /// <summary>

@@ -7,13 +7,13 @@ using System.Text;
 
 namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
 {
-#pragma warning disable CS0659 // 'ShapeGroup' overrides Object.Equals(object o) but does not override Object.GetHashCode()
-    public class ShapeGroup : ShapeEle
-#pragma warning restore CS0659 // 'ShapeGroup' overrides Object.Equals(object o) but does not override Object.GetHashCode()
+    public class ShapeGroup : ShapeMulti
     {
-
-        public  List<ShapeEle> shapes = new List<ShapeEle>();
-
+        /// <summary>
+        ///  这个重新是因为这个要真正的绘制，而ShapeMultiSelect不需要，ShapeMultiSelect里保存的只是多个形状的引用。
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="matrix"></param>
         public override void Draw(Graphics g, Matrix matrix)
         {
             // 这里首先要注意的是这个可以旋转的
@@ -31,26 +31,6 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
             }
         }
 
-        public override GraphicsPath GetGraphicsPath(Matrix matrix)
-        {
-            // 这里要先算子形状的所有的路径
-            GraphicsPath path = new GraphicsPath();
-            foreach (var item in shapes)
-            {
-                path.AddPath(item.GetGraphicsPath(matrix), false);
-            }
-            // 然后对这个进行旋转
-            var rect = path.GetBounds();
-            var centerPoints = new PointF() {
-                X = rect.X + rect.Width/2,
-                Y = rect.Y + rect.Height/2
-            };
-            Matrix matrix1 = new Matrix();
-            matrix1.RotateAt(Angle, centerPoints);
-            path.Transform(matrix1);
-            return path;
-
-        }
 
 
         /// <summary>
@@ -96,6 +76,12 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
             }
             return true;
             //return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ID;
+            return base.GetHashCode();
         }
     }
 }

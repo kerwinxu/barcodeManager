@@ -41,5 +41,15 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
         /// </summary>
         public bool isFullPrint { get; set; }
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public PrintItem()
+        {
+            // 初始化变量
+            Valss = new List<Dictionary<string, string>>();
+            PrintCounts = new List<int>();
+        }
+
     }
 }

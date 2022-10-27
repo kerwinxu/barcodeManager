@@ -24,5 +24,17 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Serialize
         /// <param name="value"></param>
         /// <returns></returns>
         T DeserializeObject<T>(string value);
+
+        // 这里表示从文件中序列化和反序列化
+
+        /// <summary>
+        /// 序列化到文件
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="file_path"></param>
+        void SerializeObjectToFile(Object obj, string file_path);
+
+
+        T DeserializeObjectFromFile<T>(string file_path);
     }
 }

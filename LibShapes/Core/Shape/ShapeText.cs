@@ -38,6 +38,17 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
 
         #endregion
 
+        public ShapeText() : base()
+        {
+            // 设置摩尔默认的字体。
+            Font = new Font("Arial", 8);
+            Piefix = "前缀";
+            StaticText = "文本";
+            Suffix = "后缀";
+            PenWidth = 0;
+            IsFill = true;
+            FillColor = Color.Black;
+        }
 
 
         public override ShapeEle DeepClone()
@@ -53,20 +64,28 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
             return Piefix + (string.IsNullOrEmpty(this.VarName) ? StaticText : this.VarValue) + Suffix;
         }
 
+        public override bool isVisible(Matrix matrix, PointF mousePointF)
+        {
+            // todo 这个是判断文本框的内部。
+            return base.isVisible(matrix, mousePointF);
+        }
+
         public override GraphicsPath GetGraphicsPathWithAngle()
         {
             GraphicsPath path = new GraphicsPath();
+            var rect = new RectangleF()
+            {
+                X = getX(),
+                Y = getY(),
+                Width = getWidth(),
+                Height = getWidth(),
+            };
             path.AddString(
                 getText(),
                 Font.FontFamily,
                 (int)Font.Style,
                 Font.Size,
-                new RectangleF() {
-                    X = getX(),
-                    Y = getY(),
-                    Width = getWidth(),
-                    Height = getWidth(),
-                },
+                rect,
                 new StringFormat() { Alignment=Alignment, LineAlignment=LineAlignment}
                 );
             
@@ -83,6 +102,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
             Matrix matrix1 = new Matrix();
             // 这里按照中心点旋转,
             var rect = path.GetBounds();
+            // 我这里做一个判断，如果这里上边的全是0，那么就手动计算宽度和高度吧
             var centerPoint = new PointF() { X = rect.X + rect.Width / 2, Y = rect.Y + rect.Height / 2 };
             matrix1.RotateAt(Angle, centerPoint);
             Matrix matrix2 = matrix.Clone();

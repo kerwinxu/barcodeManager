@@ -20,7 +20,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
 
         public ShapeImage()
         {
- 
+            IsFill = true; // 这样可以方便的选择。
         }
 
         // 这个不用ShapeVar中的StaticText，是因为我不想显示，并且也不用GetText，是因为这个默认情况下，变量意味着路径，而Img意味着静态的图片。

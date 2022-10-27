@@ -62,11 +62,19 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
             var _shapes = this.canvas.shapes.getSelectShapes(_rect);
             if (_shapes!=null && _shapes.Count > 0)
             {
-                // 说明选择了图形
+                // 要更改成选择模式
                 this.canvas.state = new StateSelected(this.canvas);
-                var group = new Shape.ShapeGroup();
-                group.shapes.AddRange(_shapes);
-                this.canvas.changeSelect(group);
+                // 如果只是选择了一个。
+                if (_shapes.Count == 0)
+                {
+                    this.canvas.changeSelect(_shapes[0]); //
+                }
+                else
+                {
+                    var multi = new Shape.ShapeMultiSelect();
+                    multi.shapes.AddRange(_shapes);
+                    this.canvas.changeSelect(multi); // 这个只是通知，但起始这个做不了修改的。
+                }
             }
             else
             {

@@ -28,24 +28,40 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
             // 如果不在，就转成待机模式
             // 1. 这里判断一下是否在矩形框的范围内
             GraphicsPath path = new GraphicsPath();
-            var rect = this.canvas.SelectShape.GetBounds(this.canvas.shapes.GetMatrix());
-            rect.X -= DistanceCalculation.select_tolerance;
-            rect.Y -= DistanceCalculation.select_tolerance;
-            rect.Width += DistanceCalculation.select_tolerance * 2;
-            rect.Height += DistanceCalculation.select_tolerance * 2; 
-            path.AddRectangle(rect);
-            if (path.IsVisible(pointF))
+            // 这里要判断一下是否是ShapeMultiSelect
+            if (this.canvas.SelectShape is Shape.ShapeMultiSelect)
             {
-                this.canvas.state = new StateChanging(this.canvas, pointF);
-                this.canvas.state.LeftMouseDown(pointF);
-            }
-            else
-            {
-                // 转成待机模式
+                // 那么最简单的方式是取消所有的选择，然后运行待机模式的选择
                 this.canvas.changeSelect(null);
                 this.canvas.state = new StateStandby(this.canvas);
                 this.canvas.state.LeftMouseDown(pointF);
             }
+            else
+            {
+                // 如果选择的图形是其他类型
+                // 看看是否被选择了吧。
+                var rect = this.canvas.SelectShape.GetBounds(this.canvas.shapes.GetMatrix());
+                // 放大范围，
+                rect.X -= DistanceCalculation.select_tolerance;
+                rect.Y -= DistanceCalculation.select_tolerance;
+                rect.Width += DistanceCalculation.select_tolerance * 2;
+                rect.Height += DistanceCalculation.select_tolerance * 2;
+                path.AddRectangle(rect);
+                // 判断是否
+                if (path.IsVisible(pointF))
+                {
+                    this.canvas.state = new StateChanging(this.canvas, pointF);
+                    this.canvas.state.LeftMouseDown(pointF);
+                }
+                else
+                {
+                    // 转成待机模式
+                    this.canvas.changeSelect(null);
+                    this.canvas.state = new StateStandby(this.canvas);
+                    this.canvas.state.LeftMouseDown(pointF);
+                }
+            }
+
 
             //base.LeftMouseDown(pointF);
         }

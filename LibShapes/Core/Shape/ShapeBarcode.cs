@@ -13,6 +13,7 @@ using ZXing;
 using ZXing.Common;
 using ZXing.QrCode;
 using ZXing.QrCode.Internal;
+using ZXing.Rendering;
 
 namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
 {
@@ -28,6 +29,8 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
             Encoding = "CODE_39";                       // 默认编码
             StaticText = "690123456789";                // 默认数字
             isIncludeLabel = true;                      // 默认包含标签。
+            IsFill = true;
+            Font = new Font("Arial", 8);                // 默认的字体
         }
 
         #region 一堆属性
@@ -47,7 +50,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
         /// <summary>
         /// 字体
         /// </summary>
-        [DescriptionAttribute("字体"), DisplayName("字体"), CategoryAttribute("字体")]
+        [DescriptionAttribute("请注意，这个字体是打印机上实际的字体，在界面上不会放大缩小。"), DisplayName("字体"), CategoryAttribute("字体")]
         public Font Font { get; set; }
 
         [DescriptionAttribute("是否包含标签"), DisplayName("包含标签"), CategoryAttribute("条形码设置")]
@@ -81,6 +84,8 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
                 Width = (int)(rect.Width / 25.4 * g.DpiX),
                 Height = (int)(rect.Height / 25.4 * g.DpiX),
             };
+            // 我这里改成，一开始就是1比1
+
             // 中心点的坐标
             var centerPoint = new PointF()          
             {
@@ -88,7 +93,14 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
                 Y = rect.Y + rect.Height / 2
             };
             // 2. 取得条形码图像
-            BarcodeWriter writer = new BarcodeWriter();
+            BarcodeWriter writer = new BarcodeWriter() { 
+                Renderer = new BitmapRenderer() { 
+                    DpiX = g.DpiX,
+                    DpiY = g.DpiY,
+                    TextFont = this.Font,
+                }
+            };
+            
             writer.Format = BarcodeEncodingConverter.dictBarcode[Encoding]; // 编码
             EncodingOptions options = new EncodingOptions()
             {  
@@ -100,8 +112,8 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
             if (Encoding == "QR_CODE")
             {
                 options = new QrCodeEncodingOptions() {
-                    Width = (int)rect.Width,        // 图像的宽和高
-                    Height = (int)rect.Height,
+                    Width = (int)rect2.Width,        // 图像的宽和高
+                    Height = (int)rect2.Height,
                     PureBarcode = !isIncludeLabel,  // 是否包括标签。
                     Margin = 2,
                     ErrorCorrection=QrCodeErrorCorrectionLevelConverter.level[QrCodeErrorLevel],
@@ -117,7 +129,6 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
                 matrix1.RotateAt(this.Angle, centerPoint);
                 g.Transform = matrix1; // 应用这个变换。
                 // 4. 
-                // todo 以后添加上拉伸的判断。
                 g.DrawImage(bitmap, rect.X, rect.Y, rect.Width, rect.Height);
 
                 //5. 
@@ -128,11 +139,11 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
 
 
 
-        //public override GraphicsPath GetGraphicsPathWithAngle()
-        //{
-        //    // 这个直接是返回父类的。
-        //    return base.GetGraphicsPathWithAngle();
-        //}
+        public override GraphicsPath GetGraphicsPathWithAngle()
+        {
+            // 这个直接是返回父类的，
+            return base.GetGraphicsPathWithAngle();
+        }
 
 
 

@@ -33,29 +33,35 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         public UserControlCanvas()
         {
             InitializeComponent();
+            init();
+        }
+
+        private void init()
+        {
             // 这里设置默认颜色
             GriddingInterval = 2;                    // 默认网格2mm
             commandRecorder = new CommandRecorder(); // 默认的命令记录器
             shapes = new Shapes();                   // 默认的形状
-            state = new  State.StateStandby(this);   // 默认是待机状态。
+            state = new State.StateStandby(this);   // 默认是待机状态。
             // 这里先取得dpi
             var g = this.CreateGraphics();
             var _dpix = g.DpiX;
             var _dpiy = g.DpiY;
+            g.Dispose();
             // 一堆的事件
             // 如下的鼠标事件，先将坐标转换成毫米了。
             bool isLeftDown = false; // 左键是否按下。移动的时候需要判断是否按下的。
-            // todo 加入键盘事件的处理，暂时只是支持上下左右。
-            this.MouseDown += (sender, e) => { if (!IsEdit) return ; isLeftDown = true; if(e.Button == MouseButtons.Left) this.state.LeftMouseDown(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X,e.Y))); this.Refresh(); };
-            this.MouseMove += (sender, e) => { if (!IsEdit) return;  if (!isLeftDown) return; if (e.Button == MouseButtons.Left) this.state.LeftMouseMove(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
-            this.MouseUp += (sender, e) => { if (!IsEdit) return;  isLeftDown = false; if(e.Button == MouseButtons.Left) this.state.LeftMouseUp(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
-            this.MouseClick += (sender, e) => { if (!IsEdit) return;  if (e.Button == MouseButtons.Right) this.state.RightMouseClick(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
+            // todo 加入键盘事件的处理，
+            this.MouseDown += (sender, e) => { if (!IsEdit) return; isLeftDown = true; if (e.Button == MouseButtons.Left) this.state.LeftMouseDown(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
+            this.MouseMove += (sender, e) => { if (!IsEdit) return; if (!isLeftDown) return; if (e.Button == MouseButtons.Left) this.state.LeftMouseMove(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
+            this.MouseUp += (sender, e) => { if (!IsEdit) return; isLeftDown = false; if (e.Button == MouseButtons.Left) this.state.LeftMouseUp(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
+            this.MouseClick += (sender, e) => { if (!IsEdit) return; if (e.Button == MouseButtons.Right) this.state.RightMouseClick(PointTransform.pixToMM(_dpix, _dpiy, new PointF(e.X, e.Y))); this.Refresh(); };
             // 双缓冲，这里需要打开。
             this.DoubleBuffered = true;
             // 说是推荐如上的这个，
             //this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.ResizeRedraw | ControlStyles.UserPaint, true);
             // 这里有一个特殊的设置，如果偏移为空的话，这里默认的偏移是有这个刻度尺的
-            if (shapes.pointTransform == null || 
+            if (shapes.pointTransform == null ||
                 (shapes.pointTransform != null && shapes.pointTransform.OffsetX == 0 && shapes.pointTransform.OffsetY == 0)
                 )
             {
@@ -116,7 +122,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         /// <summary>
         /// 命令记录的
         /// </summary>
-        public ICommandRecorder commandRecorder { get; set; }
+        internal   ICommandRecorder commandRecorder { get; set; }
 
 
         /// <summary>
@@ -166,6 +172,8 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         {
             SelectShape = obj as ShapeEle;
 
+            this.oldShapes = this.shapes.DeepClone();
+
             if (SelectShape == null)
             {
                 // 这里是设置纸张。
@@ -199,6 +207,24 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         #endregion
 
 
+        #region   属性更改事件处理，
+
+
+        private Shapes oldShapes;
+        public  void propertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            this.Refresh();
+            // 这里时在发送给propertyGrid前就有保存。
+            this.commandRecorder.addCommand(new Command.CommandShapesChanged()
+            {
+                canvas =this,
+                OldShapes = this.oldShapes,
+                NewShapes = this.shapes.DeepClone(),
+            }) ;
+        }
+
+        #endregion
+
         #endregion
 
         #region 绘图相关
@@ -210,6 +236,9 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         /// <param name="e"></param>
         private void UserControlCanvas_Paint(object sender, PaintEventArgs e)
         {
+            if (this.shapes == null) {return; }
+            // 这里要重新更新一下变量,这样相当于更新一遍。
+            this.shapes.Vars = this.shapes.Vars;
             // 如下的取消了双缓冲，是因为并不能达到预期，反倒是非常闪烁。
             // 最简单的方式是设置属性 this.DoubleBuffered = true;
             // 这里重新绘图用上了双缓冲
@@ -561,17 +590,30 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         public void deleteShapes(ShapeEle shape)
         {
             //返回的是第几个项目删除的。
-            var index = shapes.lstShapes.IndexOf(shape);
-            if (index == -1) return;
+            if (shape is ShapeMultiSelect) // 这里表示选择了多个。
+            {
+                // 这里说明是选择的一堆，这里一个一个的删除
+                foreach (var item in ((ShapeMultiSelect)shape).shapes)
+                {
+                    deleteShapes(item);
+                }
+            }
+            else
+            {
+                // 这里说明可能是一个形状。
+                var index = shapes.lstShapes.IndexOf(shape);
+                if (index == -1) return;
+                var oldShapes = this.shapes.DeepClone();
+                shapes.lstShapes.Remove(shape);// 请注意，这里只是删除顶层的。
+                                               // 这里添加command
+                commandRecorder.addCommand(new Command.CommandShapesChanged() { 
+                    canvas=this,
+                    OldShapes = oldShapes,
+                    NewShapes = this.shapes.DeepClone()
+            });
+            }
 
-            shapes.lstShapes.Remove(shape);// 请注意，这里只是删除顶层的。
-            // 这里添加command
-            CommandDelete commandDelete = new CommandDelete() {
-                canvas=this,           // 画布
-                NewShape = shape,      // 删除这个形状
-                index = index          // 从这个位置删除的。
-            };
-            commandRecorder.addCommand(commandDelete);
+            this.Refresh();// 刷新。
         }
 
         /// <summary>
@@ -579,14 +621,19 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         /// </summary>
         public void deleteShapes()
         {
-            if (SelectShape != null) deleteShapes(SelectShape);
+            // 这里要判断一下是否是群组
+            if (SelectShape != null)
+            {
+                 deleteShapes(SelectShape);
+            }
+             
         }
 
+        // todo 请注意，如下的几个全部要添加命令
 
         public void forward(int id)
         {
             // todo 添加命令。
-
             var shape = shapes.getShape(id);
             int index = shapes.lstShapes.IndexOf(shape);// 取得下标
             if (index > 0)
@@ -693,7 +740,6 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         /// <param name="group"></param>
         public void cancelGroup(ShapeGroup group)
         {
-            // todo 添加命令。
             this.shapes.lstShapes.Remove(group);
             foreach (var item in group.shapes)
             {
@@ -719,6 +765,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         /// </summary>
         public void cancelGroup()
         {
+            // 得判断
             if (SelectShape is ShapeGroup)
             {
                 cancelGroup((ShapeGroup)SelectShape);
@@ -728,38 +775,262 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
 
         #region 各种对齐
 
-        // todo 实现如下的对齐
-        
+
         /// <summary>
         /// 上对齐
         /// </summary>
-        public void align_top() { }
+        public void align_top() {
+            if (this.SelectShape is Shape.ShapeMultiSelect)
+            {
+                // 
+                float _y = ((Shape.ShapeMultiSelect)this.SelectShape).shapes[0].Y;
+                foreach (var item in ((Shape.ShapeMultiSelect)this.SelectShape).shapes)
+                {
+                    item.Y = _y;
+                }
+                this.Refresh();
+            }
+        
+        }
 
         /// <summary>
         /// 下对齐
         /// </summary>
-        public void align_bottom() {  }
+        public void align_bottom() {
+
+            if (this.SelectShape is Shape.ShapeMultiSelect)
+            {
+                // 
+                float _y = ((Shape.ShapeMultiSelect)this.SelectShape).shapes[0].Y;
+                float _height = ((Shape.ShapeMultiSelect)this.SelectShape).shapes[0].Height;
+                float _y_height = _y + _height;
+                foreach (var item in ((Shape.ShapeMultiSelect)this.SelectShape).shapes)
+                {
+                    item.Y = _y_height - item.Height; // 减去高度，得到新的y
+                }
+                this.Refresh();
+            }
+        }
 
 
         /// <summary>
         /// 左对齐
         /// </summary>
-        public void align_left() { }
+        public void align_left() {
+            if (this.SelectShape is Shape.ShapeMultiSelect)
+            {
+                // 
+                float _x = ((Shape.ShapeMultiSelect)this.SelectShape).shapes[0].X;
+                foreach (var item in ((Shape.ShapeMultiSelect)this.SelectShape).shapes)
+                {
+                    item.X = _x;
+                }
+                this.Refresh();
+            }
+
+        }
 
         /// <summary>
         /// 右对齐
         /// </summary>
-        public void align_right() { }
+        public void align_right()
+        {
+            if (this.SelectShape is Shape.ShapeMultiSelect)
+            {
+                float _x = ((Shape.ShapeMultiSelect)this.SelectShape).shapes[0].X;
+                float _width = ((Shape.ShapeMultiSelect)this.SelectShape).shapes[0].Width;
+                float _y_width = _x + _width;
+                foreach (var item in ((Shape.ShapeMultiSelect)this.SelectShape).shapes)
+                {
+                    item.Y = _y_width - item.Width; // 减去高度，得到新的y
+                }
+                this.Refresh();
+            }
+        }
 
-        public void align_center() { }
+        /// <summary>
+        /// 水平居中。
+        /// </summary>
+        public void align_center() {
+            if (this.SelectShape is ShapeMultiSelect)
+            {
+                // 首先取得哪个的宽度是最宽的
+                float _x=0, _width=0;
+                foreach (var item in ((Shape.ShapeMultiSelect)this.SelectShape).shapes)
+                {
+                    if (item.Width > _width)
+                    {
+                        _x = item.X;
+                        _width = item.Width;
+                    }
+                }
 
+                // 然后所有的都超这个对齐
+                float _center = _x + _width / 2;
+                foreach (var item in ((Shape.ShapeMultiSelect)this.SelectShape).shapes)
+                {
+                    item.X = _center - item.Width / 2;
+                }
 
-        public void align_midele() { }
+                this.Refresh();
+
+            }
+        
+        }
+
+        /// <summary>
+        /// 垂直居中。
+        /// </summary>
+        public void align_midele() {
+            if (this.SelectShape is ShapeMultiSelect)
+            {
+                // 首先取得哪个的宽度是最宽的
+                float _y = 0, _height = 0;
+                foreach (var item in ((Shape.ShapeMultiSelect)this.SelectShape).shapes)
+                {
+                    if (item.Height > _height)
+                    {
+                        _y = item.Y;
+                        _height = item.Height;
+                    }
+                }
+
+                // 然后所有的都超这个对齐
+                float _midele = _y + _height / 2;
+                foreach (var item in ((Shape.ShapeMultiSelect)this.SelectShape).shapes)
+                {
+                    item.Y = _midele - item.Height / 2;
+                }
+
+                this.Refresh();
+
+            }
+        }
 
         #endregion
 
+        #region 撤销重做
+        /// <summary>
+        /// 撤销
+        /// </summary>
+        public void undo()
+        {
+            this.commandRecorder.Undo();
+            this.Refresh();
+        }
+
+        public void redo()
+        {
+            this.commandRecorder.Redo();
+            this.Refresh();
+        }
+
         #endregion
 
+        #region 剪切复制粘贴
+
+        /// <summary>
+        /// 复制的保存在这里
+        /// </summary>
+        private ShapeEle _copy_shape;
+
+        /// <summary>
+        /// 剪切
+        /// </summary>
+        public void cut()
+        {
+            // 
+            if (SelectShape != null)
+            {
+                _copy_shape = SelectShape.DeepClone();// 先保存
+                deleteShapes(SelectShape);// 删除
+            }
+        }
+
+        /// <summary>
+        /// 复制
+        /// </summary>
+        public void copy()
+        {
+            if (SelectShape != null)
+            {
+                _copy_shape = SelectShape.DeepClone();// 跟剪切的区别是这里不删除。
+            }
+        }
+
+        /// <summary>
+        /// 粘贴
+        /// </summary>
+        public void paste()
+        {
+            // 我这里先思考一下思路，这个本质上是复制，
+            // 首先要判断一下是否是ShapeMultiSelect，如果是，表示要复制内部的，而如果不是，那么只是复制这一个。
+            if (_copy_shape is Shape.ShapeMultiSelect)
+            {
+                ShapeMultiSelect shapeMultiSelect = new ShapeMultiSelect();
+                // 这个里边所有的形状都复制
+                foreach (var item in ((ShapeMultiSelect)_copy_shape).shapes)
+                {
+                    // 说明这里就一个形状
+                    addShape(item);
+                    currectIdAndYadd(item, 5);  // 这个会更新id以及向下移动
+                    shapeMultiSelect.shapes.Add(item);
+                }
+                //
+                changeSelect(shapeMultiSelect);
+            }
+            else
+            {
+                // 说明这里就一个形状
+                addShape(_copy_shape);
+                currectIdAndYadd(_copy_shape, 5);  // 这个会更新id以及向下移动
+                changeSelect(_copy_shape);         // 这个是当前的id
+            }
+
+            // 设置新的。
+            _copy_shape = _copy_shape.DeepClone();
+
+            this.Refresh();
+
+        }
+
+        /// <summary>
+        /// 矫正id的，并且矫正的需要y加上一个指定的数字的。
+        /// </summary>
+        /// <param name="shape"></param>
+        /// <param name="y_add"></param>
+        private void  currectIdAndYadd(ShapeEle shape, float y_add)
+        {
+            if (shape is ShapeMulti)
+            {
+                foreach (var item in ((ShapeMultiSelect)shape).shapes)
+                {
+                    currectIdAndYadd(item, y_add);
+                }
+            }
+            else
+            {
+                shape.ID = shapes.getNextId();
+                shape.Y += y_add;
+            }
+        }
+
+        #endregion
+
+        public void selectAll()
+        {
+            // todo 全选
+        }
+
+
+
+        #endregion
+
+        public void setVars(Dictionary<string , string> dict)
+        {
+            this.shapes.Vars = dict;
+            this.Refresh();
+        }
 
 
         #region 小函数

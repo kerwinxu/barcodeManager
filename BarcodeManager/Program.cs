@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BarcodeManager;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -14,7 +15,7 @@ namespace BarcodeTerminator
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
+            Application.Run(new FrmMain2());
         }
     }
 }

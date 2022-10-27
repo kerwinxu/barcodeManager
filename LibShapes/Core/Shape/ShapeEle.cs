@@ -87,18 +87,27 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
 
         public virtual void Draw(Graphics g, Matrix matrix) {
             // 首先取得绘图路径
-            var path = GetGraphicsPath(matrix);
-            // 定义画笔
-            Pen pen = new Pen(PenColor);
-            pen.Width = PenWidth;           // 画笔的粗细
-            pen.DashStyle = PenDashStyle;   // 虚线的样式
-            g.DrawPath(pen, path);          // 画边框
-            if (IsFill) // 如果填充
+            try
             {
-                Brush brush = new SolidBrush(FillColor);
-                g.FillPath(brush, path);
+                var path = GetGraphicsPath(matrix);
+                // 定义画笔
+                Pen pen = new Pen(PenColor);
+                pen.Width = PenWidth;           // 画笔的粗细
+                pen.DashStyle = PenDashStyle;   // 虚线的样式
+                g.DrawPath(pen, path);          // 画边框
+                if (IsFill) // 如果填充
+                {
+                    Brush brush = new SolidBrush(FillColor);
+                    g.FillPath(brush, path);
+                }
+                path.Dispose();
             }
-            path.Dispose();
+            catch (Exception ex)
+            {
+
+                //throw;
+            }
+  
         }
 
 
@@ -109,7 +118,18 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
         /// <returns></returns>
         public virtual GraphicsPath GetGraphicsPath(Matrix matrix)
         {
-            GraphicsPath path = GetGraphicsPathWithAngle();
+            GraphicsPath path = null;
+            if (getWidth() == 0 || getHeight() == 0)
+            {
+                // 这里表示只是一条线段或者一个点了
+                path = new GraphicsPath();
+                path.AddLine(new PointF(getX(), getY()), new PointF(getX() + getWidth(), getY() + getHeight()));
+            }
+            else
+            {
+                path = GetGraphicsPathWithAngle();
+            }
+
             // 这里加上旋转
             Matrix matrix1 = new Matrix();
             // 这里按照中心点旋转,

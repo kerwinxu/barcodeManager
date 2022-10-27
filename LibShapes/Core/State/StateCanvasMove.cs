@@ -23,8 +23,11 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
         // 移动的话，我这个类会保存原先的偏移
         private float old_offsetX, old_offsetY;
 
+        private Shapes oldShapes;
+
         public override void LeftMouseDown(PointF pointF)
         {
+            this.oldShapes = this.canvas.shapes.DeepClone();
             // 保存偏移
             old_offsetX = this.canvas.shapes.pointTransform.OffsetX;
             old_offsetY = this.canvas.shapes.pointTransform.OffsetY;
@@ -46,7 +49,12 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
 
         public override void LeftMouseUp(PointF pointF)
         {
-            // 保存命令，这里好像不用保存。
+            // 保存命令，
+            this.canvas.commandRecorder.addCommand(new Command.CommandShapesChanged() { 
+                canvas = this.canvas,
+                OldShapes = this.oldShapes,
+                NewShapes = this.canvas.shapes.DeepClone(),
+            });
             //base.LeftMouseUp(pointF);
         }
     }

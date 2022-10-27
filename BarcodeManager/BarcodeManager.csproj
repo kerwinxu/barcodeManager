@@ -93,14 +93,10 @@
     <ApplicationIcon>Icon1.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="adodb, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -108,67 +104,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="ClsTestDPI.cs" />
-    <Compile Include="ClsXmlAPP.cs" />
-    <Compile Include="FormMain.cs">
+    <Compile Include="FrmMain2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.designer.cs">
-      <DependentUpon>FormMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmChooseExcelSheet.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmChooseExcelSheet.designer.cs">
-      <DependentUpon>FrmChooseExcelSheet.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmLoadExcelRecords.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmLoadExcelRecords.designer.cs">
-      <DependentUpon>FrmLoadExcelRecords.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmQueuePrint.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmQueuePrint.designer.cs">
-      <DependentUpon>FrmQueuePrint.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmSCAndShop.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmSCAndShop.designer.cs">
-      <DependentUpon>FrmSCAndShop.cs</DependentUpon>
+    <Compile Include="FrmMain2.Designer.cs">
+      <DependentUpon>FrmMain2.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControlBarcode.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControlBarcode.Designer.cs" />
-    <Compile Include="UserControlStaticText.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControlStaticText.Designer.cs" />
-    <Compile Include="UserControlVariableText.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserControlVariableText.Designer.cs" />
-    <EmbeddedResource Include="FormMain.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmChooseExcelSheet.resx">
-      <DependentUpon>FrmChooseExcelSheet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmLoadExcelRecords.resx">
-      <DependentUpon>FrmLoadExcelRecords.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmQueuePrint.resx">
-      <DependentUpon>FrmQueuePrint.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrmSCAndShop.resx">
-      <DependentUpon>FrmSCAndShop.cs</DependentUpon>
+    <EmbeddedResource Include="FrmMain2.resx">
+      <DependentUpon>FrmMain2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -180,12 +125,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UserControlBarcode.resx" />
-    <EmbeddedResource Include="UserControlStaticText.resx" />
-    <EmbeddedResource Include="UserControlVariableText.resx" />
     <None Include="app.config" />
-    <None Include="BarcodeManager_1_TemporaryKey.pfx" />
-    <None Include="BarcodeManager_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -197,60 +137,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BarcodeEdit\BarcodeEdit.csproj">
-      <Project>{0da6fb53-139c-415e-9508-10a0a8e3d311}</Project>
-      <Name>BarcodeEdit</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClsBarcodePrint\ClsBarcodePrint.csproj">
-      <Project>{465aee03-8b54-4475-9b03-28ae85cf0238}</Project>
-      <Name>ClsBarcodePrint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClsImport\ClsImport.csproj">
-      <Project>{e0306e3a-7269-47af-b75f-615d474a080e}</Project>
-      <Name>ClsImport</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataBase\DataBase.csproj">
-      <Project>{483be9df-a903-44c9-b01c-d3af59bbff69}</Project>
-      <Name>DataBase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Help\Help.csproj">
-      <Project>{998da8fb-1cc7-467a-85a5-404fadac5ed8}</Project>
-      <Name>Help</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyDataStructure\MyDataStructure.csproj">
-      <Project>{7a35f89b-1043-4df7-b2b9-721eedb519a2}</Project>
-      <Name>MyDataStructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SaveImage\SaveImage.csproj">
-      <Project>{7dce1981-7e71-4eb2-9617-b620b5d0032f}</Project>
-      <Name>SaveImage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SelectPrinter\SelectPrinter.csproj">
-      <Project>{7ccbdae6-bf32-4ebd-acbd-e7f19c770f24}</Project>
-      <Name>SelectPrinter</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StreamPlus\StreamPlus.csproj">
-      <Project>{ff973758-6b1f-4eb7-b572-28d4f79ce909}</Project>
-      <Name>StreamPlus</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VestShapes\VestShapes.csproj">
-      <Project>{ace5c531-6dd6-4cf6-b8c8-8cbe042eaf79}</Project>
-      <Name>VestShapes</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="ADOX">
-      <Guid>{00000600-0000-0010-8000-00AA006D2EA4}</Guid>
-      <VersionMajor>2</VersionMajor>
-      <VersionMinor>8</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -276,6 +163,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BarcodeEdit\BarcodeEdit.csproj">
+      <Project>{0da6fb53-139c-415e-9508-10a0a8e3d311}</Project>
+      <Name>BarcodeEdit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Help\Help.csproj">
+      <Project>{998da8fb-1cc7-467a-85a5-404fadac5ed8}</Project>
+      <Name>Help</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LibShapes\LibShapes.csproj">
+      <Project>{ee859868-a204-44e8-85b3-b080ae587c38}</Project>
+      <Name>LibShapes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

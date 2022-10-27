@@ -20,6 +20,18 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         {
             InitializeComponent();
             UserControlToolbox_Resize(this, null); // 更改尺寸。
+            // 对象的属性更改时
+            propertyGrid1.PropertyValueChanged += PropertyGrid1_PropertyValueChanged;
+        }
+
+        private void PropertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+        {
+            // 发送给外接
+            if (this.PropertyValueChanged != null)
+            {
+                this.PropertyValueChanged(s, e);
+            }
+            //throw new NotImplementedException();
         }
 
         /// <summary>
@@ -57,19 +69,57 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
             {
                 btn_select.Checked = true;
             }
-
+            all_reset_2();
             if (e.CurrentState is StateCreate)
             {
                 // 如果是创建模式，要看看是哪个形状的
-                // todo
-            }
-            else
-            {
+                var tmp = e.CurrentState as StateCreate;
+                if (tmp.shape is ShapePie)
+                {
+                    btn_pie.Checked = true;
+                }
+                else if (tmp.shape is ShapeArc)
+                {
+                    btn_arc.Checked = true;
+                }
+                else if (tmp.shape is ShapeEllipse)
+                {
+                    btn_ellipse.Checked = true;
+                }
+                else if (tmp.shape is ShapeRectangle)
+                {
+                    btn_rect.Checked = true;
+                }else if (tmp.shape is ShapeRoundedRectangle)
+                {
+                    btn_roundedrect.Checked = true;
+                }
+                else if (tmp.shape is ShapeLine)
+                {
+                    btn_line.Checked = true;
+                }
+                else if (tmp.shape is ShapeImage)
+                {
+                    btn_img.Checked = true;
+                }
+                else if (tmp.shape is ShapeText)
+                {
+                    btn_text.Checked = true;
+                }
+                else if (tmp.shape is ShapeBarcode)
+                {
+                    btn_barcode.Checked = true;
+                }
 
             }
-
-
         }
+
+        /// <summary>
+        /// 这里是属性更改事件
+        /// </summary>
+        public event System.Windows.Forms.PropertyValueChangedEventHandler PropertyValueChanged;
+
+
+
 
         /// <summary>
         /// 将所有的设置成没有选中的状态
@@ -79,6 +129,19 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
             btn_select.Checked = false;
             btn_zoom.Checked = false;
             btn_move_canvas.Checked = false;
+        }
+
+        private void all_reset_2()
+        {
+            btn_rect.Checked = false;
+            btn_roundedrect.Checked = false;
+            btn_line.Checked = false;
+            btn_arc.Checked = false;
+            btn_pie.Checked = false;
+            btn_img.Checked = false;
+            btn_text.Checked = false;
+            btn_barcode.Checked = false;
+            btn_ellipse.Checked = false;
         }
 
         /// <summary>

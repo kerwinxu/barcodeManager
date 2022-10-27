@@ -9,15 +9,15 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Serialize
     /// <summary>
     /// json的序列化
     /// </summary>
-    public class JsonSerialize : ISerialize
+    public class JsonSerialize : AbstractSerialize
     {
-        public T DeserializeObject<T>(string value)
+        public override  T DeserializeObject<T>(string value)
         {
             return JsonConvert.DeserializeObject<T>(value,jsonSerializerSettings);
             //throw new NotImplementedException();
         }
 
-        public string SerializeObject(object obj)
+        public override  string SerializeObject(object obj)
         {
              
             return JsonConvert.SerializeObject(obj, Formatting.Indented, jsonSerializerSettings);

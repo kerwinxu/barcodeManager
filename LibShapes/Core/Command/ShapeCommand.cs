@@ -9,7 +9,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Command
     /// <summary>
     /// 形状方面的命令。
     /// </summary>
-    public  abstract class ShapeCommand
+    public  abstract class ShapeCommand: ICommand
     {
         /// <summary>
         /// 原先的形状

@@ -33,7 +33,9 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
         public FrmPaperSetting(Paper paper):this()
         {
             this.paper = paper;
+            isOnlyOne = true;
             paper_to_ui();
+            isOnlyOne = false;
         }
 
         /// <summary>
@@ -125,8 +127,10 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
                 this.paper.Bottom = float.Parse(txtMaginsBottom.Text);
                 this.paper.Left = float.Parse(txtMaginsLeft.Text);
                 this.paper.Right = float.Parse(txtMaginsRight.Text);
+                //
                 this.paper.ModelWidth = float.Parse(txtModelWidth.Text);
                 this.paper.ModelHeight = float.Parse(txtModelHeight.Text);
+                //
                 this.paper.HorizontalIntervalDistance = float.Parse(txtHorizontalInterval.Text);
                 this.paper.VerticalIntervalDistance = float.Parse(txtVerticalInterval.Text);
                 if (radioButtonRect.Checked)
@@ -167,7 +171,6 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             UpDownNumberOfColumn.Value = this.paper.Cols;
             txtMaginsTop.Text = this.paper.Top.ToString();
             txtMaginsBottom.Text = this.paper.Bottom.ToString();
-            txtMaginsLeft.Text = this.paper.Left.ToString();
             txtMaginsLeft.Text = this.paper.Left.ToString();
             txtMaginsRight.Text = this.paper.Right.ToString();
             txtModelWidth.Text = this.paper.ModelWidth.ToString();
@@ -226,8 +229,9 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             if (dict_paperSize.ContainsKey(comboPaperSizes.Text))
             {
                 var _papersize = dict_paperSize[comboPaperSizes.Text];
-                txt_paper_height.Text = _papersize.Height.ToString();
-                txt_paper_width.Text = _papersize.Width.ToString();
+                // 请注意，这里边的单位是以百分之一英寸为单位
+                txt_paper_height.Text = (_papersize.Height*0.254).ToString();
+                txt_paper_width.Text = (_papersize.Width*0.254).ToString();
                 change();
             }
 

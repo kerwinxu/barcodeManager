@@ -136,18 +136,6 @@
     <Content Include="条形码模板编辑.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClsBarcodePrint\ClsBarcodePrint.csproj">
-      <Project>{465aee03-8b54-4475-9b03-28ae85cf0238}</Project>
-      <Name>ClsBarcodePrint</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ClsImport\ClsImport.csproj">
-      <Project>{e0306e3a-7269-47af-b75f-615d474a080e}</Project>
-      <Name>ClsImport</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataBase\DataBase.csproj">
-      <Project>{483be9df-a903-44c9-b01c-d3af59bbff69}</Project>
-      <Name>DataBase</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Help\Help.csproj">
       <Project>{998da8fb-1cc7-467a-85a5-404fadac5ed8}</Project>
       <Name>Help</Name>
@@ -155,18 +143,6 @@
     <ProjectReference Include="..\LibShapes\LibShapes.csproj">
       <Project>{ee859868-a204-44e8-85b3-b080ae587c38}</Project>
       <Name>LibShapes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyDataStructure\MyDataStructure.csproj">
-      <Project>{7a35f89b-1043-4df7-b2b9-721eedb519a2}</Project>
-      <Name>MyDataStructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SelectPrinter\SelectPrinter.csproj">
-      <Project>{7ccbdae6-bf32-4ebd-acbd-e7f19c770f24}</Project>
-      <Name>SelectPrinter</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\VestShapes\VestShapes.csproj">
-      <Project>{ace5c531-6dd6-4cf6-b8c8-8cbe042eaf79}</Project>
-      <Name>VestShapes</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
