@@ -30,7 +30,11 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Serialize
         private JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings()
         {
             TypeNameHandling = TypeNameHandling.All, // Json.NET会在序列化后的json文本中附加一个属性说明json到底是从什么类序列化过来的
-
+            DateFormatHandling = Newtonsoft.Json.DateFormatHandling.MicrosoftDateFormat,
+            DateFormatString = "yyyy-MM-dd HH:mm:ss",                         //空值处理
+            NullValueHandling = NullValueHandling.Ignore,                     //高级用法九中的`Bool`类型转换设置
+            ReferenceLoopHandling = ReferenceLoopHandling.Serialize,          // 循环引用的的解决方式，如下如下两种设置。
+            PreserveReferencesHandling = PreserveReferencesHandling.Objects,  // 
         };
     }
 }
