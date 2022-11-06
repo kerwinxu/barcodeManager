@@ -35,6 +35,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Serialize
             //NullValueHandling = NullValueHandling.Ignore,                     //高级用法九中的`Bool`类型转换设置
             ReferenceLoopHandling = ReferenceLoopHandling.Serialize,          // 循环引用的的解决方式，如下如下两种设置。
             PreserveReferencesHandling = PreserveReferencesHandling.Objects,  // 
+            Formatting = Formatting.Indented, // 缩进的
         };
     }
 }
