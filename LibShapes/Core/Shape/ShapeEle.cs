@@ -217,7 +217,9 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
         /// <returns></returns>
         public virtual bool isOutlineVisible(Matrix matrix, PointF mousePointF)
         {
-            return GetGraphicsPath(matrix).IsOutlineVisible(mousePointF, pen_select_tolerance);
+
+            var pen = new Pen(new SolidBrush(this.PenColor), this.PenWidth);
+            return GetGraphicsPath(matrix).IsOutlineVisible(mousePointF, pen);
 
             //return GetGraphicsPath(matrix).IsVisible(mousePointF);
         }

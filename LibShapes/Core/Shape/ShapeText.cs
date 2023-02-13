@@ -70,6 +70,11 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
             return base.isVisible(matrix, mousePointF);
         }
 
+        public override bool isOutlineVisible(Matrix matrix, PointF mousePointF)
+        {
+            return base.isOutlineVisible(matrix, mousePointF) || isVisible(matrix, mousePointF);
+        }
+
         public override GraphicsPath GetGraphicsPathWithAngle()
         {
             GraphicsPath path = new GraphicsPath();
