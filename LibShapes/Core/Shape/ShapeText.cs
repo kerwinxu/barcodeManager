@@ -102,7 +102,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
         {
             // 这个应该调用的是ShapeEle中的,而不是上边的GetGraphicsPathWithAngle，
             // 上边的实际上只是文字范围内的图形，而这个是要
-            GraphicsPath path = base.GetGraphicsPathWithAngle();
+            GraphicsPath path = GetGraphicsPathWithAngle();
             // 这里加上旋转
             Matrix matrix1 = new Matrix();
             // 这里按照中心点旋转,
