@@ -65,7 +65,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
                 // 要更改成选择模式
                 this.canvas.state = new StateSelected(this.canvas);
                 // 如果只是选择了一个。
-                if (_shapes.Count == 0)
+                if (_shapes.Count == 1)
                 {
                     this.canvas.changeSelect(_shapes[0]); //
                 }
