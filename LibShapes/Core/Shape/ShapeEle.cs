@@ -242,10 +242,9 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
         /// </summary>
         /// <param name="rect"></param>
         /// <returns></returns>
-        public bool isBeContains(Matrix matrix, RectangleF rect)
+        public virtual bool isBeContains(Matrix matrix, RectangleF rect)
         {
             var rect2 = GetBounds(matrix);
-            var tmp = rect.Contains(rect2);
             return rect.Contains(rect2);
         }
 

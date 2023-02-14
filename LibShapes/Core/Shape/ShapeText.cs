@@ -72,6 +72,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
 
         public override bool isOutlineVisible(Matrix matrix, PointF mousePointF)
         {
+            // 这个会
             return base.isOutlineVisible(matrix, mousePointF) || isVisible(matrix, mousePointF);
         }
 
@@ -98,7 +99,44 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
             //throw new NotImplementedException();
         }
 
+        public override bool isBeContains(Matrix matrix, RectangleF rect)
+        {
+            // 这个要判断是否整个文本内容是否在这个矩形内，而不是单独的看这个文本的框。
+            var rect2 = GetTrueBounds(matrix);
+            return rect.Contains(rect2);
+            //return base.isBeContains(matrix, rect);
+        }
+
+        /// <summary>
+        /// 这个返回的是矩形边框
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
         public override RectangleF GetBounds(Matrix matrix)
+        {
+            // 这里不用这个文本图形的GetGraphicsPathWithAngle，而是调用矩形的。
+            GraphicsPath path = base.GetGraphicsPathWithAngle();
+            // 这里加上旋转
+            Matrix matrix1 = new Matrix();
+            // 这里按照中心点旋转,
+            var rect = path.GetBounds();
+            var centerPoint = new PointF() { X = rect.X + rect.Width / 2, Y = rect.Y + rect.Height / 2 };
+            matrix1.RotateAt(Angle, centerPoint);
+            Matrix matrix2 = matrix.Clone();
+            matrix2.Multiply(matrix1);
+            // 应用这个转换
+            path.Transform(matrix2);
+            // 返回这个矩形
+            return path.GetBounds();
+            //return base.GetBounds(matrix);
+        }
+
+        /// <summary>
+        /// 返回的是实际文字的边框，如果没有文字，就显示矩形的边框
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
+        public RectangleF GetTrueBounds(Matrix matrix)
         {
             // 这里要判断是否有文字，有时候没有文字，就按照基类的吧
             if (getText() == string.Empty) return base.GetBounds(matrix);
