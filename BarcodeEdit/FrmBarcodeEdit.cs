@@ -489,13 +489,13 @@ namespace BarcodeTerminator
 
             if (index < 0 )
             {
-                printItem.Vals.Add(new Dictionary<string, string>()); // 空白的变量
+                printItem.Valss.Add(new Dictionary<string, string>()); // 空白的变量
             }
             else
             {
                 // 首先构造变量
                 var dict = getDict(index);
-                printItem.Vals.Add(dict);
+                printItem.Valss.Add(dict);
             }
 
             // 然后构造数量

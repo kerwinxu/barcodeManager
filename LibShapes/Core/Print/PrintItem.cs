@@ -29,7 +29,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
         /// <summary>
         /// 变量的集合
         /// </summary>
-        public List<Dictionary<string, string>> Vals { get; set; }
+        public List<Dictionary<string, string>> Valss { get; set; }
 
         /// <summary>
         /// 打印数量
@@ -47,7 +47,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
         public PrintItem()
         {
             // 初始化变量
-            Vals = new List<Dictionary<string, string>>();
+            Valss = new List<Dictionary<string, string>>();
             PrintCounts = new List<int>();
         }
 

@@ -21,7 +21,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
         {
             // 这里收到一个打印的部分，然后需要拆分，
             // 思路是，首先区分是否充满，充满的话，就是按照整数去打印，而不充满的，是要填充的。
-            if (printItem.Vals.Count != printItem.PrintCounts.Count) throw new SizeNotEqual();
+            if (printItem.Valss.Count != printItem.PrintCounts.Count) throw new SizeNotEqual();
             // 判断是否是充满打印，由具体的函数去负责处理。
             if (printItem.isFullPrint)
             {
@@ -50,10 +50,10 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
             printItem_tmp.PrinterName = printItem.PrinterName;
             printItem_tmp.Shapes = printItem.Shapes;
             // 循环条件是还有要打印的。
-            while (printItem.Vals.Count > 0)
+            while (printItem.Valss.Count > 0)
             {
                 // 判断前面的是否为空,为空表示下边的这个可以一次性打印几张。
-                if (printItem_tmp.Vals.Count == 0)
+                if (printItem_tmp.Valss.Count == 0)
                 {
                     // 判断是否判断是否大于一张
                     if (printItem.PrintCounts.First() >= rows* cols)
@@ -62,7 +62,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
                         // 填充指定数量的变量
                         for (int i = 0; i < rows*cols; i++)
                         {
-                            printItem_tmp.Vals.Add(printItem.Vals.First());
+                            printItem_tmp.Valss.Add(printItem.Valss.First());
                         }
                         int num = printItem.PrintCounts.First() / (rows * cols);// 取整
                         printItem.PrintCounts[0] -= num * rows * cols;          // 减去指定的数量
@@ -76,7 +76,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
                         // 这里表示不够一页啊
                         for (int i = 0; i < printItem.PrintCounts.First(); i++)
                         {
-                            printItem_tmp.Vals.Add(printItem.Vals.First());
+                            printItem_tmp.Valss.Add(printItem.Valss.First());
                         }
                         // 添加上去
                         printItem.PrintCounts[0] = 0;
@@ -88,13 +88,13 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
                 {
                     // 添加指定的多个。这里表示这次打印的数量是1张。
                     // 这里判断是否够一张
-                    if (printItem.PrintCounts.First() + printItem_tmp.Vals.Count >= rows * cols)
+                    if (printItem.PrintCounts.First() + printItem_tmp.Valss.Count >= rows * cols)
                     {
                         // 看看还却多少。
-                        int i_max = rows * cols - printItem_tmp.Vals.Count;
+                        int i_max = rows * cols - printItem_tmp.Valss.Count;
                         for (int i = 0; i < i_max; i++)
                         {
-                            printItem.Vals.Add(printItem.Vals.First());
+                            printItem.Valss.Add(printItem.Valss.First());
                         }
                         // 减去指定的多少。
                         printItem.PrintCounts[0] -= i_max;          // 减去指定的数量
@@ -107,7 +107,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
                     {
                         for (int i = 0; i < printItem.PrintCounts.First(); i++)
                         {
-                            printItem_tmp.Vals.Add(printItem.Vals.First());
+                            printItem_tmp.Valss.Add(printItem.Valss.First());
                         }
                         printItem.PrintCounts[0] = 0;// 不够减，看看下一个把。
                     }
@@ -118,14 +118,14 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
                 while (printItem.PrintCounts.Count > 0 && printItem.PrintCounts.First() == 0)
                 {
                     // 删除第一个。
-                    printItem.Vals.RemoveAt(0);
+                    printItem.Valss.RemoveAt(0);
                     printItem.PrintCounts.RemoveAt(0);
                 }
 
             }
 
             // 如果还有数据，就打印吧
-            if (printItem_tmp.Vals.Count != 0)
+            if (printItem_tmp.Valss.Count != 0)
             {
                 sendToPrinter(printItem_tmp, 1);  // 发送给打印机
             }
@@ -143,13 +143,13 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
             int rows = printItem.Shapes.Paper.Rows;
             int cols = printItem.Shapes.Paper.Cols;
             // 每一个都是充满打印。
-            for (int i = 0; i < printItem.Vals.Count; i++)
+            for (int i = 0; i < printItem.Valss.Count; i++)
             {
                 PrintItem printItem_tmp = new PrintItem();         //
                 printItem_tmp.PrinterName = printItem.PrinterName; // 打印机
                 for (int j = 0; j < rows * cols; j++)
                 {
-                    printItem_tmp.Vals.Add(printItem.Vals[i]);   // 添加多次就是啦。
+                    printItem_tmp.Valss.Add(printItem.Valss[i]);   // 添加多次就是啦。
                 }
                 // 这里计算打印的数量
                 int num = (int)((printItem.PrintCounts[i] + 0.5) / (rows + cols));
@@ -193,7 +193,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
             float modelHeight = printItem.Shapes.Paper.ModelHeight;
             float hor = printItem.Shapes.Paper.HorizontalIntervalDistance;// 模板的水平间隔
             float ver = printItem.Shapes.Paper.VerticalIntervalDistance;  // 模板的垂直间隔
-            var valsss = printItem.Vals; // 变量集合。
+            var valsss = printItem.Valss; // 变量集合。
             var shapes = printItem.Shapes;  // 形状
             // 循环打印
             for (int i = 0; i < rows; i++)
@@ -202,7 +202,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
                 {
                     // 更改变量
                     // 这里要判断一下是否超过索引
-                    if (i * rows + j >= printItem.Vals.Count) break;
+                    if (i * rows + j >= printItem.Valss.Count) break;
                     shapes.Vars = valsss[i * rows + j];
                     // 然后计算偏移
                     Matrix matrix = new Matrix();

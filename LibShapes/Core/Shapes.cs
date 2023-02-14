@@ -8,6 +8,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 
+
 namespace Io.Github.Kerwinxu.LibShapes.Core
 {
     /// <summary>
@@ -344,9 +345,13 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         /// <returns></returns>
         public Shapes DeepClone()
         {
-            // 这里用json的方式
+            //这里用json的方式
             JsonSerialize jsonSerialize = new JsonSerialize();
             string json = jsonSerialize.SerializeObject(this);
+            // 可能原因是存在自定义对象的集合，所以这里要用复杂的方式去做
+
+
+
             return jsonSerialize.DeserializeObject<Shapes>(json);
         }
 
