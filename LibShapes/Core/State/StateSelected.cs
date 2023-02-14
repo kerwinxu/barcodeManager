@@ -42,10 +42,14 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.State
                 // 看看是否被选择了吧。
                 var rect = this.canvas.SelectShape.GetBounds(this.canvas.shapes.GetMatrix());
                 // 放大范围，
-                rect.X -= DistanceCalculation.select_tolerance;
-                rect.Y -= DistanceCalculation.select_tolerance;
-                rect.Width += DistanceCalculation.select_tolerance * 2;
-                rect.Height += DistanceCalculation.select_tolerance * 2;
+                // 这里根据宽度和高度的情况酌情放大范围
+                float select_tolerance = 1;
+                if (rect.Width < 4 || rect.Height < 4) select_tolerance = Math.Min(rect.Height, rect.Width) / 4;
+
+                rect.X -= select_tolerance;
+                rect.Y -= select_tolerance;
+                rect.Width += select_tolerance * 2;
+                rect.Height += select_tolerance * 2;
                 path.AddRectangle(rect);
                 // 判断是否
                 if (path.IsVisible(pointF))

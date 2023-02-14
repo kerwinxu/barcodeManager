@@ -14,7 +14,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Utils
         /// <summary>
         /// 选择的容忍度
         /// </summary>
-        public static float select_tolerance = 4;
+        public static float select_tolerance = 1f;
 
         /// <summary>
         /// 两点之间的距离

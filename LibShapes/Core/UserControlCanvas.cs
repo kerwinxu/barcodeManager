@@ -842,7 +842,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
                 float _y_width = _x + _width;
                 foreach (var item in ((Shape.ShapeMultiSelect)this.SelectShape).shapes)
                 {
-                    item.Y = _y_width - item.Width; // 减去高度，得到新的y
+                    item.X = _y_width - item.Width; // 减去高度，得到新的y
                 }
                 this.Refresh();
             }

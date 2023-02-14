@@ -100,6 +100,9 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
 
         public override RectangleF GetBounds(Matrix matrix)
         {
+            // 这里要判断是否有文字，有时候没有文字，就按照基类的吧
+            if (getText() == string.Empty) return base.GetBounds(matrix);
+            // 下边的是有文字的情况下，
             // 这个应该调用的是ShapeEle中的,而不是上边的GetGraphicsPathWithAngle，
             // 上边的实际上只是文字范围内的图形，而这个是要
             GraphicsPath path = GetGraphicsPathWithAngle();
