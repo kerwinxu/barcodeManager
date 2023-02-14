@@ -102,7 +102,19 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
         public override bool isBeContains(Matrix matrix, RectangleF rect)
         {
             // 这个要判断是否整个文本内容是否在这个矩形内，而不是单独的看这个文本的框。
-            var rect2 = GetTrueBounds(matrix);
+            // 这里要判断是否有文字，有时候没有文字，就按照基类的吧
+            RectangleF rect2;
+            if (getText() == string.Empty)
+            {
+                // 没有文字，用这个边框的外围。
+                rect2 = GetTrueBounds(matrix);
+            }
+            else
+            {
+                // 有文字的话，只是取文字的范围。
+                rect2 = GetBounds(matrix);
+            }
+           
             return rect.Contains(rect2);
             //return base.isBeContains(matrix, rect);
         }
@@ -132,18 +144,14 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
         }
 
         /// <summary>
-        /// 返回的是实际文字的边框，如果没有文字，就显示矩形的边框
+        /// 返回的是实际文字的边框，而不是文字的范围。
         /// </summary>
         /// <param name="matrix"></param>
         /// <returns></returns>
         public RectangleF GetTrueBounds(Matrix matrix)
         {
-            // 这里要判断是否有文字，有时候没有文字，就按照基类的吧
-            if (getText() == string.Empty) return base.GetBounds(matrix);
-            // 下边的是有文字的情况下，
-            // 这个应该调用的是ShapeEle中的,而不是上边的GetGraphicsPathWithAngle，
-            // 上边的实际上只是文字范围内的图形，而这个是要
-            GraphicsPath path = GetGraphicsPathWithAngle();
+            
+            GraphicsPath path = base.GetGraphicsPathWithAngle();
             // 这里加上旋转
             Matrix matrix1 = new Matrix();
             // 这里按照中心点旋转,

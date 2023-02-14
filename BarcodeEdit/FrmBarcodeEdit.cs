@@ -471,6 +471,8 @@ namespace BarcodeTerminator
             
         }
 
+
+
         private void 帮助LToolStripButton_Click(object sender, EventArgs e)
         {
             FrmHelp frmHelp = new FrmHelp();
@@ -487,13 +489,13 @@ namespace BarcodeTerminator
 
             if (index < 0 )
             {
-                printItem.Valss.Add(new Dictionary<string, string>()); // 空白的变量
+                printItem.Vals.Add(new Dictionary<string, string>()); // 空白的变量
             }
             else
             {
                 // 首先构造变量
                 var dict = getDict(index);
-                printItem.Valss.Add(dict);
+                printItem.Vals.Add(dict);
             }
 
             // 然后构造数量

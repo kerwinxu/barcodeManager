@@ -362,7 +362,7 @@ namespace BarcodeManager
                     PrintItem printItem = new PrintItem();
                     printItem.PrinterName = combo_printers.Text;
                     printItem.Shapes = _shapes;
-                    printItem.Valss = vars;
+                    printItem.Vals = vars;
                     printItem.PrintCounts = nums;
                     printItem.isFullPrint = chk_isFull.Checked;
                     // 
@@ -415,7 +415,7 @@ namespace BarcodeManager
                     PrintItem printItem = new PrintItem();
                     printItem.PrinterName = combo_printers.Text;
                     printItem.Shapes = _shapes;
-                    printItem.Valss = vars;
+                    printItem.Vals = vars;
                     printItem.PrintCounts = nums;
                     printItem.isFullPrint = chk_isFull.Checked;
                     // 
@@ -469,7 +469,7 @@ namespace BarcodeManager
                     PrintItem printItem = new PrintItem();
                     printItem.PrinterName = combo_printers.Text;
                     printItem.Shapes = _shapes;
-                    printItem.Valss = vars;
+                    printItem.Vals = vars;
                     printItem.PrintCounts = nums;
                     printItem.isFullPrint = chk_isFull.Checked;
                     // 
