@@ -101,8 +101,24 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             }else if (chkCustomModelSize.Checked)
             {
                 // 自定义了模板，要求的是模板的边距了
-                this.paper.HorizontalIntervalDistance = (this.paper.PaperWidth - this.paper.Left - this.paper.Right - this.paper.Cols * this.paper.ModelWidth) / (this.paper.Cols - 1);
-                this.paper.VerticalIntervalDistance = (this.paper.PaperHeight - this.paper.Top - this.paper.Bottom - this.paper.Rows * this.paper.ModelHeight) / (this.paper.Rows - 1);
+                // 这里要判断是否是一行或者一列
+                if(this.paper.Cols == 1)
+                {
+                    this.paper.HorizontalIntervalDistance = 0;
+                }
+                else
+                {
+                    this.paper.HorizontalIntervalDistance = (this.paper.PaperWidth - this.paper.Left - this.paper.Right - this.paper.Cols * this.paper.ModelWidth) / (this.paper.Cols - 1);
+                }
+                if (this.paper.Rows == 1)
+                {
+                    this.paper.VerticalIntervalDistance = 0;
+                }
+                else
+                {
+                    this.paper.VerticalIntervalDistance = (this.paper.PaperHeight - this.paper.Top - this.paper.Bottom - this.paper.Rows * this.paper.ModelHeight) / (this.paper.Rows - 1);
+                }
+
                 if (this.paper.HorizontalIntervalDistance < 0 || this.paper.VerticalIntervalDistance < 0)
                 {
                     return false;
