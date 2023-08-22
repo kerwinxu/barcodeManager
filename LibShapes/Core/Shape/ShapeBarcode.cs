@@ -121,19 +121,30 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Shape
 
             }
             writer.Options = options;
-            var bitmap = writer.Write(getText()); // 生成条形码图像。
-            if (bitmap != null)
+            var text = getText();
+            if (string.IsNullOrEmpty(text))
             {
-                // 3. 转换。
-                Matrix matrix1 = new Matrix();
-                matrix1.RotateAt(this.Angle, centerPoint);
-                g.Transform = matrix1; // 应用这个变换。
-                // 4. 
-                g.DrawImage(bitmap, rect.X, rect.Y, rect.Width, rect.Height);
+                // 如果没有，就话一个矩形吧。就什么都不做。
 
-                //5. 
-                g.ResetTransform(); // 取消这个变换
+                
             }
+            else
+            {
+                var bitmap = writer.Write(text); // 生成条形码图像。
+                if (bitmap != null)
+                {
+                    // 3. 转换。
+                    Matrix matrix1 = new Matrix();
+                    matrix1.RotateAt(this.Angle, centerPoint);
+                    g.Transform = matrix1; // 应用这个变换。
+                                           // 4. 
+                    g.DrawImage(bitmap, rect.X, rect.Y, rect.Width, rect.Height);
+
+                    //5. 
+                    g.ResetTransform(); // 取消这个变换
+                }
+            }
+            
             //base.Draw(g, matrix);
         }
 

@@ -170,11 +170,21 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
             PrintDocument printDocument = new PrintDocument();
             printDocument.PrinterSettings.PrinterName = printItem.PrinterName; // 设置打印机
             printDocument.PrinterSettings.Copies = (short)printnum;            // 设置打印数量
+            printDocument.PrintController = new StandardPrintController();     // 
+            printDocument.OriginAtMargins = false;                             // 如果图形起始于页面边距，则为 true；如果图形原点位于该页可打印区域的左上角，则为 false。 默认值为 false。
+            printDocument.DefaultPageSettings.PaperSize = new PaperSize(
+                "custom",
+                (int)(printItem.Shapes.Paper.PaperWidth / 10 / 2.54 * 100),
+                (int)(printItem.Shapes.Paper.PaperHeight / 10 / 2.54 * 100)
+                );
+            //printDocument.DefaultPageSettings.Landscape = printItem.Shapes.Paper.Landscape; // 横向打印
+            
             // 然后设置打印的id
             string id = registerPrintItem(printItem);
             printDocument.DocumentName = id;            // 这个id跟printItem是存在一一对应关系的
             printDocument.PrintPage += PrintDocument_PrintPage;  // 打印事件处理
             printDocument.Print();                               // 打印。
+            printDocument.Dispose();
 
         }
 

@@ -182,7 +182,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
         {
             txt_paper_width.Text = this.paper.PaperWidth.ToString();
             txt_paper_height.Text = this.paper.PaperHeight.ToString();
-            if (this.paper.Landscape) radioButton1.Checked = true; else radioButton2.Checked = true;
+            if (this.paper.Landscape) radioButton2.Checked = true; else radioButton1.Checked = true;
             UpDownNumberOfLine.Value = this.paper.Rows;
             UpDownNumberOfColumn.Value = this.paper.Cols;
             txtMaginsTop.Text = this.paper.Top.ToString();

@@ -105,7 +105,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core
         }
 
         #endregion
-
+        
         #region 一堆方法
 
         /// <summary>
