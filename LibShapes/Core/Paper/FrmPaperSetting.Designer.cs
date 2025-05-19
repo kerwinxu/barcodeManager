@@ -213,7 +213,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.3871F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.6129F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txt_paper_width, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label14, 2, 0);
@@ -232,7 +232,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 9);
+            this.label1.Location = new System.Drawing.Point(14, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 0;
@@ -240,7 +240,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             // 
             // txt_paper_width
             // 
-            this.txt_paper_width.Location = new System.Drawing.Point(74, 3);
+            this.txt_paper_width.Location = new System.Drawing.Point(73, 3);
             this.txt_paper_width.Name = "txt_paper_width";
             this.txt_paper_width.Size = new System.Drawing.Size(63, 21);
             this.txt_paper_width.TabIndex = 2;
@@ -249,7 +249,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             // 
             this.label14.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(153, 9);
+            this.label14.Location = new System.Drawing.Point(152, 9);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(17, 12);
             this.label14.TabIndex = 4;
@@ -259,7 +259,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 40);
+            this.label2.Location = new System.Drawing.Point(14, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 1;
@@ -269,7 +269,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             // 
             this.label15.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(153, 40);
+            this.label15.Location = new System.Drawing.Point(152, 40);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(17, 12);
             this.label15.TabIndex = 5;
@@ -277,7 +277,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             // 
             // txt_paper_height
             // 
-            this.txt_paper_height.Location = new System.Drawing.Point(74, 34);
+            this.txt_paper_height.Location = new System.Drawing.Point(73, 34);
             this.txt_paper_height.Name = "txt_paper_height";
             this.txt_paper_height.Size = new System.Drawing.Size(63, 21);
             this.txt_paper_height.TabIndex = 3;
@@ -346,12 +346,14 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
             // chkCustomInterval
             // 
             this.chkCustomInterval.AutoSize = true;
+            this.chkCustomInterval.Enabled = false;
             this.chkCustomInterval.Location = new System.Drawing.Point(193, 45);
             this.chkCustomInterval.Name = "chkCustomInterval";
             this.chkCustomInterval.Size = new System.Drawing.Size(72, 16);
             this.chkCustomInterval.TabIndex = 18;
             this.chkCustomInterval.Text = "手动设置";
             this.chkCustomInterval.UseVisualStyleBackColor = true;
+            this.chkCustomInterval.Visible = false;
             this.chkCustomInterval.CheckedChanged += new System.EventHandler(this.chkCustomInterval_CheckedChanged);
             // 
             // txtHorizontalInterval

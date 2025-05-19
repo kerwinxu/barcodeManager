@@ -147,6 +147,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Print
             {
                 PrintItem printItem_tmp = new PrintItem();         //
                 printItem_tmp.PrinterName = printItem.PrinterName; // 打印机
+                printItem_tmp.Shapes = printItem.Shapes;
                 for (int j = 0; j < rows * cols; j++)
                 {
                     printItem_tmp.Valss.Add(printItem.Valss[i]);   // 添加多次就是啦。

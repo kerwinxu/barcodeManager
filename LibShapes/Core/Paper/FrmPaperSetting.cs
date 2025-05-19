@@ -88,7 +88,7 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
         {
             // 我这里简化一下，自定义模板尺寸和自定义模板的间距，两个得有一个是可以手动设置，而另一个是自动的
             // 解方程 纸张的宽度 = 左边距 + 列数 * 模板的宽度 + （列数-1）*模板的间距 + 右边距
-            if (chkCustomInterval.Checked)
+            if (!chkCustomModelSize.Checked)
             {
                 // 这个模板间距是手动设置的，那么我就要计算的是模板的大小了
                 this.paper.ModelWidth = (this.paper.PaperWidth - this.paper.Left - this.paper.Right - (this.paper.Cols - 1) * this.paper.HorizontalIntervalDistance) / this.paper.Cols;
@@ -98,32 +98,35 @@ namespace Io.Github.Kerwinxu.LibShapes.Core.Paper
                     return false;
                 }
 
-            }else if (chkCustomModelSize.Checked)
-            {
-                // 自定义了模板，要求的是模板的边距了
-                // 这里要判断是否是一行或者一列
-                if(this.paper.Cols == 1)
-                {
-                    this.paper.HorizontalIntervalDistance = 0;
-                }
-                else
-                {
-                    this.paper.HorizontalIntervalDistance = (this.paper.PaperWidth - this.paper.Left - this.paper.Right - this.paper.Cols * this.paper.ModelWidth) / (this.paper.Cols - 1);
-                }
-                if (this.paper.Rows == 1)
-                {
-                    this.paper.VerticalIntervalDistance = 0;
-                }
-                else
-                {
-                    this.paper.VerticalIntervalDistance = (this.paper.PaperHeight - this.paper.Top - this.paper.Bottom - this.paper.Rows * this.paper.ModelHeight) / (this.paper.Rows - 1);
-                }
-
-                if (this.paper.HorizontalIntervalDistance < 0 || this.paper.VerticalIntervalDistance < 0)
-                {
-                    return false;
-                }
             }
+            // 这里暂时只支持是否手动更改模板的尺寸，不支持自动计算模板间距。
+
+            //else
+            //{
+            //    // 自定义了模板，要求的是模板的边距了
+            //    // 这里要判断是否是一行或者一列
+            //    if(this.paper.Cols == 1)
+            //    {
+            //        this.paper.HorizontalIntervalDistance = 0;
+            //    }
+            //    else
+            //    {
+            //        this.paper.HorizontalIntervalDistance = (this.paper.PaperWidth - this.paper.Left - this.paper.Right - this.paper.Cols * this.paper.ModelWidth) / (this.paper.Cols - 1);
+            //    }
+            //    if (this.paper.Rows == 1)
+            //    {
+            //        this.paper.VerticalIntervalDistance = 0;
+            //    }
+            //    else
+            //    {
+            //        this.paper.VerticalIntervalDistance = (this.paper.PaperHeight - this.paper.Top - this.paper.Bottom - this.paper.Rows * this.paper.ModelHeight) / (this.paper.Rows - 1);
+            //    }
+
+            //    if (this.paper.HorizontalIntervalDistance < 0 || this.paper.VerticalIntervalDistance < 0)
+            //    {
+            //        return false;
+            //    }
+            //}
 
 
             return true;
