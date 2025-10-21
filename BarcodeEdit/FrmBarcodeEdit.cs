@@ -503,6 +503,7 @@ namespace BarcodeTerminator
             // 充满打印
             printItem.isFullPrint = chkIsFull.Checked;
             printItem.Shapes = this.canvas.shapes;
+            printItem.PrinterName = combo_printers.Text;
             // 添加到
             PrintManagerImpl printManagerImpl = new PrintManagerImpl();
             printManagerImpl.addPrintItem(printItem);
