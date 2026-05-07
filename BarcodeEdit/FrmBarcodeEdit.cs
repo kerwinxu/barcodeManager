@@ -393,6 +393,8 @@ namespace BarcodeTerminator
             // 然后这里默认是第一行。
             index = 0;
             bindingNavigatorCountItem.Text = $"/ {CurrentDataTable.Rows.Count}";
+            bindingNavigator1.Visible = true;
+            bindingNavigator1.Enabled = true;
             updateBinding();
             // 这里设置有什么打印的变量。
             var var_names = getColumnNames(CurrentDataTable);

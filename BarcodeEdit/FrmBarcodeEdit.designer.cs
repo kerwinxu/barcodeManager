@@ -191,15 +191,15 @@
             this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(213, 25);
+            this.bindingNavigator1.Size = new System.Drawing.Size(206, 25);
             this.bindingNavigator1.TabIndex = 18;
             this.bindingNavigator1.Text = "bindingNavigator1";
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(39, 22);
-            this.bindingNavigatorCountItem.Text = "of {0}";
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(32, 22);
+            this.bindingNavigatorCountItem.Text = "/ {0}";
             this.bindingNavigatorCountItem.ToolTipText = "总项数";
             // 
             // bindingNavigatorMoveFirstItem
@@ -231,6 +231,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "位置";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -269,7 +270,7 @@
             // btnTestPrint
             // 
             this.btnTestPrint.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnTestPrint.Location = new System.Drawing.Point(216, 3);
+            this.btnTestPrint.Location = new System.Drawing.Point(209, 3);
             this.btnTestPrint.Name = "btnTestPrint";
             this.btnTestPrint.Size = new System.Drawing.Size(75, 23);
             this.btnTestPrint.TabIndex = 9;
@@ -281,8 +282,8 @@
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("SimSun", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(297, 8);
+            this.label2.Font = new System.Drawing.Font("宋体", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(290, 8);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 13);
             this.label2.TabIndex = 39;
@@ -293,7 +294,7 @@
             this.comboBoxQtyOfWantToPrinted.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.comboBoxQtyOfWantToPrinted.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxQtyOfWantToPrinted.FormattingEnabled = true;
-            this.comboBoxQtyOfWantToPrinted.Location = new System.Drawing.Point(375, 4);
+            this.comboBoxQtyOfWantToPrinted.Location = new System.Drawing.Point(368, 4);
             this.comboBoxQtyOfWantToPrinted.Name = "comboBoxQtyOfWantToPrinted";
             this.comboBoxQtyOfWantToPrinted.Size = new System.Drawing.Size(72, 20);
             this.comboBoxQtyOfWantToPrinted.TabIndex = 40;
@@ -302,7 +303,7 @@
             // txtQtyOfWantToPrinted
             // 
             this.txtQtyOfWantToPrinted.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txtQtyOfWantToPrinted.Location = new System.Drawing.Point(453, 4);
+            this.txtQtyOfWantToPrinted.Location = new System.Drawing.Point(446, 4);
             this.txtQtyOfWantToPrinted.Name = "txtQtyOfWantToPrinted";
             this.txtQtyOfWantToPrinted.ReadOnly = true;
             this.txtQtyOfWantToPrinted.Size = new System.Drawing.Size(31, 21);
@@ -312,8 +313,8 @@
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("SimSun", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(490, 5);
+            this.label7.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Location = new System.Drawing.Point(483, 5);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(28, 19);
             this.label7.TabIndex = 44;
@@ -322,7 +323,7 @@
             // txtSunHao
             // 
             this.txtSunHao.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txtSunHao.Location = new System.Drawing.Point(524, 4);
+            this.txtSunHao.Location = new System.Drawing.Point(517, 4);
             this.txtSunHao.Name = "txtSunHao";
             this.txtSunHao.Size = new System.Drawing.Size(24, 21);
             this.txtSunHao.TabIndex = 42;
@@ -332,8 +333,8 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("SimSun", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(554, 5);
+            this.label1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(547, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(19, 19);
             this.label1.TabIndex = 49;
@@ -342,7 +343,7 @@
             // btnPrint2
             // 
             this.btnPrint2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnPrint2.Location = new System.Drawing.Point(579, 3);
+            this.btnPrint2.Location = new System.Drawing.Point(572, 3);
             this.btnPrint2.Name = "btnPrint2";
             this.btnPrint2.Size = new System.Drawing.Size(75, 23);
             this.btnPrint2.TabIndex = 43;
@@ -354,8 +355,8 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("SimSun", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(660, 8);
+            this.label4.Font = new System.Drawing.Font("宋体", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(653, 8);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(111, 13);
             this.label4.TabIndex = 45;
@@ -364,7 +365,7 @@
             // txtCurrentPrintPage
             // 
             this.txtCurrentPrintPage.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.txtCurrentPrintPage.Location = new System.Drawing.Point(777, 4);
+            this.txtCurrentPrintPage.Location = new System.Drawing.Point(770, 4);
             this.txtCurrentPrintPage.Name = "txtCurrentPrintPage";
             this.txtCurrentPrintPage.Size = new System.Drawing.Size(46, 21);
             this.txtCurrentPrintPage.TabIndex = 47;
@@ -372,7 +373,7 @@
             // btnPrint
             // 
             this.btnPrint.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnPrint.Location = new System.Drawing.Point(829, 3);
+            this.btnPrint.Location = new System.Drawing.Point(822, 3);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(54, 23);
             this.btnPrint.TabIndex = 46;
@@ -384,7 +385,7 @@
             // 
             this.chkIsFull.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.chkIsFull.AutoSize = true;
-            this.chkIsFull.Location = new System.Drawing.Point(889, 6);
+            this.chkIsFull.Location = new System.Drawing.Point(882, 6);
             this.chkIsFull.Name = "chkIsFull";
             this.chkIsFull.Size = new System.Drawing.Size(72, 16);
             this.chkIsFull.TabIndex = 48;
@@ -554,7 +555,7 @@
             // 
             this.撤消UToolStripMenuItem.Name = "撤消UToolStripMenuItem";
             this.撤消UToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.撤消UToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.撤消UToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.撤消UToolStripMenuItem.Text = "撤消(&U)";
             this.撤消UToolStripMenuItem.Click += new System.EventHandler(this.撤消UToolStripMenuItem_Click);
             // 
@@ -562,14 +563,14 @@
             // 
             this.重复RToolStripMenuItem.Name = "重复RToolStripMenuItem";
             this.重复RToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.重复RToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.重复RToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.重复RToolStripMenuItem.Text = "重复(&R)";
             this.重复RToolStripMenuItem.Click += new System.EventHandler(this.重复RToolStripMenuItem_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(188, 6);
             // 
             // 剪切TToolStripMenuItem
             // 
@@ -577,7 +578,7 @@
             this.剪切TToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.剪切TToolStripMenuItem.Name = "剪切TToolStripMenuItem";
             this.剪切TToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.剪切TToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.剪切TToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.剪切TToolStripMenuItem.Text = "剪切(&T)";
             this.剪切TToolStripMenuItem.Click += new System.EventHandler(this.剪切TToolStripMenuItem_Click);
             // 
@@ -587,7 +588,7 @@
             this.复制CToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.复制CToolStripMenuItem.Name = "复制CToolStripMenuItem";
             this.复制CToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.复制CToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.复制CToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.复制CToolStripMenuItem.Text = "复制(&C)";
             this.复制CToolStripMenuItem.Click += new System.EventHandler(this.复制CToolStripMenuItem_Click);
             // 
@@ -597,20 +598,20 @@
             this.粘贴PToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.粘贴PToolStripMenuItem.Name = "粘贴PToolStripMenuItem";
             this.粘贴PToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.粘贴PToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.粘贴PToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.粘贴PToolStripMenuItem.Text = "粘贴(&P)";
             this.粘贴PToolStripMenuItem.Click += new System.EventHandler(this.粘贴PToolStripMenuItem_Click);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(188, 6);
             // 
             // 全选AToolStripMenuItem
             // 
             this.全选AToolStripMenuItem.Name = "全选AToolStripMenuItem";
             this.全选AToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.全选AToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.全选AToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.全选AToolStripMenuItem.Text = "全选(&A)";
             this.全选AToolStripMenuItem.Click += new System.EventHandler(this.全选AToolStripMenuItem_Click);
             // 
@@ -618,7 +619,7 @@
             // 
             this.删除DToolStripMenuItem.Name = "删除DToolStripMenuItem";
             this.删除DToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Delete)));
-            this.删除DToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.删除DToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.删除DToolStripMenuItem.Text = "删除(&D)";
             this.删除DToolStripMenuItem.Click += new System.EventHandler(this.删除DToolStripMenuItem_Click);
             // 
